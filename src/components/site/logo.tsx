@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -8,35 +9,32 @@ interface LogoProps {
   asLink?: boolean;
 }
 
-/**
- * Wordmark used until the SVG logo asset arrives.
- * Tight, condensed, premium — pairs well with editorial photography.
- */
+const SIZE_PX = {
+  sm: { h: 28, w: 52 },
+  md: { h: 36, w: 67 },
+  lg: { h: 56, w: 105 },
+};
+
 export function Logo({ className, variant = "default", size = "md", asLink = true }: LogoProps) {
-  const sizes = {
-    sm: "text-lg",
-    md: "text-xl",
-    lg: "text-2xl",
-  };
+  const src = variant === "light" ? "/logo-light.svg" : "/logo.svg";
+  const dims = SIZE_PX[size];
 
   const inner = (
-    <span className={cn("flex items-baseline gap-1.5 font-display font-medium tracking-tight", sizes[size], className)}>
-      <span className={variant === "light" ? "text-white" : "text-foreground"}>HVOF</span>
-      <span
-        className={cn(
-          "text-xs font-mono tracking-widest uppercase opacity-60",
-          variant === "light" ? "text-white" : "text-muted-foreground",
-        )}
-      >
-        est. 1985
-      </span>
-    </span>
+    <Image
+      src={src}
+      alt="Hudson Valley Office Furniture"
+      width={dims.w}
+      height={dims.h}
+      priority
+      className={cn("h-auto w-auto", className)}
+      style={{ height: `${dims.h}px`, width: "auto" }}
+    />
   );
 
   if (!asLink) return inner;
 
   return (
-    <Link href="/" aria-label="Hudson Valley Office Furniture — home" className="inline-flex">
+    <Link href="/" aria-label="Hudson Valley Office Furniture — home" className="inline-flex items-center">
       {inner}
     </Link>
   );
