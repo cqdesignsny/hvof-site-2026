@@ -57,7 +57,7 @@ export function Hero({ eyebrow, headline, sub, imageSrc, imageAlt, primaryCta, s
           </motion.p>
           <motion.h1
             {...variants(0.18)}
-            className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[0.95] tracking-[-0.02em] text-white"
+            className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white"
           >
             {headline}
           </motion.h1>
@@ -116,7 +116,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-[10px] uppercase tracking-[0.25em] text-white/50">{label}</p>
-      <p className="mt-1 font-display text-2xl font-light text-white">{value}</p>
+      <p className="mt-1 font-display text-2xl font-semibold text-white">{value}</p>
     </div>
   );
 }

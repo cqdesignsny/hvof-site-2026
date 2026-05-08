@@ -93,7 +93,7 @@ export default function SeatingPage() {
         <div className="container-wide relative z-10 pb-20 pt-36 md:pb-28 md:pt-48">
           <FadeIn className="max-w-4xl">
             <p className="eyebrow text-brand-yellow">Furniture · Seating</p>
-            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[0.95] tracking-[-0.02em] text-white">
+            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
               Seating that<br />earns its eight hours.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
@@ -124,7 +124,7 @@ export default function SeatingPage() {
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-muted-foreground">Catalog</p>
-            <h2 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
+            <h2 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
               Add to your quote.<br />
               <span className="text-muted-foreground">Pay offline once we confirm.</span>
             </h2>
@@ -162,7 +162,7 @@ export default function SeatingPage() {
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-muted-foreground">What is included</p>
-            <h2 className="mt-4 font-display text-3xl font-light leading-[1.1] tracking-tight md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.1] tracking-tight md:text-4xl lg:text-5xl">
               Every chair, every order.
             </h2>
           </FadeIn>
@@ -184,7 +184,7 @@ export default function SeatingPage() {
       <section className="bg-brand-yellow section-y">
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
-            <h2 className="font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
+            <h2 className="font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
               Ready to spec?
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">

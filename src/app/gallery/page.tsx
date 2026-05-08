@@ -13,28 +13,31 @@ export const metadata: Metadata = {
     "Photo gallery of HVOF office furniture installations across the Hudson Valley. Marshall and Sterling, Marist College, and other recent client projects.",
 };
 
+/**
+ * Captions removed per editorial direction. Just client name on the photos
+ * we are confident about, no caption otherwise.
+ */
 const PHOTOS: LightboxItem[] = [
-  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling rooftop install", caption: "Marshall + Sterling, rooftop" },
-  { src: IMG.marshallSterling.gallery[0], alt: "M+S executive suite", caption: "Marshall + Sterling, executive suite" },
-  { src: IMG.marist.one, alt: "Marist install", caption: "Marist College, faculty offices" },
-  { src: IMG.marshallSterling.gallery[1], alt: "M+S workstations", caption: "Marshall + Sterling, workstations" },
-  { src: IMG.marshallSterling.gallery[2], alt: "M+S conference", caption: "Marshall + Sterling, conference" },
-  { src: IMG.marist.lobby, alt: "Marist lobby", caption: "Marist College, lobby" },
-  { src: IMG.marshallSterling.gallery[3], alt: "M+S floor", caption: "Marshall + Sterling, trading floor" },
-  { src: IMG.marist.three, alt: "Marist atrium", caption: "Marist College, common area" },
-  { src: IMG.marshallSterling.detail22, alt: "M+S detail 22", caption: "Marshall + Sterling, custom millwork" },
-  { src: IMG.marshallSterling.angle7, alt: "M+S angle 7", caption: "Marshall + Sterling, private office" },
-  { src: IMG.marist.two, alt: "Marist 2", caption: "Marist College, faculty pods" },
-  { src: IMG.marshallSterling.angle14, alt: "M+S angle 14", caption: "Marshall + Sterling, open plan" },
-  { src: IMG.marist.four, alt: "Marist 4", caption: "Marist College, lounge" },
-  { src: IMG.marshallSterling.angle20, alt: "M+S angle 20", caption: "Marshall + Sterling, casegoods" },
-  { src: IMG.marshallSterling.gallery[4], alt: "M+S 4", caption: "Marshall + Sterling, lobby" },
-  { src: IMG.marist.five, alt: "Marist 5", caption: "Marist College, study commons" },
-  { src: IMG.marshallSterling.gallery[5], alt: "M+S 5", caption: "Marshall + Sterling, workstation detail" },
-  { src: IMG.marshallSterling.gallery[6], alt: "M+S 6", caption: "Marshall + Sterling, breakroom" },
-  { src: IMG.marshallSterling.gallery[7], alt: "M+S 7", caption: "Marshall + Sterling, executive" },
-  { src: IMG.marshallSterling.gallery[8], alt: "M+S 8", caption: "Marshall + Sterling, reception" },
-  { src: IMG.marshallSterling.gallery[9], alt: "M+S 9", caption: "Marshall + Sterling, casegoods" },
+  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[0], alt: "Marshall and Sterling install" },
+  { src: IMG.marist.one, alt: "Marist College install" },
+  { src: IMG.marshallSterling.gallery[1], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[2], alt: "Marshall and Sterling install" },
+  { src: IMG.marist.lobby, alt: "Marist College install" },
+  { src: IMG.marshallSterling.gallery[3], alt: "Marshall and Sterling install" },
+  { src: IMG.marist.three, alt: "Marist College install" },
+  { src: IMG.marshallSterling.detail22, alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.angle7, alt: "Marshall and Sterling install" },
+  { src: IMG.marist.two, alt: "Marist College install" },
+  { src: IMG.marshallSterling.angle14, alt: "Marshall and Sterling install" },
+  { src: IMG.marist.four, alt: "Marist College install" },
+  { src: IMG.marshallSterling.angle20, alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[4], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[5], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[6], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[7], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[8], alt: "Marshall and Sterling install" },
+  { src: IMG.marshallSterling.gallery[9], alt: "Marshall and Sterling install" },
 ];
 
 export default function GalleryPage() {

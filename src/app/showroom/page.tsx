@@ -36,7 +36,7 @@ export default function ShowroomPage() {
         <div className="container-editorial relative z-10 pb-20 pt-36 md:pb-28 md:pt-48">
           <FadeIn className="max-w-4xl">
             <p className="eyebrow text-brand-yellow">The Showroom</p>
-            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[0.95] tracking-[-0.02em] text-white">
+            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
               Come spend<br />an afternoon.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
@@ -79,7 +79,7 @@ export default function ShowroomPage() {
         <div className="container-editorial">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-muted-foreground">What you&apos;ll see</p>
-            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
               Every category, at full scale.
             </h2>
           </FadeIn>
@@ -99,10 +99,37 @@ export default function ShowroomPage() {
                 delay={i * 0.04}
                 className="border-t border-border bg-background/0 py-6"
               >
-                <p className="font-display text-lg font-light leading-snug">{item}</p>
+                <p className="font-display text-lg font-semibold leading-snug">{item}</p>
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Matterport virtual tour, embedded right on the showroom page */}
+      <section className="bg-background section-y">
+        <div className="container-wide">
+          <FadeIn className="max-w-3xl">
+            <p className="eyebrow text-muted-foreground">Walk it virtually</p>
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+              360° tour of the showroom.
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Drag to look around, click the dots to walk between rooms, hit the floor-plan icon for a top-down view.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.1} className="mt-10">
+            <div className="card-image-outline relative aspect-video w-full overflow-hidden bg-black">
+              <iframe
+                title="HVOF showroom Matterport tour"
+                src="https://my.matterport.com/show/?m=Dz2yLKJbeH9"
+                className="absolute inset-0 h-full w-full"
+                allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer; magnetometer"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -132,7 +159,7 @@ function Info({ icon, label, lines }: { icon: React.ReactNode; label: string; li
       </div>
       <div className="mt-3 space-y-1">
         {lines.map((line) => (
-          <p key={line} className="font-display text-xl font-light leading-snug">
+          <p key={line} className="font-display text-xl font-semibold leading-snug">
             {line}
           </p>
         ))}

@@ -15,7 +15,7 @@ export default function PrivacyPage() {
       <section className="bg-background pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="container-editorial max-w-3xl">
           <p className="eyebrow text-muted-foreground">Legal</p>
-          <h1 className="mt-4 font-display text-5xl font-light leading-[1] tracking-tight md:text-6xl">
+          <h1 className="mt-4 font-display text-5xl font-semibold leading-[1] tracking-tight md:text-6xl">
             Privacy Policy
           </h1>
           <p className="mt-6 text-sm text-muted-foreground">Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>

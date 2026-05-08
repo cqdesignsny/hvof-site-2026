@@ -19,7 +19,7 @@ export default function ContactPage() {
       <section className="bg-background pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="container-editorial">
           <p className="eyebrow text-muted-foreground">Contact</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
+          <h1 className="mt-4 max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
             Let&apos;s design<br />
             <span className="text-muted-foreground">your space.</span>
           </h1>
@@ -109,7 +109,7 @@ function ContactItem({
         <span className="text-muted-foreground">{icon}</span>
         <p className="eyebrow text-muted-foreground">{label}</p>
       </div>
-      <p className="mt-3 font-display text-xl font-light leading-snug">{value}</p>
+      <p className="mt-3 font-display text-xl font-semibold leading-snug">{value}</p>
       {hint ? <p className="mt-1 text-sm text-muted-foreground">{hint}</p> : null}
     </>
   );

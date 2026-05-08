@@ -144,7 +144,7 @@ function MobileNav({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={() => setFurnitureOpen((v) => !v)}
-                className="flex w-full items-center justify-between py-3 text-2xl font-display font-light tracking-tight"
+                className="flex w-full items-center justify-between py-3 text-2xl font-display font-semibold tracking-tight"
                 aria-expanded={furnitureOpen}
               >
                 {item.label}
@@ -179,7 +179,7 @@ function MobileNav({ onClose }: { onClose: () => void }) {
             key={item.href}
             href={item.href}
             onClick={onClose}
-            className="py-3 text-2xl font-display font-light tracking-tight hover:opacity-70"
+            className="py-3 text-2xl font-display font-semibold tracking-tight hover:opacity-70"
           >
             {item.label}
           </Link>

@@ -16,7 +16,7 @@ export function VirtualTourCTA() {
         <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16 lg:gap-24">
           <FadeIn>
             <p className="eyebrow text-muted-foreground">View our showroom</p>
-            <h2 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
+            <h2 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
               Step inside.<br />
               <span className="text-muted-foreground">Without stepping in.</span>
             </h2>
@@ -65,7 +65,7 @@ export function VirtualTourCTA() {
                     <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
                       360° walkthrough
                     </p>
-                    <p className="mt-2 font-display text-2xl font-light text-white md:text-3xl">
+                    <p className="mt-2 font-display text-2xl font-semibold text-white md:text-3xl">
                       Wappingers Falls showroom
                     </p>
                   </div>

@@ -20,7 +20,7 @@ const COVER_IMAGES: Record<string, string> = {
   Conference: IMG.marshallSterling.gallery[0],
   "Pods & Phonebooths": IMG.marshallSterling.gallery[3],
   Healthcare: IMG.marist.lobby,
-  Education: IMG.marist.five,
+  Education: IMG.marist.four,
   "Pre-Owned": IMG.marshallSterling.angle20,
   "NYS Contracts": IMG.marshallSterling.gallery[5],
 };
@@ -39,7 +39,7 @@ export default function FurniturePage() {
       <section className="bg-background pt-32 pb-12 md:pt-40 md:pb-16">
         <div className="container-wide">
           <p className="eyebrow text-muted-foreground">Furniture</p>
-          <h1 className="mt-4 max-w-5xl font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl xl:text-9xl">
+          <h1 className="mt-4 max-w-5xl font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl xl:text-9xl">
             Every category.<br />
             <span className="text-muted-foreground">Every brand. Every floor.</span>
           </h1>
@@ -67,7 +67,7 @@ export default function FurniturePage() {
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent p-5 md:p-6">
                       <div className="flex items-baseline justify-between">
-                        <h2 className="font-display text-2xl font-light text-white md:text-3xl">
+                        <h2 className="font-display text-2xl font-semibold text-white md:text-3xl">
                           {cat.label}
                         </h2>
                         <ArrowUpRight className="h-4 w-4 text-white/80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -88,7 +88,7 @@ export default function FurniturePage() {
         <div className="container-wide flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="eyebrow text-brand-yellow">Quick path</p>
-            <h2 className="mt-3 font-display text-3xl font-light tracking-tight md:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
               Already know what you need?
             </h2>
           </div>

@@ -58,7 +58,7 @@ export function LocalLandingTemplate({
             <p className="eyebrow text-brand-yellow">
               Office Furniture · {city}, {state}
             </p>
-            <h1 className="mt-6 font-display text-[clamp(2.25rem,6.5vw,5rem)] font-light leading-[0.95] tracking-[-0.02em] text-white">
+            <h1 className="mt-6 font-display text-[clamp(2.25rem,6.5vw,5rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
               Office furniture in {city}.<br />
               Delivered and installed.
             </h1>
@@ -99,7 +99,7 @@ export function LocalLandingTemplate({
         <div className="container-editorial">
           <FadeIn className="max-w-2xl">
             <p className="eyebrow text-muted-foreground">What we deliver to {city}</p>
-            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
               Every category.<br />
               Every brand.
             </h2>
@@ -118,7 +118,7 @@ export function LocalLandingTemplate({
                 delay={i * 0.04}
                 className="border-t border-border py-6 md:py-7"
               >
-                <h3 className="font-display text-xl font-light tracking-tight md:text-2xl">{s.name}</h3>
+                <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">{s.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
               </FadeIn>
             ))}
@@ -132,7 +132,7 @@ export function LocalLandingTemplate({
           <div className="grid gap-12 md:grid-cols-12 md:gap-16">
             <FadeIn className="md:col-span-5">
               <p className="eyebrow text-brand-yellow">Why {city} buyers pick HVOF</p>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
                 Local, fast, and accountable.
               </h2>
             </FadeIn>
@@ -165,7 +165,7 @@ export function LocalLandingTemplate({
             <MapPin className="h-5 w-5 text-brand-yellow" />
             <div>
               <p className="eyebrow text-muted-foreground">Showroom</p>
-              <p className="mt-1 font-display text-lg font-light">
+              <p className="mt-1 font-display text-lg font-semibold">
                 {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.postalCode}
               </p>
             </div>
@@ -174,7 +174,7 @@ export function LocalLandingTemplate({
             <Clock className="h-5 w-5 text-brand-yellow" />
             <div>
               <p className="eyebrow text-muted-foreground">Hours</p>
-              <p className="mt-1 font-display text-lg font-light">{SITE.hoursDisplay}</p>
+              <p className="mt-1 font-display text-lg font-semibold">{SITE.hoursDisplay}</p>
             </div>
           </div>
           <Button asChild className="rounded-full" size="lg">
@@ -193,7 +193,7 @@ export function LocalLandingTemplate({
       <section className="bg-brand-yellow section-y">
         <div className="container-editorial">
           <FadeIn className="max-w-3xl">
-            <h2 className="font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
+            <h2 className="font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
               Ready, {city}?
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">

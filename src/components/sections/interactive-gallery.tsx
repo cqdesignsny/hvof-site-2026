@@ -54,7 +54,7 @@ export function InteractiveGallery({
             </h2>
           </div>
           <Button asChild size="lg" variant="outline" className="h-12 rounded-full border-white/25 bg-transparent px-7 text-base text-white hover:bg-white/10 hover:text-white">
-            <Link href="/work" className="group">
+            <Link href="/gallery" className="group">
               See all installations
               <ArrowUpRight className="ml-1 h-4 w-4 arrow-slide" />
             </Link>

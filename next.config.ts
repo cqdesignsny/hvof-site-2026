@@ -38,6 +38,15 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  async redirects() {
+    return [
+      // NYS Contracts moved out of /furniture into the primary nav at root.
+      { source: "/furniture/nys-contracts", destination: "/nys-contracts", permanent: true },
+      // Work pages were folded into Gallery.
+      { source: "/work", destination: "/gallery", permanent: true },
+      { source: "/work/:slug", destination: "/gallery", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

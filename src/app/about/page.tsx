@@ -8,6 +8,7 @@ import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { TrustedBy } from "@/components/sections/trusted-by";
 import { TeamSection } from "@/components/sections/team-section";
 import { ScrollText } from "@/components/motion/scroll-text";
+import { VideoWithPoster } from "@/components/sections/video-with-poster";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 
@@ -90,7 +91,7 @@ export default function AboutPage() {
         <div className="container-wide relative z-10 pb-20 pt-36 md:pb-28 md:pt-48">
           <FadeIn className="max-w-5xl">
             <p className="eyebrow text-brand-yellow">About HVOF</p>
-            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,6rem)] font-light leading-[0.95] tracking-[-0.02em] text-white">
+            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
               A modern office furniture<br />
               company. Hudson Valley made.
             </h1>
@@ -107,7 +108,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4">
             {NUMBERS.map((n, i) => (
               <FadeIn key={n.label} delay={i * 0.05}>
-                <p className="font-display text-5xl font-light leading-none tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
+                <p className="font-display text-5xl font-semibold leading-none tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
                   {n.value}
                 </p>
                 <p className="mt-3 text-sm uppercase tracking-[0.18em] text-muted-foreground md:text-base">
@@ -125,7 +126,7 @@ export default function AboutPage() {
           <div className="grid gap-16 md:grid-cols-12 md:gap-20">
             <FadeIn className="md:col-span-5">
               <p className="eyebrow text-muted-foreground">Our story</p>
-              <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
                 Built for the Hudson Valley, by the Hudson Valley.
               </h2>
             </FadeIn>
@@ -157,7 +158,7 @@ export default function AboutPage() {
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-brand-yellow">What we believe</p>
-            <h2 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
+            <h2 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
               Ten things,<br />
               non-negotiable.
             </h2>
@@ -191,16 +192,11 @@ export default function AboutPage() {
             </h2>
           </FadeIn>
           <FadeIn delay={0.1} className="mt-10">
-            <div className="card-image-outline relative aspect-video w-full overflow-hidden bg-black">
-              <video
-                src="https://thewowguys.com/wp-content/uploads/2024/04/HVOF-30.mp4"
-                controls
-                preload="metadata"
-                playsInline
-                className="absolute inset-0 h-full w-full object-cover"
-                poster={IMG.marshallSterling.gallery[0]}
-              />
-            </div>
+            <VideoWithPoster
+              src="https://thewowguys.com/wp-content/uploads/2024/04/HVOF-30.mp4"
+              posterSrc={IMG.marshallSterling.gallery[0]}
+              posterAlt="HVOF showroom video preview"
+            />
           </FadeIn>
         </div>
       </section>

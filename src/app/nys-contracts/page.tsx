@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
+import { ScrollText } from "@/components/motion/scroll-text";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { FAQSection } from "@/components/sections/faq-section";
 import { IMG } from "@/lib/images";
@@ -12,7 +13,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "NYS Contract Office Furniture",
   description:
-    "Authorized vendor on multiple New York State OGS contracts. State, municipal, and educational buyers can purchase office furniture from 40+ manufacturers at contract pricing. Even minimal state aid qualifies.",
+    "Authorized NYS contract dealer. State, municipal, and educational buyers can purchase office furniture from 40+ manufacturers at contract pricing. Even one dollar of state aid qualifies.",
 };
 
 const ELIGIBLE = [
@@ -40,12 +41,12 @@ const FAQS = [
   {
     question: "What if our organization only receives partial state funding?",
     answer:
-      "Even minimal state aid qualifies an organization to purchase off OGS contract. Public libraries, certain non-profits, and quasi-government entities frequently use contracts for the price stability and the simplified procurement process.",
+      "Even minimal state aid qualifies. If you receive even one dollar of state aid, you can buy through us at contract pricing. Public libraries, certain non-profits, and quasi-government entities use contracts for the price stability and the simplified procurement.",
   },
   {
     question: "Which manufacturers can we order from at contract pricing?",
     answer:
-      "Over 40 manufacturers, including Steelcase / OFS, Herman Miller, Knoll, Humanscale, HON, Global, KI, Safco, Nightingale, and Trinity, plus regional specialty brands.",
+      "Over 40 manufacturers, including AIS, Allermuir, Global, Humanscale, KI, Safco, Steelcase / OFS, Knoll, HBF, KFI, Nightingale, and Trinity. Full list with links is on this page.",
   },
   {
     question: "Can you build a quote for our procurement portal?",
@@ -65,11 +66,11 @@ export default function NYSContractsPage() {
       <BreadcrumbSchema
         items={[
           { name: "Home", href: "/" },
-          { name: "Furniture", href: "/furniture" },
-          { name: "NYS Contracts", href: "/furniture/nys-contracts" },
+          { name: "NYS Contracts", href: "/nys-contracts" },
         ]}
       />
 
+      {/* Hero */}
       <section className="relative isolate flex min-h-[70svh] items-end overflow-hidden bg-foreground text-background">
         <div className="absolute inset-0 -z-10">
           <Image
@@ -85,16 +86,23 @@ export default function NYSContractsPage() {
         </div>
         <div className="container-wide relative z-10 pb-24 pt-40 md:pb-32 md:pt-52">
           <FadeIn className="max-w-5xl">
-            <p className="eyebrow text-brand-yellow">Furniture, NYS Contracts</p>
+            <p className="eyebrow" style={{ color: "var(--brand-yellow)" }}>
+              NYS Contracts
+            </p>
             <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,6rem)] font-semibold leading-[0.92] tracking-[-0.035em] text-white">
               State, municipal,<br />
               and educational pricing.
             </h1>
             <p className="mt-7 max-w-3xl text-xl leading-[1.5] text-white/80 md:text-2xl">
-              Authorized vendor on multiple New York State OGS contracts. 40+ manufacturers. Quotes formatted for your procurement portal.
+              Authorized NYS contract dealer. 40+ manufacturers, fixed pricing, no negotiation. If you receive even one dollar of state aid, you qualify.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-14 rounded-full bg-brand-yellow px-8 text-base font-semibold text-foreground hover:bg-brand-yellow-hover">
+              <Button
+                asChild
+                size="lg"
+                className="h-14 rounded-full px-8 text-base font-semibold text-foreground hover:opacity-90"
+                style={{ backgroundColor: "var(--brand-yellow)" }}
+              >
                 <Link href="/contact" className="group">
                   Request a contract quote
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
@@ -108,8 +116,22 @@ export default function NYSContractsPage() {
         </div>
       </section>
 
+      {/* Direct-answer paragraph for AEO */}
+      <section className="bg-background py-14 md:py-20">
+        <div className="container-wide">
+          <FadeIn className="max-w-4xl">
+            <p className="text-xl leading-[1.5] text-foreground md:text-2xl lg:text-3xl">
+              <strong className="font-semibold">If you are eligible for even one dollar of state aid,</strong> you can benefit from special state contract pricing through us. What sets us apart is our value-added service that goes beyond standard offerings. With deep knowledge of every manufacturer&apos;s program and strong relationships across the contract lineup, we make procurement clean and fast.
+            </p>
+            <p className="mt-6 max-w-3xl text-lg leading-[1.6] text-muted-foreground md:text-xl">
+              All state contract items come at fixed prices, eliminating tedious negotiations. As your trusted local dealer we respond promptly and guide you through every step. Whether you need a single chair or a full facility outfit, the same team handles spec, source, deliver, and install.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* Eligibility */}
-      <section className="bg-background section-y">
+      <section className="bg-muted section-y">
         <div className="container-wide">
           <div className="grid gap-12 md:grid-cols-12 md:gap-20">
             <FadeIn className="md:col-span-5">
@@ -123,7 +145,7 @@ export default function NYSContractsPage() {
               <ul className="grid gap-3 md:grid-cols-2">
                 {ELIGIBLE.map((e) => (
                   <li key={e} className="flex items-start gap-3 border-t border-border pt-5">
-                    <Check className="mt-1 h-5 w-5 shrink-0 text-brand-yellow" />
+                    <Check className="mt-1 h-5 w-5 shrink-0" style={{ color: "var(--brand-yellow)" }} />
                     <span className="text-lg leading-relaxed md:text-xl">{e}</span>
                   </li>
                 ))}
@@ -140,7 +162,9 @@ export default function NYSContractsPage() {
       <section className="bg-foreground text-background section-y">
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
-            <p className="eyebrow text-brand-yellow">How it works</p>
+            <p className="eyebrow" style={{ color: "var(--brand-yellow)" }}>
+              How it works
+            </p>
             <h2 className="mt-5 font-display text-5xl font-semibold leading-[0.92] tracking-[-0.03em] md:text-6xl lg:text-7xl">
               Four steps,<br />
               <span className="text-background/55">no surprises.</span>
@@ -157,41 +181,56 @@ export default function NYSContractsPage() {
         </div>
       </section>
 
-      {/* Manufacturers */}
-      <section className="bg-muted section-y">
+      {/* Manufacturer roster with real outbound links */}
+      <section className="bg-background section-y">
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-muted-foreground">On contract</p>
             <h2 className="mt-5 font-display text-5xl font-semibold leading-[0.92] tracking-[-0.03em] md:text-6xl lg:text-7xl">
-              40 plus manufacturers.
+              {SITE.manufacturers.length} manufacturers.<br />
+              <span className="text-muted-foreground">All linked.</span>
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              A working sample. Reach out if you need a specific brand confirmed.
+              Click through to any manufacturer to browse the catalog. We carry their full line at NYS contract pricing.
             </p>
           </FadeIn>
-          <div className="mt-12 flex flex-wrap gap-3">
+          <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-4">
             {SITE.manufacturers.map((m) => (
-              <span key={m} className="rounded-full border border-foreground/15 bg-background px-5 py-2.5 text-base font-medium md:text-lg">
-                {m}
-              </span>
+              <a
+                key={m.name}
+                href={m.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-interactive group flex items-center justify-between gap-3 p-5 md:p-6"
+              >
+                <div>
+                  <p className="font-display text-lg font-semibold tracking-tight md:text-xl">{m.name}</p>
+                  <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                    NYS contract partner
+                  </p>
+                </div>
+                <ExternalLink
+                  className="h-5 w-5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
+                  style={{ color: undefined }}
+                />
+              </a>
             ))}
-            <span className="rounded-full bg-foreground px-5 py-2.5 text-base font-medium text-background md:text-lg">
-              and 25+ more
-            </span>
           </div>
         </div>
       </section>
 
       <FAQSection eyebrow="Common questions" heading="Procurement teams ask first." items={FAQS} />
 
-      <section className="bg-brand-yellow section-y">
-        <div className="container-wide">
-          <FadeIn className="max-w-3xl">
-            <h2 className="font-display text-5xl font-semibold leading-[0.92] tracking-[-0.03em] md:text-7xl lg:text-8xl">
-              Have a contract number?<br />
-              Send it over.
-            </h2>
-            <div className="mt-10 flex flex-wrap gap-3">
+      {/* Closer with snap-pinned scroll text */}
+      <section className="section-y" style={{ backgroundColor: "var(--brand-yellow)" }}>
+        <div className="container-bleed">
+          <ScrollText
+            lines={["Have a contract", "number? Send it."]}
+            textClassName="font-display font-semibold leading-[0.9] tracking-[-0.04em] text-foreground text-[clamp(3rem,12vw,11rem)]"
+            travel={28}
+          />
+          <div className="container-wide mt-10">
+            <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
                 <Link href="/contact" className="group">
                   Get a quote
@@ -202,7 +241,7 @@ export default function NYSContractsPage() {
                 <Link href={`tel:${SITE.contact.phoneE164}`}>{SITE.contact.phone}</Link>
               </Button>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>

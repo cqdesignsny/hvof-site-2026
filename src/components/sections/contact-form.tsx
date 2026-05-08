@@ -47,7 +47,7 @@ export function ContactForm() {
         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-yellow text-foreground">
           <Check className="h-5 w-5" />
         </span>
-        <h2 className="mt-6 font-display text-3xl font-light tracking-tight md:text-4xl">Got it. Thank you.</h2>
+        <h2 className="mt-6 font-display text-3xl font-semibold tracking-tight md:text-4xl">Got it. Thank you.</h2>
         <p className="mt-3 max-w-md text-muted-foreground">
           A team member will reach out within 4 business hours. For anything urgent, call us at <span className="font-mono">{`(845) 297-8800`}</span>.
         </p>

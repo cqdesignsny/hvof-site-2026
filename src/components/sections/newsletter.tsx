@@ -46,7 +46,7 @@ export function NewsletterSignup({ variant = "dark" }: { variant?: "dark" | "lig
       </p>
       <h3
         className={
-          "mt-3 font-display text-3xl font-light leading-[1.05] tracking-tight md:text-4xl lg:text-5xl"
+          "mt-3 font-display text-3xl font-semibold leading-[1.05] tracking-tight md:text-4xl lg:text-5xl"
         }
       >
         New showroom arrivals,<br />

@@ -12,8 +12,10 @@ interface TrustedByProps {
 }
 
 /**
- * Marquee row of partner logos. Always grayscale, dark graphite background,
- * generous vertical padding. Logos are large and breathe.
+ * Marquee row of partner logos.
+ * - Logos: large, ~30% bigger than before, closer together.
+ * - Background: dark graphite for separation, narrower band so the section reads tighter.
+ * - Filter: grayscale + slight contrast so logos stay legible (no harsh brightness:0 invert).
  */
 export function TrustedBy({
   partners = SITE.trustedBy,
@@ -27,27 +29,29 @@ export function TrustedBy({
       className="border-y border-white/5"
       style={{ backgroundColor: "var(--brand-graphite)" }}
     >
-      <div className="container-wide py-20 md:py-28 lg:py-32">
+      <div className="container-wide py-12 md:py-16">
         <p
-          className="eyebrow mb-12 text-center md:mb-16"
+          className="eyebrow mb-8 text-center md:mb-10"
           style={{ color: "var(--brand-yellow)" }}
         >
           {eyebrow}
         </p>
         <div className="mask-fade-x overflow-hidden">
-          <div className="marquee-track flex w-max items-center gap-16 md:gap-24 lg:gap-32">
+          <div className="marquee-track flex w-max items-center gap-8 md:gap-10 lg:gap-12">
             {doubled.map((p, i) => (
               <div
                 key={`${p.name}-${i}`}
-                className="relative h-20 w-44 shrink-0 md:h-24 md:w-56 lg:h-28 lg:w-64"
+                className="relative h-24 w-56 shrink-0 md:h-28 md:w-72 lg:h-32 lg:w-80"
                 aria-hidden={i >= partners.length}
               >
                 <Image
                   src={p.logoUrl}
                   alt={p.name}
                   fill
-                  sizes="(min-width: 1024px) 256px, (min-width: 768px) 224px, 176px"
-                  className="object-contain grayscale brightness-0 invert opacity-70"
+                  sizes="(min-width: 1024px) 320px, (min-width: 768px) 288px, 224px"
+                  /* Soft monochrome: grayscale + brightness boost keeps detail.
+                     Avoids harsh invert that nuked thin-line logos on the dark bg. */
+                  className="object-contain grayscale brightness-[1.5] contrast-110 opacity-90"
                   unoptimized
                 />
               </div>

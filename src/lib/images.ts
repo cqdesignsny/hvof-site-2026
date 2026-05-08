@@ -31,7 +31,6 @@ export const IMG = {
     two: `${CDN}/2026/01/Marist-2-Large.jpeg`,
     three: `${CDN}/2026/01/Marist-3-Large.jpeg`,
     four: `${CDN}/2026/01/Marist-4-Large.jpeg`,
-    five: `${CDN}/2026/01/Marist-5-Large.jpeg`,
     lobby: `${CDN}/2026/01/Marist-lobby.jpeg`,
   },
   /** Brand visuals from /public */

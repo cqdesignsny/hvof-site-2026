@@ -32,7 +32,7 @@ export function FAQSection({
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
             <p className="eyebrow text-muted-foreground">{eyebrow}</p>
-            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl">
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl">
               {heading}
             </h2>
             {intro ? <p className="mt-5 max-w-md text-muted-foreground">{intro}</p> : null}

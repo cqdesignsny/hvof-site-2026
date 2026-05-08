@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
+import { ScrollText } from "@/components/motion/scroll-text";
 import { FAQSection } from "@/components/sections/faq-section";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/site";
@@ -57,7 +58,7 @@ export function CategoryTemplate({
         <div className="container-editorial relative z-10 pb-20 pt-36 md:pb-28 md:pt-48">
           <FadeIn className="max-w-4xl">
             <p className="eyebrow text-brand-yellow">{eyebrow}</p>
-            <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[0.95] tracking-[-0.02em] text-white">
+            <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,6rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
               {title}
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">{intro}</p>
@@ -70,7 +71,7 @@ export function CategoryTemplate({
         <div className="container-editorial">
           <FadeIn className="max-w-2xl">
             <p className="eyebrow text-muted-foreground">Selection</p>
-            <h2 className="mt-4 font-display text-4xl font-light leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
               Categories<br />we stock and spec.
             </h2>
           </FadeIn>
@@ -78,7 +79,7 @@ export function CategoryTemplate({
             {subCategories.map((sub, i) => (
               <FadeIn key={sub.name} delay={i * 0.04} className="group border-t border-border py-7 md:py-9">
                 <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-display text-2xl font-light tracking-tight md:text-3xl">{sub.name}</h3>
+                  <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{sub.name}</h3>
                   {sub.startingPrice ? (
                     <p className="shrink-0 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
                       {sub.startingPrice}
@@ -99,7 +100,7 @@ export function CategoryTemplate({
         <div className="container-editorial">
           <FadeIn className="max-w-3xl">
             <p className="eyebrow text-muted-foreground">What&apos;s included</p>
-            <h2 className="mt-4 font-display text-3xl font-light leading-[1.1] tracking-tight md:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.1] tracking-tight md:text-4xl">
               Every order, regardless of size.
             </h2>
           </FadeIn>
@@ -121,33 +122,32 @@ export function CategoryTemplate({
         items={faqs}
       />
 
-      {/* CTA */}
-      <section className="bg-brand-yellow section-y">
-        <div className="container-editorial">
-          <FadeIn className="max-w-3xl">
-            <h2 className="font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
-              Ready to spec?
-            </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              Tell us about your space. We&apos;ll have a quote and floor plan in your inbox, often same-day.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="rounded-full bg-foreground px-6 text-base text-background hover:bg-foreground/90">
-                <Link href="/contact">
+      {/* CTA with snap-pinned scroll text */}
+      <section className="section-y" style={{ backgroundColor: "var(--brand-yellow)" }}>
+        <div className="container-bleed">
+          <ScrollText
+            lines={["Ready to spec?", "Send the floor plan."]}
+            textClassName="font-display font-semibold leading-[0.9] tracking-[-0.04em] text-foreground text-[clamp(3rem,12vw,11rem)]"
+            travel={28}
+          />
+          <div className="container-wide mt-10">
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
+                <Link href="/contact" className="group">
                   Get a quote
-                  <ArrowUpRight className="ml-1 h-4 w-4" />
+                  <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="rounded-full border-foreground/30 bg-transparent px-6 text-base text-foreground hover:bg-foreground/10"
+                className="h-14 rounded-full border-foreground/30 bg-transparent px-8 text-base text-foreground hover:bg-foreground/10"
               >
                 <Link href={`tel:${SITE.contact.phoneE164}`}>{SITE.contact.phone}</Link>
               </Button>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>

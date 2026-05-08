@@ -60,7 +60,7 @@ export function QuoteCart() {
           <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand-yellow text-foreground">
             <Check className="h-8 w-8" />
           </span>
-          <h1 className="mt-8 font-display text-5xl font-light leading-[1] tracking-tight md:text-7xl">
+          <h1 className="mt-8 font-display text-5xl font-semibold leading-[1] tracking-tight md:text-7xl">
             Quote received.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
@@ -86,7 +86,7 @@ export function QuoteCart() {
           <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border bg-muted/30 text-muted-foreground">
             <ShoppingBag className="h-7 w-7" />
           </span>
-          <h1 className="mt-8 font-display text-5xl font-light leading-[1] tracking-tight md:text-7xl">
+          <h1 className="mt-8 font-display text-5xl font-semibold leading-[1] tracking-tight md:text-7xl">
             Your quote cart is empty.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
@@ -114,7 +114,7 @@ export function QuoteCart() {
         {/* Header */}
         <div className="mb-12 max-w-3xl">
           <p className="eyebrow text-muted-foreground">Quote request</p>
-          <h1 className="mt-4 font-display text-5xl font-light leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
+          <h1 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
             Build your<br />
             purchase order.
           </h1>
@@ -161,7 +161,7 @@ export function QuoteCart() {
                           <h3 className="font-display text-lg font-normal leading-snug md:text-xl">
                             {item.name}
                           </h3>
-                          <p className="font-display text-lg font-light tracking-tight">
+                          <p className="font-display text-lg font-semibold tracking-tight">
                             {formatPrice(item.price * item.qty)}
                           </p>
                         </div>
@@ -210,7 +210,7 @@ export function QuoteCart() {
                   <p className="text-sm text-muted-foreground">
                     Estimated subtotal at list price
                   </p>
-                  <p className="font-display text-2xl font-light md:text-3xl">
+                  <p className="font-display text-2xl font-semibold md:text-3xl">
                     {formatPrice(estimatedTotal)}
                   </p>
                 </div>

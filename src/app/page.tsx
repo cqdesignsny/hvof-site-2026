@@ -23,17 +23,18 @@ const HERO_SLIDES = [
   { src: IMG.marshallSterling.gallery[3], alt: "HVOF workstation installation" },
 ];
 
+/** Home gallery shots. Just show the client tag, no descriptive caption (those were guesses). */
 const HOME_GALLERY_SHOTS: GalleryShot[] = [
-  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling rooftop", caption: "Rooftop terrace", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.gallery[0], alt: "M+S executive suite", caption: "Executive suite", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.gallery[1], alt: "M+S workstations", caption: "Open workstation pods", client: "Marshall + Sterling" },
-  { src: IMG.marist.one, alt: "Marist College install", caption: "Faculty offices", client: "Marist College" },
-  { src: IMG.marshallSterling.gallery[2], alt: "M+S conference", caption: "Conference suite", client: "Marshall + Sterling" },
-  { src: IMG.marist.lobby, alt: "Marist lobby", caption: "Common area lounge", client: "Marist College" },
-  { src: IMG.marshallSterling.gallery[3], alt: "M+S floor 2", caption: "Trading floor", client: "Marshall + Sterling" },
-  { src: IMG.marist.three, alt: "Marist atrium", caption: "Student commons", client: "Marist College" },
-  { src: IMG.marshallSterling.detail22, alt: "M+S install detail", caption: "Custom millwork", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.angle14, alt: "M+S office", caption: "Private office", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.gallery[0], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.gallery[1], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.one, alt: "Marist College install", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[2], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.lobby, alt: "Marist College install", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[3], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.three, alt: "Marist College install", client: "Marist College" },
+  { src: IMG.marshallSterling.detail22, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.angle14, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
 ];
 
 const CATEGORIES = [
@@ -42,7 +43,7 @@ const CATEGORIES = [
   { name: "Conference", href: "/furniture/conference", icon: "/icons/conference.svg", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
   { name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
   { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.svg", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
-  { name: "NYS Contracts", href: "/furniture/nys-contracts", icon: "/icons/desk.svg", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
+  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.svg", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
 ];
 
 const FAQS = [
@@ -116,7 +117,7 @@ export default function HomePage() {
         headline="Furniture for the rooms where work happens."
         sub="New, pre-owned, and custom office furniture. The largest showroom between New York City and Albany at 37,000 square feet."
         slides={HERO_SLIDES}
-        primaryCta={{ label: "See our work", href: "/work" }}
+        primaryCta={{ label: "See our work", href: "/gallery" }}
         secondaryCta={{ label: "Visit the showroom", href: "/showroom" }}
       />
 
