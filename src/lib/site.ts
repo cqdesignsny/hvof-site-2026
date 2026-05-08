@@ -202,3 +202,76 @@ export const COUNTIES_SERVED = [
   "Sullivan",
   "Columbia",
 ] as const;
+
+/**
+ * County-level landing pages. Each renders at /office-furniture-{slug}-county-ny.
+ * driveTime is from Wappingers Falls; cities is for the local-coverage block.
+ */
+export const COUNTIES = [
+  {
+    name: "Dutchess",
+    slug: "dutchess",
+    driveTime: "we are based here",
+    cities: ["Poughkeepsie", "Beacon", "Fishkill", "Hyde Park", "Wappingers Falls", "Rhinebeck", "Hopewell Junction", "Pleasant Valley", "LaGrange"],
+    sectorAngle: "Dutchess County's largest office furniture showroom is in Wappingers Falls. Insurance, healthcare, higher education, county government, and small business buyers all served from one team.",
+    notableClients: ["Marshall + Sterling", "Marist College", "Vassar Brothers Medical"],
+  },
+  {
+    name: "Orange",
+    slug: "orange",
+    driveTime: "30 to 45 minutes",
+    cities: ["Newburgh", "Middletown", "Goshen", "Monroe", "Warwick", "Cornwall", "Chester", "Port Jervis"],
+    sectorAngle: "Orange County offices, healthcare facilities, and government buyers along the I-84 corridor and Stewart Airport zone. NYS contract pricing for Orange County government and BOCES.",
+    notableClients: ["Crystal Run Healthcare network", "Orange County government partners"],
+  },
+  {
+    name: "Ulster",
+    slug: "ulster",
+    driveTime: "30 to 45 minutes",
+    cities: ["Kingston", "New Paltz", "Saugerties", "Highland", "Woodstock", "Ellenville", "Marlboro"],
+    sectorAngle: "Ulster County government, HealthAlliance facilities, SUNY New Paltz, and the small-business corridor along Route 9W.",
+    notableClients: ["SUNY New Paltz", "Ulster County agencies"],
+  },
+  {
+    name: "Putnam",
+    slug: "putnam",
+    driveTime: "35 to 50 minutes",
+    cities: ["Carmel", "Mahopac", "Cold Spring", "Brewster", "Putnam Valley", "Garrison"],
+    sectorAngle: "Putnam County government, town offices, and the medical and professional service corridor along Route 9 and I-84.",
+    notableClients: ["Putnam County government partners"],
+  },
+  {
+    name: "Westchester",
+    slug: "westchester",
+    driveTime: "45 minutes to 1 hour 15",
+    cities: ["White Plains", "Yonkers", "New Rochelle", "Mount Vernon", "Peekskill", "Mount Kisco", "Tarrytown", "Scarsdale", "Rye"],
+    sectorAngle: "Westchester corporate corridor, Fortune 500 tenants, multi-tenant office buildings, and the Hudson Line headquarters cluster from Tarrytown south.",
+    notableClients: ["Westchester corporate tenants", "NewYork-Presbyterian Hudson Valley Hospital"],
+  },
+  {
+    name: "Rockland",
+    slug: "rockland",
+    driveTime: "1 hour 15",
+    cities: ["Nyack", "New City", "Suffern", "Pearl River", "Spring Valley", "Nanuet"],
+    sectorAngle: "Rockland County government, professional offices, and the I-87 / Palisades Parkway business corridor.",
+    notableClients: ["Rockland County professional offices"],
+  },
+  {
+    name: "Sullivan",
+    slug: "sullivan",
+    driveTime: "1 hour to 1 hour 30",
+    cities: ["Monticello", "Liberty", "Bethel", "Callicoon", "Roscoe"],
+    sectorAngle: "Sullivan County government, hospitality and resort offices around Bethel and Monticello, and small-business buyers along Route 17.",
+    notableClients: ["Sullivan County hospitality + government"],
+  },
+  {
+    name: "Columbia",
+    slug: "columbia",
+    driveTime: "1 hour 15",
+    cities: ["Hudson", "Chatham", "Kinderhook", "Copake"],
+    sectorAngle: "Columbia County government, Hudson's growing creative and hospitality scene, and northern Dutchess corridor businesses.",
+    notableClients: ["Columbia County agencies", "Hudson area firms"],
+  },
+] as const;
+
+export type County = (typeof COUNTIES)[number];
