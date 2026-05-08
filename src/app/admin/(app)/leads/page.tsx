@@ -1,4 +1,4 @@
-import { listLeads, getLeadCount, type StoredLead, type LeadFormType } from "@/lib/leads-store";
+import { listLeads, getLeadCount, isUsingDatabase, type StoredLead, type LeadFormType } from "@/lib/leads-store";
 
 export const metadata = { title: "Leads" };
 
@@ -22,6 +22,7 @@ export default async function LeadsPage({
     listLeads({ limit: 200, formType: filterType }),
     getLeadCount(),
   ]);
+  const usingDb = isUsingDatabase();
 
   return (
     <div className="px-4 py-8 md:px-10 md:py-12 lg:px-14">
@@ -79,7 +80,7 @@ export default async function LeadsPage({
       </div>
 
       <p className="mt-6 text-xs text-foreground/45">
-        Persistence: in-memory. To make this durable across deploys and lambdas, wire Vercel KV (Marketplace, Upstash) or Postgres (Marketplace, Neon) and swap the implementation in <span className="font-mono">lib/leads-store.ts</span>.
+        Persistence: {usingDb ? "Neon Postgres (HVOF-DB). Durable across deploys." : "in-memory only. Set DATABASE_URL to persist."}
       </p>
     </div>
   );

@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ArrowUpRight, Users, BookOpen, Bot, Map, BarChart3 } from "lucide-react";
-import { listLeads, getLeadCount } from "@/lib/leads-store";
+import { ArrowUpRight, Users, BookOpen, Bot, Map, BarChart3, Database } from "lucide-react";
+import { listLeads, getLeadCount, isUsingDatabase } from "@/lib/leads-store";
 
 export const metadata = { title: "Dashboard" };
 
 export default async function AdminDashboardPage() {
   const [leads, counts] = await Promise.all([listLeads({ limit: 5 }), getLeadCount()]);
+  const usingDb = isUsingDatabase();
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -106,13 +107,20 @@ export default async function AdminDashboardPage() {
 
           <div
             className="mt-7 rounded-2xl border-2 p-5"
-            style={{ borderColor: "var(--brand-yellow)", backgroundColor: "color-mix(in srgb, var(--brand-yellow) 12%, transparent)" }}
+            style={
+              usingDb
+                ? { borderColor: "rgb(34 197 94)", backgroundColor: "rgb(34 197 94 / 0.08)" }
+                : { borderColor: "var(--brand-yellow)", backgroundColor: "color-mix(in srgb, var(--brand-yellow) 12%, transparent)" }
+            }
           >
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/70">
+            <p className="flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/70">
+              <Database className="h-3.5 w-3.5" />
               Storage status
             </p>
             <p className="mt-2 text-sm leading-relaxed text-foreground/80">
-              Leads currently persist in-memory. Wire Vercel Marketplace KV / Upstash to make the pipeline durable in production.
+              {usingDb
+                ? "Leads persist in Neon Postgres. Durable across deploys and regions."
+                : "Leads in-memory only. Set DATABASE_URL on this environment to persist to Neon."}
             </p>
           </div>
         </section>
