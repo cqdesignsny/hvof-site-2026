@@ -11,9 +11,9 @@ export function Footer() {
         <div className="grid gap-16 md:grid-cols-12">
           {/* Manifesto column */}
           <div className="md:col-span-5">
-            <Logo size="lg" variant="light" asLink={false} />
+            <Logo size="lg" asLink={false} />
             <p className="mt-6 max-w-md text-base leading-relaxed text-background/70">
-              Furnishing the Hudson Valley&apos;s offices, healthcare facilities, and learning spaces since 1985. New, pre-owned, and custom — installed by a team that takes pride in the work.
+              Furnishing the Hudson Valley&apos;s offices, healthcare facilities, and learning spaces since 1985. New, pre-owned, and custom. installed by a team that takes pride in the work.
             </p>
 
             <div className="mt-10 grid gap-3 text-sm">

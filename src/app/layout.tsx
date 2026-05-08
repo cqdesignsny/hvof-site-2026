@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Sans_Condensed, IBM_Plex_Mono } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/seo/json-ld";
 import { Header } from "@/components/site/header";
@@ -8,22 +8,22 @@ import { Analytics } from "@/components/analytics";
 import { QuoteCartIndicator } from "@/components/quote/cart-indicator";
 import "./globals.css";
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-plex-sans",
+const interTight = Inter_Tight({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
-const plexCondensed = IBM_Plex_Sans_Condensed({
-  variable: "--font-plex-condensed",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -32,8 +32,8 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s — ${SITE.name}`,
+    default: `${SITE.name}, ${SITE.tagline}`,
+    template: `%s, ${SITE.name}`,
   },
   description: SITE.description,
   applicationName: SITE.name,
@@ -45,18 +45,20 @@ export const metadata: Metadata = {
     "Hudson Valley office furniture showroom",
     "ergonomic office chairs",
     "office systems furniture",
+    "NYS contracts office furniture",
+    "pre-owned office furniture",
   ],
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}, ${SITE.tagline}`,
     description: SITE.description,
     url: SITE.url,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name}, ${SITE.tagline}`,
     description: SITE.description,
   },
   robots: {
@@ -85,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${plexSans.variable} ${plexCondensed.variable} ${plexMono.variable}`}
+      className={`${interTight.variable} ${inter.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh flex flex-col bg-background text-foreground">

@@ -3,8 +3,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 /**
  * Renders GA4 + Meta Pixel only when the env vars are set.
- * - NEXT_PUBLIC_GA_ID — e.g. G-XXXXXXXXXX
- * - NEXT_PUBLIC_FB_PIXEL_ID — numeric pixel ID
+ * - NEXT_PUBLIC_GA_ID. e.g. G-XXXXXXXXXX
+ * - NEXT_PUBLIC_FB_PIXEL_ID. numeric pixel ID
  *
  * Both are public-safe to expose to the browser.
  */

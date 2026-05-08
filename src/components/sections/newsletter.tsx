@@ -25,7 +25,7 @@ export function NewsletterSignup({ variant = "dark" }: { variant?: "dark" | "lig
         body: JSON.stringify({ name: "Newsletter subscriber", email, type: "newsletter" }),
       });
     } catch {
-      // Soft fail — still mark done so user gets feedback
+      // Soft fail. still mark done so user gets feedback
     }
     setDone(true);
     setSubmitting(false);

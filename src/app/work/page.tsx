@@ -10,7 +10,7 @@ import { IMG } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected office furniture installations across the Hudson Valley — insurance, education, healthcare, government, and corporate clients.",
+    "Selected office furniture installations across the Hudson Valley. insurance, education, healthcare, government, and corporate clients.",
 };
 
 const PROJECTS = [
@@ -33,7 +33,7 @@ const PROJECTS = [
     feature: true,
   },
   {
-    name: "Marshall & Sterling — Detail",
+    name: "Marshall & Sterling. Detail",
     sector: "Insurance",
     location: "Poughkeepsie, NY",
     summary: "Custom millwork integration with Steelcase systems.",
@@ -49,7 +49,7 @@ const PROJECTS = [
     href: "/work/marist",
   },
   {
-    name: "Marshall & Sterling — Trading Floor",
+    name: "Marshall & Sterling. Trading Floor",
     sector: "Insurance",
     location: "Poughkeepsie, NY",
     summary: "Sit-stand benching and acoustic privacy for an open-plan trading desk.",

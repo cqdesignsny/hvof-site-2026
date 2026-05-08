@@ -88,7 +88,7 @@ export function LocalLandingTemplate({
         <div className="container-editorial">
           <FadeIn className="max-w-3xl">
             <p className="text-xl leading-relaxed text-foreground md:text-2xl">
-              <strong className="font-medium">Hudson Valley Office Furniture serves {city}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls — about {driveTime} from {city}. We deliver and install task seating, desks, conference tables, and full-floor installations, with in-house crews and same-day quote turnaround.
+              <strong className="font-medium">Hudson Valley Office Furniture serves {city}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls. about {driveTime} from {city}. We deliver and install task seating, desks, conference tables, and full-floor installations, with in-house crews and same-day quote turnaround.
             </p>
           </FadeIn>
         </div>

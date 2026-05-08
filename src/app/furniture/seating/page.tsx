@@ -14,7 +14,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Office Seating",
   description:
-    "Task chairs, executive seating, ergonomic chairs, and conference seating from Steelcase, Herman Miller, Knoll, Humanscale, and HON. Sit in the chair before you spec — or build a quote online.",
+    "Task chairs, executive seating, ergonomic chairs, and conference seating from Steelcase, Herman Miller, Knoll, Humanscale, and HON. Sit in the chair before you spec. or build a quote online.",
 };
 
 const FEATURES = [
@@ -97,7 +97,7 @@ export default function SeatingPage() {
               Seating that<br />earns its eight hours.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
-              Task, executive, ergonomic, conference, lounge. Steelcase, Herman Miller, Knoll, HON, Humanscale, and a dozen specialty brands. Sit in the chair before you spec — or build a quote online.
+              Task, executive, ergonomic, conference, lounge. Steelcase, Herman Miller, Knoll, HON, Humanscale, and a dozen specialty brands. Sit in the chair before you spec. or build a quote online.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-brand-yellow px-7 text-base text-foreground hover:bg-brand-yellow-hover">

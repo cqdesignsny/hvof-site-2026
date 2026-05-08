@@ -25,14 +25,14 @@ export function Header() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        // Always-on dark header. Apple-like. Reads on every hero.
+        // Always-on solid black. No backdrop blur picking up bluish hero tints.
         scrolled
-          ? "bg-foreground/95 backdrop-blur-xl supports-[backdrop-filter]:bg-foreground/85"
-          : "bg-foreground/85 backdrop-blur-md supports-[backdrop-filter]:bg-foreground/65",
+          ? "bg-black shadow-lg shadow-black/20"
+          : "bg-black/95 supports-[backdrop-filter]:bg-black/90 backdrop-blur-xl",
       )}
     >
       <div className="container-editorial flex h-16 items-center justify-between md:h-20">
-        <Logo size="md" variant="light" />
+        <Logo size="md" />
 
         <nav className="hidden items-center gap-1 md:flex">
           {NAV.primary.map((item) =>
@@ -85,7 +85,7 @@ export function Header() {
             <SheetContent side="right" className="w-full max-w-md border-l-0 p-0 sm:max-w-md">
               <div className="flex h-full flex-col bg-background">
                 <div className="flex items-center justify-between border-b bg-foreground px-6 py-5">
-                  <Logo size="md" variant="light" />
+                  <Logo size="md" />
                   <SheetTitle className="sr-only">Navigation</SheetTitle>
                 </div>
 

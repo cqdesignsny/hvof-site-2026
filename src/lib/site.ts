@@ -61,16 +61,33 @@ export const SITE = {
     instagram: "https://www.instagram.com/hv_office_furniture/",
   },
 
-  /** Used on home + city pages for the trusted-by row */
+  /** Trusted-by partner logos. Sourced from the live thewowguys.com CDN. */
   trustedBy: [
-    "Marshall + Sterling",
-    "Marist College",
-    "Vassar Brothers Medical",
-    "Bard College",
-    "Mount Saint Mary",
-    "Dutchess Community College",
-    "Hudson Valley Federal Credit Union",
-    "BCW",
+    { name: "Partner 1", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/1.png" },
+    { name: "Partner 2", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/2.png" },
+    { name: "Partner 3", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/3.png" },
+    { name: "Partner 4", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/4.png" },
+    { name: "Partner 5", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/5.png" },
+    { name: "Partner 6", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/6.png" },
+    { name: "Partner 7", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/7.png" },
+    { name: "Partner 8", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/8.png" },
+    { name: "Partner 9", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/9.png" },
+    { name: "Partner 10", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/10.png" },
+    { name: "Partner 11", logoUrl: "https://thewowguys.com/wp-content/uploads/2026/02/11.png" },
+  ],
+
+  /** Featured clients with case-study links */
+  featuredClients: [
+    {
+      name: "Marshall + Sterling",
+      logoUrl: "https://thewowguys.com/wp-content/uploads/2025/10/MS_logo_primary_white.png.webp",
+      href: "/work/marshall-sterling",
+    },
+    {
+      name: "Marist College",
+      logoUrl: "https://thewowguys.com/wp-content/uploads/2026/01/resized-marist.png",
+      href: "/work/marist",
+    },
   ],
 
   /** Manufacturer roster pulled from NYS contracts page (40+) */
@@ -114,6 +131,8 @@ export const NAV = {
   primary: [
     { label: "Work", href: "/work" },
     { label: "Furniture", href: "/furniture" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "E-Catalog", href: "/e-catalog" },
     { label: "Showroom", href: "/showroom" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },

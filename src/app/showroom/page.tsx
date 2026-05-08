@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Showroom",
   description:
-    "Visit the HVOF showroom — 37,000 sqft of office furniture configurations on Route 9 in Wappingers Falls, NY. Walk-ins welcome Monday through Friday.",
+    "Visit the HVOF showroom. 37,000 sqft of office furniture configurations on Route 9 in Wappingers Falls, NY. Walk-ins welcome Monday through Friday.",
 };
 
 export default function ShowroomPage() {

@@ -207,7 +207,7 @@ export default function MarshallSterlingPage() {
           <FadeIn className="mx-auto max-w-5xl text-center">
             <p className="eyebrow text-muted-foreground">From the M+S file</p>
             <blockquote className="mt-6 font-display text-3xl font-light leading-[1.1] tracking-tight md:text-4xl lg:text-5xl">
-              &ldquo;From design to install, our relationship with Marshall &amp; Sterling has spanned more than 20 years — from updating dated 1960s furniture one floor at a time, to reimagining their C-suite, to enhancing their rooftop with breathtaking views.&rdquo;
+              &ldquo;From design to install, our relationship with Marshall &amp; Sterling has spanned more than 20 years. from updating dated 1960s furniture one floor at a time, to reimagining their C-suite, to enhancing their rooftop with breathtaking views.&rdquo;
             </blockquote>
             <p className="mt-8 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Hudson Valley Office Furniture
@@ -225,7 +225,7 @@ export default function MarshallSterlingPage() {
               Let&apos;s talk specifics.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              Single floor or whole building. Same approach: spec, source, deliver, install — and stay on call after.
+              Single floor or whole building. Same approach: spec, source, deliver, install. and stay on call after.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base text-background hover:bg-foreground/90">

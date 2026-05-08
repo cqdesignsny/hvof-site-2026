@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       // Default: allow everything except admin / private API.
       { userAgent: "*", allow: "/", disallow: ["/api/"] },
-      // AI training crawlers — explicitly allowed for AEO.
+      // AI training crawlers. explicitly allowed for AEO.
       { userAgent: "GPTBot", allow: "/" },
       { userAgent: "ClaudeBot", allow: "/" },
       { userAgent: "PerplexityBot", allow: "/" },
@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Cohere-ai", allow: "/" },
       { userAgent: "CCBot", allow: "/" },
       { userAgent: "Bytespider", allow: "/" },
-      // Aggressive scrapers — blocked.
+      // Aggressive scrapers. blocked.
       { userAgent: "SemrushBot", disallow: "/" },
       { userAgent: "AhrefsBot", disallow: "/" },
       { userAgent: "MJ12bot", disallow: "/" },

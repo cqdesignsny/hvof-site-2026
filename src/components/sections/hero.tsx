@@ -42,7 +42,7 @@ export function Hero({ eyebrow, headline, sub, imageSrc, imageAlt, primaryCta, s
           quality={85}
           className="object-cover"
         />
-        {/* Depth gradient — pulls focus to lower-left text block */}
+        {/* Depth gradient. pulls focus to lower-left text block */}
         <div
           className="absolute inset-0 bg-gradient-to-tr from-black/85 via-black/55 to-black/15"
           aria-hidden="true"

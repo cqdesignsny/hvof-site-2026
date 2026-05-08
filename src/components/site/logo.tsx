@@ -4,24 +4,26 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
-  variant?: "default" | "light";
   size?: "sm" | "md" | "lg";
   asLink?: boolean;
 }
 
 const SIZE_PX = {
-  sm: { h: 28, w: 52 },
-  md: { h: 36, w: 67 },
-  lg: { h: 56, w: 105 },
+  sm: { h: 32, w: 60 },
+  md: { h: 42, w: 79 },
+  lg: { h: 64, w: 120 },
 };
 
-export function Logo({ className, variant = "default", size = "md", asLink = true }: LogoProps) {
-  const src = variant === "light" ? "/logo-light.svg" : "/logo.svg";
+/**
+ * Always renders the full-color HVOF SVG (yellow + gray + white text).
+ * The brand reads well on both light and dark surfaces, so no variant switching.
+ */
+export function Logo({ className, size = "md", asLink = true }: LogoProps) {
   const dims = SIZE_PX[size];
 
   const inner = (
     <Image
-      src={src}
+      src="/logo.svg"
       alt="Hudson Valley Office Furniture"
       width={dims.w}
       height={dims.h}
@@ -34,7 +36,7 @@ export function Logo({ className, variant = "default", size = "md", asLink = tru
   if (!asLink) return inner;
 
   return (
-    <Link href="/" aria-label="Hudson Valley Office Furniture — home" className="inline-flex items-center">
+    <Link href="/" aria-label="Hudson Valley Office Furniture, home" className="inline-flex items-center">
       {inner}
     </Link>
   );

@@ -16,7 +16,7 @@ interface FadeInProps {
 
 /**
  * Subtle fade + lift on enter. Respects reduced-motion preference.
- * Use it sparingly — for section headers and hero text, not for every card.
+ * Use it sparingly. for section headers and hero text, not for every card.
  */
 export function FadeIn({
   children,

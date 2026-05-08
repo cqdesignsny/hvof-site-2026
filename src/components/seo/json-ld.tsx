@@ -1,7 +1,7 @@
 import { SITE } from "@/lib/site";
 
 /**
- * JSON-LD schema components — server components, render <script type="application/ld+json">.
+ * JSON-LD schema components. server components, render <script type="application/ld+json">.
  * Mirrors the WP mu-plugin v2.0 graph: Organization + LocalBusiness/FurnitureStore + WebSite, all linked via @id.
  */
 

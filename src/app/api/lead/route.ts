@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  // Honeypot check — reject if a hidden field is filled by a bot.
+  // Honeypot check. reject if a hidden field is filled by a bot.
   if (payload.website) {
     return NextResponse.json({ ok: true }, { status: 200 });
   }
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
             company ? `Company: ${company}` : null,
             projectType ? `Project: ${projectType}` : null,
             message ? `\n${message}` : null,
-            `\n— Submitted via ${SITE.url}/contact`,
+            `\n. Submitted via ${SITE.url}/contact`,
           ]
             .filter(Boolean)
             .join("\n"),

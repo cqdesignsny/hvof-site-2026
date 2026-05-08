@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const contact = (payload.contact as Record<string, string>) ?? {};
   const estimatedTotal = (payload.estimatedTotal as number) ?? 0;
 
-  // Honeypot — if name or email missing, treat as bot
+  // Honeypot. if name or email missing, treat as bot
   if (!contact.name || !contact.email) {
     return NextResponse.json({ error: "Missing contact info" }, { status: 422 });
   }
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       ``,
       contact.notes ? `Notes:\n${contact.notes}` : null,
       ``,
-      `— Submitted via ${SITE.url}/quote`,
+      `. Submitted via ${SITE.url}/quote`,
     ]
       .filter(Boolean)
       .join("\n");

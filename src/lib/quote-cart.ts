@@ -21,7 +21,7 @@ interface QuoteState {
   clear: () => void;
   /** Total number of items (sum of quantities) */
   count: () => number;
-  /** Estimated total at list price — labeled as estimate, not a binding quote */
+  /** Estimated total at list price. labeled as estimate, not a binding quote */
   estimatedTotal: () => number;
 }
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.19 20.32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: .75px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_3" data-name="Layer 3">
+    <g>
+      <rect class="cls-2" x=".38" y=".38" width="17.44" height="19.57" rx="3" ry="3"/>
+      <g>
+        <path class="cls-1" d="M2.35,9.3v6.88h-.69v-7.22c0-.19.15-.35.35-.35h9.06c.19,0,.35.15.35.35s-.15.35-.35.35H2.35Z"/>
+        <path d="M2.01,10.12c-.13,0-.23.16-.23.35s.1.35.23.35h8.96c.13,0,.23-.16.23-.35s-.1-.35-.23-.35H2.01Z"/>
+        <path d="M2.8,4.14h5.94v.38h0v3.67H2.22v-4.05h.58ZM8.28,4.6H2.8s-.07.01-.09.03c-.01,0-.02.02-.02.04v2.98s.01.03.02.04c.03.02.06.03.09.03h5.36s.07-.01.09-.03c.01,0,.02-.02.02-.04v-3.06Z"/>
+        <polygon class="cls-1" points="4.65 7.73 6.07 7.73 6.71 8.78 4.02 8.78 4.65 7.73"/>
+        <rect x="3.99" y="6.15" width=".59" height="1.22"/>
+        <rect x="5.19" y="5.64" width=".59" height="1.73"/>
+        <rect x="6.38" y="4.98" width=".59" height="2.39"/>
+        <path class="cls-1" d="M12.3,10.22h2.66v.23h-2.66v-.23h0ZM12.3,12.28h2.66v.23h-2.66v-.23h0ZM12.3,14.35h2.66v.23h-2.66v-.23h0ZM16.3,8.61h-5.33c-.13,0-.23.1-.23.23v7.26s0,.06.01.08h5.76s.01-.05.01-.08v-7.26c0-.13-.1-.23-.23-.23Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

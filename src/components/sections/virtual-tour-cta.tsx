@@ -6,7 +6,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { IMG } from "@/lib/images";
 
 /**
- * "View Our Showroom — Check Out Our Virtual Tour" section.
+ * "View Our Showroom. Check Out Our Virtual Tour" section.
  * Editorial split: text left, image right with hover overlay that reveals "Take the tour".
  */
 export function VirtualTourCTA() {

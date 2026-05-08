@@ -5,7 +5,7 @@ export const cityFaqs = (city: string) => [
   },
   {
     question: `Is there a local showroom near ${city}?`,
-    answer: `Our 37,000 sqft showroom is on Route 9 in Wappingers Falls — the closest full-line office furniture showroom to ${city}. Walk-ins welcome Monday through Friday.`,
+    answer: `Our 37,000 sqft showroom is on Route 9 in Wappingers Falls. the closest full-line office furniture showroom to ${city}. Walk-ins welcome Monday through Friday.`,
   },
   {
     question: `Do you handle the install in ${city} or do I need to coordinate movers?`,

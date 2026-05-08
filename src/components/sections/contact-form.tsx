@@ -35,7 +35,7 @@ export function ContactForm() {
         body: JSON.stringify(Object.fromEntries(data)),
       });
     } catch {
-      // Silently fail and still mark as submitted — fallback for demo.
+      // Silently fail and still mark as submitted. fallback for demo.
     }
     setSubmitted(true);
     setSubmitting(false);

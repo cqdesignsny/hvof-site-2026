@@ -30,7 +30,7 @@ export interface Product {
 const FALLBACK_IMAGE = "/product-placeholder.svg";
 
 export const PRODUCTS: Product[] = [
-  // SEATING — real SKUs from live site
+  // SEATING. real SKUs from live site
   {
     sku: "HVOF-11730B",
     name: "HVOF 11730B Task Chair",
@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Ergonomic",
     price: 849,
     originalPrice: 1800,
-    description: "OM Seating Truly — premium ergonomic with full-height back support.",
+    description: "OM Seating Truly. premium ergonomic with full-height back support.",
     image: FALLBACK_IMAGE,
     type: "Ergonomic specialty",
   },
@@ -173,7 +173,7 @@ export const PRODUCTS: Product[] = [
     type: "Task seating",
   },
 
-  // DESKS — placeholder shape until real catalog
+  // DESKS. placeholder shape until real catalog
   {
     sku: "HVOF-DESK-SS72",
     name: "Sit-Stand Desk 72\"",

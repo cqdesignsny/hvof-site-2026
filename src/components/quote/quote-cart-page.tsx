@@ -46,7 +46,7 @@ export function QuoteCart() {
         body: JSON.stringify(payload),
       });
     } catch {
-      // graceful fail — still mark submitted for demo flow
+      // graceful fail. still mark submitted for demo flow
     }
     setSubmitted(true);
     clear();

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { TrustedBy } from "@/components/sections/trusted-by";
+import { TeamSection } from "@/components/sections/team-section";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 
@@ -42,7 +43,7 @@ const VALUES = [
   },
   {
     title: "Aesthetics Influence",
-    body: "How a space feels affects how a team works. Modern, warm, or executive — we tune the look to match the brand.",
+    body: "How a space feels affects how a team works. Modern, warm, or executive. we tune the look to match the brand.",
   },
   {
     title: "Customization Options",
@@ -130,13 +131,13 @@ export default function AboutPage() {
             <FadeIn delay={0.1} className="md:col-span-7">
               <div className="space-y-6 text-base leading-relaxed text-foreground/85 md:text-lg lg:text-xl">
                 <p>
-                  HVOF opened in 1985 with a small storefront on Route 9 in Wappingers Falls and one promise: that businesses across the Hudson Valley would not have to drive to New York City to buy serious office furniture. Forty years later, the storefront has grown into 37,000 square feet of working configurations — the largest showroom between NYC and Albany — and we are still on Route 9.
+                  HVOF opened in 1985 with a small storefront on Route 9 in Wappingers Falls and one promise: that businesses across the Hudson Valley would not have to drive to New York City to buy serious office furniture. Forty years later, the storefront has grown into 37,000 square feet of working configurations. the largest showroom between NYC and Albany. and we are still on Route 9.
                 </p>
                 <p>
-                  Three generations of the same family have run this company. We know the brands because we have sold them for decades. We know the buildings because we have installed in most of them. And we know the buyers because they keep coming back — for a fifth chair, a third floor, a second decade.
+                  Three generations of the same family have run this company. We know the brands because we have sold them for decades. We know the buildings because we have installed in most of them. And we know the buyers because they keep coming back. for a fifth chair, a third floor, a second decade.
                 </p>
                 <p>
-                  Today we serve corporate offices, healthcare facilities, colleges, K–12 schools, government agencies, manufacturers, and the kind of small businesses that grow into big ones. From single ergonomic chairs to floor-by-floor installations, we spec, source, deliver, and install — all with the same crew you met at the showroom.
+                  Today we serve corporate offices, healthcare facilities, colleges, K–12 schools, government agencies, manufacturers, and the kind of small businesses that grow into big ones. From single ergonomic chairs to floor-by-floor installations, we spec, source, deliver, and install. all with the same crew you met at the showroom.
                 </p>
               </div>
             </FadeIn>
@@ -146,6 +147,9 @@ export default function AboutPage() {
 
       {/* Trusted by */}
       <TrustedBy />
+
+      {/* Team */}
+      <TeamSection />
 
       {/* Values grid */}
       <section className="bg-foreground text-background section-y">
