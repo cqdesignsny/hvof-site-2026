@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         hostname: "www.thewowguys.com",
         pathname: "/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "imagelibrary.ais-inc.com",
+        pathname: "/files/images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
     ],
     /** Allow SVG via next/image for inline logos and icons */
     dangerouslyAllowSVG: true,

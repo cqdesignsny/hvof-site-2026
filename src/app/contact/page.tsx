@@ -78,7 +78,7 @@ export default function ContactPage() {
         <div className="aspect-[16/8] w-full overflow-hidden md:aspect-[21/8]">
           <iframe
             title="HVOF showroom location"
-            src="https://www.google.com/maps?q=1404+US+Route+9,+Wappingers+Falls,+NY+12590&output=embed"
+            src="https://www.google.com/maps?q=Hudson+Valley+Office+Furniture,+1404+US-9,+Wappingers+Falls,+NY+12590&output=embed"
             className="h-full w-full grayscale-[60%]"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

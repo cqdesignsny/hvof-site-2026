@@ -4,28 +4,29 @@ import { FadeIn } from "@/components/motion/fade-in";
 interface TeamMember {
   name: string;
   role: string;
-  bio: string;
   image: string;
+  /** Tailwind object-position to keep their face in frame at aspect ratio */
+  position?: string;
 }
 
 const TEAM: TeamMember[] = [
   {
+    name: "John",
+    role: "Owner",
+    image: "/team/john-1.png",
+    position: "object-[center_25%]",
+  },
+  {
     name: "Dan",
-    role: "Designer + Project Lead",
-    bio: "Floor plans, furniture spec, and the schedule. Walks every install personally.",
-    image: "/team/dan-2.png",
+    role: "Owner",
+    image: "/team/dan-1.png",
+    position: "object-[center_30%]",
   },
   {
     name: "Mark",
-    role: "Founder + Senior Advisor",
-    bio: "Forty years on the showroom floor. Knows every chair, every brand, every building in the Hudson Valley.",
+    role: "Owner",
     image: "/team/mark-1.png",
-  },
-  {
-    name: "John",
-    role: "Operations + Install Lead",
-    bio: "Runs the install crew. From the dock to the desk, John makes sure every piece lands clean and adjusted.",
-    image: "/team/john-1.png",
+    position: "object-[center_top]",
   },
 ];
 
@@ -53,19 +54,19 @@ export function TeamSection() {
                   alt={`${member.name}, ${member.role} at HVOF`}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="image-zoom object-cover"
+                  className={`image-zoom object-cover ${member.position ?? ""}`}
                   quality={85}
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent p-6 md:p-8">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-yellow">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent p-6 md:p-8">
+                  <p
+                    className="font-mono text-[11px] uppercase tracking-[0.22em]"
+                    style={{ color: "var(--brand-yellow)" }}
+                  >
                     {member.role}
                   </p>
                   <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
                     {member.name}
                   </h3>
-                  <p className="mt-3 max-w-md text-base leading-relaxed text-white/80">
-                    {member.bio}
-                  </p>
                 </div>
               </div>
             </FadeIn>

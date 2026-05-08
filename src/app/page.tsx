@@ -7,8 +7,10 @@ import { FAQSection } from "@/components/sections/faq-section";
 import { TrustedBy } from "@/components/sections/trusted-by";
 import { VirtualTourCTA } from "@/components/sections/virtual-tour-cta";
 import { NewsletterSignup } from "@/components/sections/newsletter";
+import { InteractiveGallery, type GalleryShot } from "@/components/sections/interactive-gallery";
 import { ProductCard } from "@/components/quote/product-card";
 import { FadeIn } from "@/components/motion/fade-in";
+import { ScrollText } from "@/components/motion/scroll-text";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 import { getProductsByCategory } from "@/lib/products";
@@ -21,13 +23,26 @@ const HERO_SLIDES = [
   { src: IMG.marshallSterling.gallery[3], alt: "HVOF workstation installation" },
 ];
 
+const HOME_GALLERY_SHOTS: GalleryShot[] = [
+  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling rooftop", caption: "Rooftop terrace", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.gallery[0], alt: "M+S executive suite", caption: "Executive suite", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.gallery[1], alt: "M+S workstations", caption: "Open workstation pods", client: "Marshall + Sterling" },
+  { src: IMG.marist.one, alt: "Marist College install", caption: "Faculty offices", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[2], alt: "M+S conference", caption: "Conference suite", client: "Marshall + Sterling" },
+  { src: IMG.marist.lobby, alt: "Marist lobby", caption: "Common area lounge", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[3], alt: "M+S floor 2", caption: "Trading floor", client: "Marshall + Sterling" },
+  { src: IMG.marist.three, alt: "Marist atrium", caption: "Student commons", client: "Marist College" },
+  { src: IMG.marshallSterling.detail22, alt: "M+S install detail", caption: "Custom millwork", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.angle14, alt: "M+S office", caption: "Private office", client: "Marshall + Sterling" },
+];
+
 const CATEGORIES = [
-  { num: "01", name: "Seating", href: "/furniture/seating", icon: "/icons/chair.svg", desc: "Task, executive, ergonomic, conference. Steelcase, Herman Miller, Knoll, Humanscale, HON." },
-  { num: "02", name: "Desks", href: "/furniture/desks", icon: "/icons/desk.svg", desc: "Sit-stand, executive, benching, height-adjustable. Single units to floor-wide." },
-  { num: "03", name: "Conference", href: "/furniture/conference", icon: "/icons/conference.svg", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
-  { num: "04", name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
-  { num: "05", name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.svg", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
-  { num: "06", name: "NYS Contracts", href: "/furniture/nys-contracts", icon: "/icons/desk.svg", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
+  { name: "Seating", href: "/furniture/seating", icon: "/icons/chair.svg", desc: "Task, executive, ergonomic, conference. Steelcase, Herman Miller, Knoll, Humanscale, HON." },
+  { name: "Desks", href: "/furniture/desks", icon: "/icons/desk.svg", desc: "Sit-stand, executive, benching, height-adjustable. Single units to floor-wide." },
+  { name: "Conference", href: "/furniture/conference", icon: "/icons/conference.svg", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
+  { name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
+  { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.svg", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
+  { name: "NYS Contracts", href: "/furniture/nys-contracts", icon: "/icons/desk.svg", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
 ];
 
 const FAQS = [
@@ -166,32 +181,27 @@ export default function HomePage() {
 
           <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {CATEGORIES.map((cat, i) => (
-              <FadeIn key={cat.num} delay={(i % 3) * 0.05}>
+              <FadeIn key={cat.name} delay={(i % 3) * 0.05}>
                 <Link
                   href={cat.href}
-                  className="card-interactive group flex h-full flex-col p-6 md:p-8"
+                  className="card-interactive group flex h-full flex-col p-7 md:p-9"
                 >
-                  <div className="flex items-start justify-between">
-                    <Image
-                      src={cat.icon}
-                      alt=""
-                      width={48}
-                      height={48}
-                      className="h-12 w-12 transition-transform duration-300 group-hover:scale-105 md:h-14 md:w-14"
-                    />
-                    <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                      {cat.num}
-                    </span>
-                  </div>
+                  <Image
+                    src={cat.icon}
+                    alt=""
+                    width={56}
+                    height={56}
+                    className="h-14 w-14 transition-transform duration-300 group-hover:scale-105 md:h-16 md:w-16"
+                  />
                   <h3 className="mt-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
                     {cat.name}
                   </h3>
                   <p className="mt-3 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
                     {cat.desc}
                   </p>
-                  <div className="mt-auto flex items-center gap-1 pt-8 text-sm font-medium text-foreground transition-all group-hover:gap-2">
+                  <div className="mt-auto flex items-center gap-1 pt-8 text-base font-semibold text-foreground transition-all group-hover:gap-2">
                     Browse the catalog
-                    <ArrowUpRight className="h-4 w-4 arrow-slide text-brand-yellow" />
+                    <ArrowUpRight className="h-5 w-5 arrow-slide" style={{ color: "var(--brand-yellow)" }} />
                   </div>
                 </Link>
               </FadeIn>
@@ -200,114 +210,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Latest work gallery */}
-      <section className="bg-foreground text-background section-y">
-        <div className="container-wide">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <FadeIn className="max-w-3xl">
-              <p className="eyebrow text-brand-yellow">Latest work</p>
-              <h2 className="mt-5 font-display text-5xl font-semibold leading-[0.92] tracking-[-0.03em] md:text-6xl lg:text-7xl">
-                Real installations,<br />
-                <span className="text-background/55">recently delivered.</span>
-              </h2>
-            </FadeIn>
-            <FadeIn delay={0.05}>
-              <Button asChild size="lg" variant="outline" className="h-12 rounded-full border-white/25 bg-transparent px-7 text-base text-white hover:bg-white/10 hover:text-white">
-                <Link href="/work" className="group">
-                  See all installations
-                  <ArrowUpRight className="ml-1 h-4 w-4 arrow-slide" />
-                </Link>
-              </Button>
-            </FadeIn>
-          </div>
-
-          {/* Asymmetric gallery: 3-up on desktop, expanding to 4 photos */}
-          <div className="mt-16 grid grid-cols-2 gap-3 md:grid-cols-12 md:gap-5 lg:gap-6">
-            <FadeIn className="col-span-2 md:col-span-7">
-              <Link href="/work/marshall-sterling" className="group block">
-                <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                  <Image
-                    src={IMG.marshallSterling.gallery[0]}
-                    alt="Marshall and Sterling executive office"
-                    fill
-                    sizes="(min-width: 768px) 58vw, 100vw"
-                    className="image-zoom object-cover"
-                    quality={80}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent p-6 md:p-8">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/70">
-                      Insurance, Poughkeepsie
-                    </p>
-                    <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
-                      Marshall and Sterling
-                    </h3>
-                  </div>
-                </div>
-              </Link>
-            </FadeIn>
-            <FadeIn delay={0.05}>
-              <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                <Image
-                  src={IMG.marist.one}
-                  alt="Marist College installation"
-                  fill
-                  sizes="(min-width: 768px) 42vw, 50vw"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.08}>
-              <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                <Image
-                  src={IMG.marshallSterling.gallery[2]}
-                  alt="HVOF conference room installation"
-                  fill
-                  sizes="(min-width: 768px) 42vw, 50vw"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                <Image
-                  src={IMG.marshallSterling.gallery[3]}
-                  alt="HVOF workstation installation"
-                  fill
-                  sizes="(min-width: 768px) 42vw, 50vw"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.12}>
-              <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                <Image
-                  src={IMG.marshallSterling.gallery[4]}
-                  alt="HVOF lobby installation"
-                  fill
-                  sizes="(min-width: 768px) 42vw, 50vw"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.15}>
-              <div className="card-image-outline relative aspect-[4/5] overflow-hidden bg-muted md:aspect-[16/11]">
-                <Image
-                  src={IMG.marist.lobby}
-                  alt="Marist College lobby"
-                  fill
-                  sizes="(min-width: 768px) 42vw, 50vw"
-                  className="object-cover"
-                  quality={75}
-                />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+      {/* Interactive gallery */}
+      <InteractiveGallery shots={HOME_GALLERY_SHOTS} />
 
       {/* Chairs section, 4-up product cards */}
       <section className="bg-background section-y">
@@ -544,17 +448,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Final yellow closer */}
-      <section className="bg-brand-yellow section-y">
-        <div className="container-wide">
-          <FadeIn className="max-w-5xl">
-            <h2 className="font-display text-7xl font-semibold leading-[0.88] tracking-[-0.04em] md:text-9xl lg:text-[12rem] xl:text-[14rem]">
-              Let&apos;s design<br />your space.
-            </h2>
-            <p className="mt-10 max-w-2xl text-xl leading-relaxed text-foreground/80 md:text-2xl">
+      {/* Final yellow closer with scroll-driven horizontal text */}
+      <section className="section-y" style={{ backgroundColor: "var(--brand-yellow)" }}>
+        <div className="container-bleed">
+          <ScrollText
+            lines={["Let's design", "your space."]}
+            textClassName="font-display font-semibold leading-[0.88] tracking-[-0.04em] text-foreground text-[clamp(4rem,18vw,16rem)]"
+            travel={35}
+          />
+          <div className="container-wide mt-12">
+            <p className="max-w-2xl text-xl leading-relaxed text-foreground/80 md:text-2xl">
               Single-chair upgrade or a full-floor install. Get a quote in under 24 hours, often same-day for stocked items.
             </p>
-            <div className="mt-12 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
                 <Link href="/contact" className="group">
                   Start a project
@@ -571,7 +477,7 @@ export default function HomePage() {
                 <Link href={`tel:${SITE.contact.phoneE164}`}>{SITE.contact.phone}</Link>
               </Button>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>

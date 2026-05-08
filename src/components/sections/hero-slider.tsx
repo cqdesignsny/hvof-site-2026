@@ -123,28 +123,26 @@ export function HeroSlider({
           </motion.div>
         </div>
 
-        {/* Slide indicators + counter */}
+        {/* Slide indicators only, no counter */}
         <motion.div
           {...variants(0.6)}
-          className="mt-20 flex items-center justify-between gap-8 border-t border-white/15 pt-8 md:absolute md:right-12 md:bottom-12 md:mt-0 md:flex-col md:items-end md:border-0 md:pt-0"
+          className="mt-20 md:absolute md:right-12 md:bottom-12 md:mt-0"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             {slides.map((_, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setIndex(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`h-1 w-10 rounded-full transition-all ${
-                  i === index ? "bg-brand-yellow" : "bg-white/30 hover:bg-white/50"
-                }`}
+                aria-label={`Show slide ${i + 1}`}
+                className="h-1.5 w-12 rounded-full transition-all"
+                style={{
+                  backgroundColor:
+                    i === index ? "var(--brand-yellow)" : "rgba(255,255,255,0.28)",
+                }}
               />
             ))}
           </div>
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-white/55">
-            {String(index + 1).padStart(2, "0")} <span className="text-white/30">/</span>{" "}
-            {String(slides.length).padStart(2, "0")}
-          </p>
         </motion.div>
       </div>
     </section>

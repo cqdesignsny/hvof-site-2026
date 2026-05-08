@@ -56,18 +56,22 @@ export default function ECatalogPage() {
         </div>
       </section>
 
+      {/* Live flipbook embed. Right on the page so users do not need a second click. */}
       <section className="bg-background pb-24 md:pb-32">
         <div className="container-wide">
-          <div className="card-image-outline relative aspect-[16/9] w-full overflow-hidden bg-muted">
-            <Image
-              src={IMG.marshallSterling.angle7}
-              alt="HVOF showroom"
-              fill
-              sizes="100vw"
-              className="object-cover"
-              quality={80}
+          <div className="card-image-outline relative aspect-[3/4] w-full overflow-hidden bg-black md:aspect-[16/10]">
+            <iframe
+              title="HVOF 2026 Hudson Valley Office Catalog"
+              src="https://online.fliphtml5.com/jnqxv/2026_Hudson_Valley_Office_Catalog/#p=1"
+              className="absolute inset-0 h-full w-full"
+              allow="fullscreen"
+              allowFullScreen
+              loading="lazy"
             />
           </div>
+          <p className="mt-6 text-center text-sm text-muted-foreground md:text-base">
+            Use the arrow buttons inside the flipbook to flip pages, or click the fullscreen icon for a larger view.
+          </p>
         </div>
       </section>
 

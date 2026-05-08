@@ -150,13 +150,10 @@ export default function MarshallSterlingPage() {
           <div className="mt-16 grid gap-x-12 gap-y-2 md:grid-cols-3">
             {SCOPE.map((s, i) => (
               <FadeIn key={s.title} delay={i * 0.06} className="border-t border-background/15 py-8 md:py-10">
-                <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand-yellow">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-4 font-display text-2xl font-light tracking-tight md:text-3xl">
+                <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
                   {s.title}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-background/65 md:text-base">
+                <p className="mt-4 text-base leading-relaxed text-background/65 md:text-lg">
                   {s.body}
                 </p>
               </FadeIn>

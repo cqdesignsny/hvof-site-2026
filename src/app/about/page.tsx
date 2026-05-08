@@ -7,6 +7,7 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { TrustedBy } from "@/components/sections/trusted-by";
 import { TeamSection } from "@/components/sections/team-section";
+import { ScrollText } from "@/components/motion/scroll-text";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 
@@ -168,13 +169,10 @@ export default function AboutPage() {
                 delay={(i % 6) * 0.04}
                 className="border-t border-background/15 py-7 md:py-8"
               >
-                <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand-yellow">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-3 font-display text-2xl font-light leading-snug tracking-tight md:text-3xl">
+                <h3 className="font-display text-2xl font-semibold leading-snug tracking-tight md:text-3xl">
                   {v.title}
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-background/65 md:text-base">
+                <p className="mt-3 max-w-md text-base leading-relaxed text-background/65 md:text-lg">
                   {v.body}
                 </p>
               </FadeIn>
@@ -183,80 +181,44 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Showroom photos grid */}
-      <section className="bg-background section-y">
+      {/* HVOF in motion. The 30-second video served from the WP CDN */}
+      <section className="bg-background section-y-sm">
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
-            <p className="eyebrow text-muted-foreground">The showroom</p>
-            <h2 className="mt-4 font-display text-5xl font-light leading-[1] tracking-tight md:text-6xl lg:text-7xl">
-              37,000 square feet of<br />
-              working configurations.
+            <p className="eyebrow text-muted-foreground">HVOF in motion</p>
+            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1] tracking-tight md:text-5xl lg:text-6xl">
+              Thirty seconds in the showroom.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              Every category we sell, laid out at full scale. Sit in chairs, open drawers, walk through workstation pods. Bring your team for the day.
-            </p>
           </FadeIn>
-          <div className="mt-12 grid gap-3 md:grid-cols-12 md:gap-6">
-            <FadeIn className="md:col-span-7">
-              <div className="card-image-outline relative aspect-[4/3] overflow-hidden bg-muted">
-                <Image
-                  src={IMG.marshallSterling.angle7}
-                  alt="HVOF showroom"
-                  fill
-                  sizes="(min-width: 768px) 60vw, 100vw"
-                  className="image-zoom object-cover"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.1} className="md:col-span-5">
-              <div className="card-image-outline relative aspect-[4/3] overflow-hidden bg-muted md:aspect-auto md:h-full">
-                <Image
-                  src={IMG.marist.three}
-                  alt="HVOF showroom"
-                  fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
-                  className="image-zoom object-cover"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.15} className="md:col-span-5">
-              <div className="card-image-outline relative aspect-[4/3] overflow-hidden bg-muted">
-                <Image
-                  src={IMG.marshallSterling.angle20}
-                  alt="HVOF showroom"
-                  fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
-                  className="image-zoom object-cover"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2} className="md:col-span-7">
-              <div className="card-image-outline relative aspect-[4/3] overflow-hidden bg-muted">
-                <Image
-                  src={IMG.marist.five}
-                  alt="HVOF showroom"
-                  fill
-                  sizes="(min-width: 768px) 60vw, 100vw"
-                  className="image-zoom object-cover"
-                />
-              </div>
-            </FadeIn>
-          </div>
+          <FadeIn delay={0.1} className="mt-10">
+            <div className="card-image-outline relative aspect-video w-full overflow-hidden bg-black">
+              <video
+                src="https://thewowguys.com/wp-content/uploads/2024/04/HVOF-30.mp4"
+                controls
+                preload="metadata"
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+                poster={IMG.marshallSterling.gallery[0]}
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-brand-yellow section-y">
-        <div className="container-wide">
-          <FadeIn className="max-w-3xl">
-            <h2 className="font-display text-5xl font-light leading-[0.95] tracking-tight md:text-7xl lg:text-8xl xl:text-9xl">
-              Come see for yourself.
-            </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
+      {/* CTA with scroll-driven horizontal text */}
+      <section className="section-y" style={{ backgroundColor: "var(--brand-yellow)" }}>
+        <div className="container-bleed">
+          <ScrollText
+            lines={["Come see", "for yourself."]}
+            textClassName="font-display font-semibold leading-[0.88] tracking-[-0.04em] text-foreground text-[clamp(3.5rem,15vw,13rem)]"
+            travel={32}
+          />
+          <div className="container-wide mt-12">
+            <p className="max-w-2xl text-lg leading-relaxed text-foreground/80 md:text-xl">
               {SITE.address.street}, {SITE.address.city}, {SITE.address.region}. Walk-ins welcome Monday through Friday.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base text-background hover:bg-foreground/90">
+              <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base font-semibold text-background hover:bg-foreground/90">
                 <Link href="/contact" className="group">
                   Plan a visit
                   <ArrowUpRight className="ml-1 h-4 w-4 arrow-slide" />
@@ -266,7 +228,7 @@ export default function AboutPage() {
                 <Link href={`tel:${SITE.contact.phoneE164}`}>{SITE.contact.phone}</Link>
               </Button>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>

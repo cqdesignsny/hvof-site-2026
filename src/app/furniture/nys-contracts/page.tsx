@@ -25,10 +25,10 @@ const ELIGIBLE = [
 ];
 
 const PROCESS = [
-  { step: "01", title: "Tell us your contract number", body: "OGS, county, or institutional. We confirm eligibility and pull contract pricing." },
-  { step: "02", title: "We spec the room", body: "Floor plans, furniture specifications, finishes, and installation timeline. Free with the quote." },
-  { step: "03", title: "Quote on letterhead", body: "Itemized quote with contract reference numbers, ready for your procurement team." },
-  { step: "04", title: "PO, delivery, install", body: "We accept POs from approved entities. Our crews handle delivery and installation." },
+  { title: "Tell us your contract number", body: "OGS, county, or institutional. We confirm eligibility and pull contract pricing." },
+  { title: "We spec the room", body: "Floor plans, furniture specifications, finishes, and installation timeline. Free with the quote." },
+  { title: "Quote on letterhead", body: "Itemized quote with contract reference numbers, ready for your procurement team." },
+  { title: "PO, delivery, install", body: "We accept POs from approved entities. Our crews handle delivery and installation." },
 ];
 
 const FAQS = [
@@ -148,9 +148,8 @@ export default function NYSContractsPage() {
           </FadeIn>
           <div className="mt-16 grid gap-x-12 gap-y-2 md:grid-cols-2 lg:grid-cols-4">
             {PROCESS.map((p, i) => (
-              <FadeIn key={p.step} delay={i * 0.05} className="border-t border-background/15 py-8 md:py-10">
-                <p className="font-mono text-xs uppercase tracking-[0.25em] text-brand-yellow">{p.step}</p>
-                <h3 className="mt-4 font-display text-2xl font-semibold tracking-tight md:text-3xl">{p.title}</h3>
+              <FadeIn key={p.title} delay={i * 0.05} className="border-t border-background/15 py-8 md:py-10">
+                <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{p.title}</h3>
                 <p className="mt-4 text-base leading-relaxed text-background/65 md:text-lg">{p.body}</p>
               </FadeIn>
             ))}

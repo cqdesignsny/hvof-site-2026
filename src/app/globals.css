@@ -20,6 +20,7 @@
   --color-brand-ink: var(--brand-ink);
   --color-brand-paper: var(--brand-paper);
   --color-brand-cream: var(--brand-cream);
+  --color-brand-graphite: var(--brand-graphite);
 
   /* Standard shadcn surface tokens */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -61,12 +62,13 @@
 }
 
 :root {
-  /* HVOF brand palette */
-  --brand-yellow: oklch(0.857 0.156 91.5);       /* #e7c920 */
-  --brand-yellow-hover: oklch(0.808 0.149 90.5); /* #d4b71c */
-  --brand-ink: oklch(0 0 0);                     /* pure black #000 */
-  --brand-paper: oklch(1 0 0);                   /* white */
-  --brand-cream: oklch(0.97 0 0);                /* #f5f5f5 */
+  /* HVOF brand palette. Locked. Do not introduce other yellows. */
+  --brand-yellow: #E7C81F;        /* THE brand yellow */
+  --brand-yellow-hover: #d4b71c;  /* slightly darker for hover */
+  --brand-ink: #000000;           /* pure black */
+  --brand-paper: #ffffff;         /* pure white */
+  --brand-cream: #f5f5f5;         /* light gray surface */
+  --brand-graphite: #1a1a1a;      /* dark gray, not blue, for trusted-by bg */
 
   /* Surfaces. light mode default for editorial feel */
   --card: oklch(1 0 0);
@@ -245,13 +247,17 @@
     transform: scale(1.045);
   }
 
-  /* Card with ring + lift on hover */
+  /* Yellow-outlined card. Brand yellow visible at rest, intensifies on hover. */
   .card-interactive {
-    @apply relative overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 ease-out;
+    @apply relative overflow-hidden rounded-2xl bg-card transition-all duration-300 ease-out;
+    border: 2px solid var(--brand-yellow);
+    box-shadow: 0 0 0 0 transparent;
   }
   .card-interactive:hover {
-    @apply border-foreground/40 shadow-2xl;
-    transform: translateY(-2px);
+    border-color: var(--brand-yellow);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-yellow) 40%, transparent),
+                0 18px 36px -12px rgba(0,0,0,0.18);
+    transform: translateY(-3px);
   }
 
   /* Outline on hover, for image-only cards */
