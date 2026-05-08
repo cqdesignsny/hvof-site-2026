@@ -1,5 +1,12 @@
 import Link from "next/link";
 import { ArrowUpRight, Phone, MapPin } from "lucide-react";
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/site/social-icons";
+
+const SOCIAL_ICONS = {
+  facebook: FacebookIcon,
+  instagram: InstagramIcon,
+  linkedin: LinkedInIcon,
+} as const;
 import { Logo } from "@/components/site/logo";
 import { Separator } from "@/components/ui/separator";
 import { NAV, SITE } from "@/lib/site";
@@ -90,18 +97,23 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-background/80">Privacy</Link>
             <Link href="/sitemap.xml" className="hover:text-background/80">Sitemap</Link>
           </div>
-          <div className="flex items-center gap-5">
-            {Object.entries(SITE.social).map(([key, url]) => (
-              <Link
-                key={key}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs uppercase tracking-wider text-background/50 hover:text-background"
-              >
-                {key}
-              </Link>
-            ))}
+          <div className="flex items-center gap-3">
+            {Object.entries(SITE.social).map(([key, url]) => {
+              const Icon = SOCIAL_ICONS[key as keyof typeof SOCIAL_ICONS];
+              if (!Icon) return null;
+              return (
+                <Link
+                  key={key}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={key}
+                  className="grid h-10 w-10 place-items-center rounded-full bg-background/5 text-background/65 transition-colors hover:bg-background/15 hover:text-background"
+                >
+                  <Icon className="h-4 w-4" />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@ export default function PodsPage() {
       eyebrow="Furniture, Pods + Phonebooths"
       title="Quiet rooms, dropped wherever you need them."
       intro="Acoustic phonebooths and meeting pods that turn open-plan square footage into focus space. Pre-wired, ventilated, and ready for video calls."
-      heroImage={IMG.marshallSterling.gallery[3]}
+      heroImage={IMG.marshallSterling.gallery[6]}
       heroAlt="HVOF acoustic pod installation"
       breadcrumb="Pods + Phonebooths"
       href="/furniture/pods"

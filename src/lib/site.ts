@@ -59,6 +59,8 @@ export const SITE = {
   social: {
     facebook: "https://www.facebook.com/HVOfficeFurniture/",
     instagram: "https://www.instagram.com/hv_office_furniture/",
+    // Placeholder. Confirm or update the company URL.
+    linkedin: "https://www.linkedin.com/company/hudson-valley-office-furniture/",
   },
 
   /** Trusted-by partner logos. Sourced from the live thewowguys.com CDN. */

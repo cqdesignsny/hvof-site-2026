@@ -23,18 +23,20 @@ const HERO_SLIDES = [
   { src: IMG.marshallSterling.gallery[3], alt: "HVOF workstation installation" },
 ];
 
-/** Home gallery shots. Just show the client tag, no descriptive caption (those were guesses). */
+/**
+ * Home gallery shots. Hand-picked for visual variety so the thumbnail rail
+ * does not look like the same room repeated. Alternates M+S and Marist,
+ * mixes outdoor / interior / lobby / detail.
+ */
 const HOME_GALLERY_SHOTS: GalleryShot[] = [
-  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.gallery[0], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.gallery[1], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling rooftop", client: "Marshall + Sterling" },
   { src: IMG.marist.one, alt: "Marist College install", client: "Marist College" },
-  { src: IMG.marshallSterling.gallery[2], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marist.lobby, alt: "Marist College install", client: "Marist College" },
-  { src: IMG.marshallSterling.gallery[3], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marist.three, alt: "Marist College install", client: "Marist College" },
   { src: IMG.marshallSterling.detail22, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marshallSterling.angle14, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.lobby, alt: "Marist College lobby", client: "Marist College" },
+  { src: IMG.marshallSterling.angle7, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.two, alt: "Marist College install", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[5], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marist.four, alt: "Marist College install", client: "Marist College" },
 ];
 
 const CATEGORIES = [

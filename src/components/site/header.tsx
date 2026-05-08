@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, ArrowUpRight, Phone } from "lucide-react";
+import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/site/social-icons";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -51,6 +52,38 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Social icons. Hidden under md to keep mobile clean. */}
+          <div className="hidden items-center gap-1 lg:flex">
+            <Link
+              href={SITE.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <FacebookIcon className="h-4 w-4" />
+            </Link>
+            <Link
+              href={SITE.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <InstagramIcon className="h-4 w-4" />
+            </Link>
+            <Link
+              href={SITE.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="grid h-8 w-8 place-items-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              <LinkedInIcon className="h-4 w-4" />
+            </Link>
+            <span className="mx-1 h-4 w-px bg-white/15" aria-hidden="true" />
+          </div>
+
           <Link
             href={`tel:${SITE.contact.phoneE164}`}
             className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-white/85 hover:text-white lg:inline-flex"
@@ -108,6 +141,37 @@ export function Header() {
                     >
                       <Phone className="h-3.5 w-3.5" />
                       {SITE.contact.phone}
+                    </Link>
+                  </div>
+
+                  <div className="mt-8 flex items-center gap-2 border-t pt-6">
+                    <span className="eyebrow text-muted-foreground">Follow</span>
+                    <Link
+                      href={SITE.social.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10"
+                    >
+                      <FacebookIcon className="h-4 w-4" />
+                    </Link>
+                    <Link
+                      href={SITE.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10"
+                    >
+                      <InstagramIcon className="h-4 w-4" />
+                    </Link>
+                    <Link
+                      href={SITE.social.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-foreground/5 text-foreground transition-colors hover:bg-foreground/10"
+                    >
+                      <LinkedInIcon className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>

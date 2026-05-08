@@ -14,7 +14,7 @@ export default function ReceptionPage() {
       eyebrow="Furniture, Reception"
       title="The first thing every visitor sees."
       intro="Reception desks, lobby seating, and the front-door environment that tells visitors what kind of company you are. Stock and custom builds, finished to match your brand."
-      heroImage={IMG.marist.lobby}
+      heroImage={IMG.marist.four}
       heroAlt="HVOF reception installation"
       breadcrumb="Reception"
       href="/furniture/reception"
