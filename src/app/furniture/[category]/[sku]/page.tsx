@@ -27,9 +27,13 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
   const { sku } = await params;
   const product = getProductBySku(sku);
   if (!product) return { title: "Product not found" };
+  const priceTail =
+    typeof product.price === "number"
+      ? `${formatPrice(product.price)}. Add to your HVOF quote cart.`
+      : "Quote on request from HVOF.";
   return {
     title: product.name,
-    description: `${product.description} ${formatPrice(product.price)}. Add to your HVOF quote cart.`,
+    description: `${product.description} ${priceTail}`,
   };
 }
 
@@ -38,7 +42,8 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
   const product = getProductBySku(sku);
   if (!product || product.category !== category) notFound();
 
-  const isOnSale = product.originalPrice && product.originalPrice > product.price;
+  const hasPrice = typeof product.price === "number";
+  const isOnSale = hasPrice && product.originalPrice && product.originalPrice > (product.price ?? 0);
   // Related products: same category, exclude current. Up to 4.
   const related = getProductsByCategory(product.category)
     .filter((p) => p.sku !== product.sku)
@@ -70,16 +75,17 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
           <div className="mt-8 grid gap-12 md:grid-cols-12 md:gap-16 lg:gap-20">
             {/* Image column */}
             <FadeIn className="md:col-span-7">
-              <div className="card-image-outline relative aspect-[4/3] w-full overflow-hidden bg-muted">
+              <div className="card-image-outline relative aspect-square w-full overflow-hidden bg-white">
                 {product.image ? (
                   <Image
                     src={product.image}
                     alt={product.name}
                     fill
                     sizes="(min-width: 768px) 60vw, 100vw"
-                    className="object-cover"
+                    className="object-contain p-12 md:p-16"
                     quality={85}
                     priority
+                    unoptimized={product.image.includes("imagelibrary.ais-inc.com")}
                   />
                 ) : (
                   <div className="grid h-full place-items-center text-muted-foreground/40">
@@ -114,24 +120,51 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
               <p className="mt-3 font-mono text-xs text-muted-foreground">SKU, {product.sku}</p>
 
               <div className="mt-8 flex items-baseline gap-3">
-                <span className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
-                  {formatPrice(product.price)}
-                </span>
-                {isOnSale ? (
-                  <span className="font-mono text-base text-muted-foreground line-through">
-                    {formatPrice(product.originalPrice!)}
+                {hasPrice ? (
+                  <>
+                    <span className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
+                      {formatPrice(product.price!)}
+                    </span>
+                    {isOnSale ? (
+                      <span className="font-mono text-base text-muted-foreground line-through">
+                        {formatPrice(product.originalPrice!)}
+                      </span>
+                    ) : null}
+                  </>
+                ) : (
+                  <span className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                    Quote on request
                   </span>
-                ) : null}
+                )}
               </div>
               <p className="mt-2 text-sm text-muted-foreground">
-                Showroom list price. Final quote includes contract pricing, freight, and any active promotions.
+                {hasPrice
+                  ? "Showroom list price. Final quote includes contract pricing, freight, and any active promotions."
+                  : "Custom-spec'd line. Tell us what you need and we'll send back pricing, lead time, and finish options."}
               </p>
 
               <div className="mt-10">
-                <AddToQuoteButton product={product} className="w-full md:w-auto" />
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Adds to your purchase-order cart. Submit when ready, we email a finalized quote within 24 hours. Payment processed offline.
-                </p>
+                {hasPrice ? (
+                  <>
+                    <AddToQuoteButton product={product} className="w-full md:w-auto" />
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Adds to your purchase-order cart. Submit when ready, we email a finalized quote within 24 hours. Payment processed offline.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href={`/quote-request?product=${encodeURIComponent(product.sku)}`}
+                      className="inline-flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-foreground px-7 text-base font-semibold text-background transition-colors hover:bg-foreground/90 md:w-auto"
+                    >
+                      Connect with an Expert
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      Send a quick note and we&apos;ll come back with pricing, finishes, and lead time within 24 hours.
+                    </p>
+                  </>
+                )}
               </div>
 
               <div className="mt-10 space-y-5 border-t pt-8">

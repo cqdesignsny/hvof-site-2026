@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function DesksPage() {
   return (
     <CategoryTemplate
+      category="desks"
       eyebrow="Furniture, Desks"
       title="Desks built around the way you actually work."
       intro="Single sit-stand for the home office. Bench-seating systems for thirty engineers. Walnut executive suites. We spec the right top, the right column, and the right cable management for every floor."

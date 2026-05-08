@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function PreOwnedPage() {
   return (
     <CategoryTemplate
+      category="preowned"
       eyebrow="Furniture, Pre-Owned"
       title="Tier-A brands. Half the price. Same warranty discipline."
       intro="We inspect, clean, and warranty every pre-owned piece in our showroom. For startups, expansions, or anyone watching the budget, pre-owned is often the smarter buy."

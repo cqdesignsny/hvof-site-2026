@@ -11,11 +11,12 @@ export const metadata: Metadata = {
 export default function HealthcarePage() {
   return (
     <CategoryTemplate
+      category="healthcare"
       eyebrow="Furniture, Healthcare"
       title="Furniture for the rooms where people heal."
       intro="Patient rooms, exam rooms, waiting areas, and nurse stations. Antimicrobial finishes, cleanable surfaces, bariatric ratings, and the comfort that long days demand."
-      heroImage={IMG.marist.lobby}
-      heroAlt="HVOF healthcare installation"
+      heroImage={IMG.marshallSterling.gallery[4]}
+      heroAlt="HVOF healthcare-style install"
       breadcrumb="Healthcare"
       href="/furniture/healthcare"
       subCategories={[

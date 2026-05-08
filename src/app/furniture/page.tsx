@@ -18,7 +18,7 @@ const COVER_IMAGES: Record<string, string> = {
   Seating: IMG.marshallSterling.angle14,
   Desks: IMG.marist.three,
   Conference: IMG.marshallSterling.gallery[0],
-  "Pods & Phonebooths": IMG.marshallSterling.gallery[3],
+  "Panel Systems and Pods": IMG.marshallSterling.gallery[3],
   Healthcare: IMG.marist.lobby,
   Education: IMG.marist.four,
   "Pre-Owned": IMG.marshallSterling.angle20,
@@ -105,7 +105,7 @@ export default function FurniturePage() {
               variant="outline"
               className="h-12 rounded-full border-white/25 bg-transparent px-7 text-base text-white hover:bg-white/10 hover:text-white"
             >
-              <Link href="/contact">Talk to a specialist</Link>
+              <Link href="/quote-request">Connect with an Expert</Link>
             </Button>
           </div>
         </div>

@@ -158,6 +158,12 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent any wide element (marquee, scroll-text, etc) from creating
+       horizontal scroll. clip lets sticky still work; hidden would not. */
+    overflow-x: clip;
+  }
+  body {
+    overflow-x: clip;
   }
   @media (min-width: 1280px) {
     html {

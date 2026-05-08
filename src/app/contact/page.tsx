@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Phone, MapPin, Clock, Mail } from "lucide-react";
-import { LeadForm } from "@/components/forms/lead-form";
+import { Phone, MapPin, Clock, Mail, ArrowUpRight } from "lucide-react";
+import { SimpleContactForm } from "@/components/forms/simple-contact-form";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a project with Hudson Valley Office Furniture. Quotes within 24 hours. Visit our 37,000 sqft showroom in Wappingers Falls.",
+    "Send us a message. For full project intake with pricing, visit Request a Quote. Visit our 37,000 sqft showroom in Wappingers Falls.",
 };
 
 export default function ContactPage() {
@@ -20,11 +20,14 @@ export default function ContactPage() {
         <div className="container-editorial">
           <p className="eyebrow text-muted-foreground">Contact</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
-            Let&apos;s design<br />
-            <span className="text-muted-foreground">your space.</span>
+            Drop us a line.
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Single-chair upgrade or a full-floor install. Tell us about your project and we&apos;ll have a quote in your inbox, often same-day.
+            Quick question, follow-up, or anything else. For a project intake with pricing and timeline, head to{" "}
+            <Link href="/quote-request" className="underline-offset-4 hover:underline">
+              Request a Quote
+            </Link>
+            .
           </p>
         </div>
       </section>
@@ -67,7 +70,19 @@ export default function ContactPage() {
 
             {/* Right: form */}
             <div className="md:col-span-8">
-              <LeadForm />
+              <SimpleContactForm />
+              <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl border bg-muted/30 p-5">
+                <p className="text-sm text-muted-foreground md:text-base">
+                  Looking for a quote on a project? Use Request a Quote for a faster response.
+                </p>
+                <Link
+                  href="/quote-request"
+                  className="ml-auto inline-flex items-center gap-1 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-85"
+                >
+                  Request a Quote
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -97,7 +97,7 @@ export function Header() {
             size="sm"
             className="hidden md:inline-flex h-9 rounded-full bg-brand-yellow px-4 text-sm font-medium text-foreground hover:bg-brand-yellow-hover"
           >
-            <Link href="/contact">
+            <Link href="/quote-request">
               Get a quote
               <ArrowUpRight className="ml-0.5 h-3.5 w-3.5" />
             </Link>
@@ -182,7 +182,7 @@ export function Header() {
                     size="lg"
                     className="h-12 w-full rounded-full bg-brand-yellow text-base text-foreground hover:bg-brand-yellow-hover"
                   >
-                    <Link href="/contact" onClick={() => setOpen(false)}>
+                    <Link href="/quote-request" onClick={() => setOpen(false)}>
                       Get a quote
                       <ArrowUpRight className="ml-1 h-4 w-4" />
                     </Link>

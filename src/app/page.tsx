@@ -30,22 +30,25 @@ const HERO_SLIDES = [
  */
 const HOME_GALLERY_SHOTS: GalleryShot[] = [
   { src: IMG.marshallSterling.rooftop, alt: "Marshall and Sterling rooftop", client: "Marshall + Sterling" },
-  { src: IMG.marist.one, alt: "Marist College install", client: "Marist College" },
+  { src: IMG.marist.three, alt: "Marist College install", client: "Marist College" },
   { src: IMG.marshallSterling.detail22, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
-  { src: IMG.marist.lobby, alt: "Marist College lobby", client: "Marist College" },
+  { src: IMG.marshallSterling.gallery[5], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
   { src: IMG.marshallSterling.angle7, alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
   { src: IMG.marist.two, alt: "Marist College install", client: "Marist College" },
-  { src: IMG.marshallSterling.gallery[5], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
+  { src: IMG.marshallSterling.gallery[8], alt: "Marshall and Sterling install", client: "Marshall + Sterling" },
   { src: IMG.marist.four, alt: "Marist College install", client: "Marist College" },
 ];
 
 const CATEGORIES = [
-  { name: "Seating", href: "/furniture/seating", icon: "/icons/chair.svg", desc: "Task, executive, ergonomic, conference. Steelcase, Herman Miller, Knoll, Humanscale, HON." },
-  { name: "Desks", href: "/furniture/desks", icon: "/icons/desk.svg", desc: "Sit-stand, executive, benching, height-adjustable. Single units to floor-wide." },
-  { name: "Conference", href: "/furniture/conference", icon: "/icons/conference.svg", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
+  { name: "Seating", href: "/furniture/seating", icon: "/icons/chair.webp", desc: "Task, executive, ergonomic, conference. Steelcase, Herman Miller, Knoll, Humanscale, HON." },
+  { name: "Desks", href: "/furniture/desks", icon: "/icons/desk.webp", desc: "Sit-stand, executive, benching, height-adjustable. Single units to floor-wide." },
+  { name: "Conference", href: "/furniture/conference", icon: "/icons/round-table.webp", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
+  { name: "Panel Systems and Pods", href: "/furniture/pods", icon: "/icons/cubicle.webp", desc: "AIS Divi panel systems, cubicles, and acoustic phone booths." },
+  { name: "Healthcare", href: "/furniture/healthcare", icon: "/icons/doctors-room.webp", desc: "Patient rooms, exam rooms, waiting areas, and nurse stations." },
+  { name: "Education", href: "/furniture/education", icon: "/icons/classroom.webp", desc: "Classrooms, lecture halls, faculty offices, libraries, and student lounges." },
   { name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
-  { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.svg", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
-  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.svg", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
+  { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.webp", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
+  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.webp", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
 ];
 
 const FAQS = [
@@ -178,7 +181,7 @@ export default function HomePage() {
               Built for real life.
             </h2>
             <p className="mt-8 max-w-2xl text-xl leading-[1.5] text-muted-foreground md:text-2xl">
-              Six categories of working office furniture, all stocked at the showroom. Browse, build a quote, and we follow up the same day.
+              Every category of working office furniture, all stocked at the showroom. Browse, build a quote, and we follow up the same day.
             </p>
           </FadeIn>
 
@@ -194,7 +197,7 @@ export default function HomePage() {
                     alt=""
                     width={56}
                     height={56}
-                    className="h-14 w-14 transition-transform duration-300 group-hover:scale-105 md:h-16 md:w-16"
+                    className="h-14 w-14 grayscale opacity-80 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100 md:h-16 md:w-16"
                   />
                   <h3 className="mt-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
                     {cat.name}
@@ -465,8 +468,8 @@ export default function HomePage() {
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
-                <Link href="/contact" className="group">
-                  Start a project
+                <Link href="/quote-request" className="group">
+                  Connect with an Expert
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
               </Button>

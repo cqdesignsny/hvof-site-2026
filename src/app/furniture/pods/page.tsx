@@ -3,20 +3,21 @@ import { CategoryTemplate } from "@/components/sections/category-template";
 import { IMG } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "Pods + Phonebooths",
+  title: "Panel Systems and Pods",
   description:
-    "Acoustic privacy spaces for the open office. Phonebooths, meeting pods, and focus rooms with integrated lighting, ventilation, and AV-ready power.",
+    "Open-plan panel systems, cubicles, acoustic phone booths, and meeting pods. AIS Divi, AIS Matrix, and ROOM brand pre-wired and pre-engineered options.",
 };
 
 export default function PodsPage() {
   return (
     <CategoryTemplate
-      eyebrow="Furniture, Pods + Phonebooths"
-      title="Quiet rooms, dropped wherever you need them."
-      intro="Acoustic phonebooths and meeting pods that turn open-plan square footage into focus space. Pre-wired, ventilated, and ready for video calls."
+      category="pods"
+      eyebrow="Furniture, Panel Systems and Pods"
+      title="Panels, cubicles, and quiet rooms."
+      intro="Open-plan panel systems for the floor, cubicles for the team, and acoustic pods for focus and video calls. AIS Divi, AIS Matrix, and ROOM lines installed and serviced in-house."
       heroImage={IMG.marshallSterling.gallery[6]}
-      heroAlt="HVOF acoustic pod installation"
-      breadcrumb="Pods + Phonebooths"
+      heroAlt="HVOF panel system and acoustic pod installation"
+      breadcrumb="Panel Systems and Pods"
       href="/furniture/pods"
       subCategories={[
         { name: "Single-person phonebooths", description: "30 NRC sound rating, integrated power-USB, stand-or-sit. Most popular: Frame, Loop, Q-Series.", startingPrice: "From $5,499" },

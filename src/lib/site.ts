@@ -167,7 +167,7 @@ export const NAV = {
     { label: "Seating", href: "/furniture/seating", description: "Task, executive, ergonomic, conference." },
     { label: "Desks", href: "/furniture/desks", description: "Sit-stand, executive, benching." },
     { label: "Conference", href: "/furniture/conference", description: "Boardrooms and meeting rooms." },
-    { label: "Pods & Phonebooths", href: "/furniture/pods", description: "Acoustic privacy spaces." },
+    { label: "Panel Systems and Pods", href: "/furniture/pods", description: "Cubicles, open-plan panels, and acoustic phone booths." },
     { label: "Healthcare", href: "/furniture/healthcare", description: "Patient and clinical seating." },
     { label: "Education", href: "/furniture/education", description: "Classroom and lecture seating." },
     { label: "Pre-Owned", href: "/furniture/preowned", description: "Inspected, refurbished, save up to 70%." },

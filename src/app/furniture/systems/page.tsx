@@ -168,8 +168,8 @@ export default function SystemsPage() {
             </h2>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
-                <Link href="/contact" className="group">
-                  Start a quote
+                <Link href="/quote-request" className="group">
+                  Connect with an Expert
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
               </Button>

@@ -112,7 +112,7 @@ export default function SeatingPage() {
                 variant="outline"
                 className="h-12 rounded-full border-white/30 bg-transparent px-7 text-base text-white hover:bg-white/10 hover:text-white"
               >
-                <Link href="/contact">Or talk to a specialist</Link>
+                <Link href="/quote-request">Or connect with an expert</Link>
               </Button>
             </div>
           </FadeIn>

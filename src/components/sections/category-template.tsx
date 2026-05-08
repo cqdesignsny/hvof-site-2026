@@ -5,7 +5,9 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { ScrollText } from "@/components/motion/scroll-text";
 import { FAQSection } from "@/components/sections/faq-section";
+import { ProductCard } from "@/components/quote/product-card";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
+import { getProductsByCategory, type ProductCategory } from "@/lib/products";
 import { SITE } from "@/lib/site";
 
 interface SubCategory {
@@ -15,6 +17,8 @@ interface SubCategory {
 }
 
 interface CategoryTemplateProps {
+  /** Product category to render the showcase grid from */
+  category: ProductCategory;
   eyebrow: string;
   title: string;
   intro: string;
@@ -25,9 +29,13 @@ interface CategoryTemplateProps {
   faqs: { question: string; answer: string }[];
   breadcrumb: string;
   href: string;
+  /** Optional override on the showcase heading copy */
+  showcaseHeading?: string;
+  showcaseEyebrow?: string;
 }
 
 export function CategoryTemplate({
+  category,
   eyebrow,
   title,
   intro,
@@ -38,7 +46,11 @@ export function CategoryTemplate({
   faqs,
   breadcrumb,
   href,
+  showcaseHeading = "Lines we spec.",
+  showcaseEyebrow = "Featured selections",
 }: CategoryTemplateProps) {
+  const products = getProductsByCategory(category);
+
   return (
     <>
       <BreadcrumbSchema
@@ -95,6 +107,28 @@ export function CategoryTemplate({
         </div>
       </section>
 
+      {/* Product showcase grid */}
+      {products.length > 0 ? (
+        <section className="bg-background section-y border-t border-border">
+          <div className="container-wide">
+            <FadeIn className="max-w-3xl">
+              <p className="eyebrow text-muted-foreground">{showcaseEyebrow}</p>
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+                {showcaseHeading}
+              </h2>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                A snapshot of the brands and lines we stock and spec for this category. Inquire on any line and we&apos;ll come back with finishes, lead time, and pricing.
+              </p>
+            </FadeIn>
+            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {products.map((p) => (
+                <ProductCard key={p.sku} product={p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* Features */}
       <section className="bg-muted section-y-sm">
         <div className="container-editorial">
@@ -133,8 +167,8 @@ export function CategoryTemplate({
           <div className="container-wide mt-10">
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
-                <Link href="/contact" className="group">
-                  Get a quote
+                <Link href="/quote-request" className="group">
+                  Request a quote
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
               </Button>

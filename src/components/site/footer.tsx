@@ -80,10 +80,10 @@ export function Footer() {
           <div className="md:col-span-2">
             <p className="eyebrow text-background/50">Start a project</p>
             <Link
-              href="/contact"
+              href="/quote-request"
               className="group mt-5 inline-flex items-center gap-1 text-base font-medium text-brand-yellow hover:text-brand-yellow-hover"
             >
-              Get a quote
+              Connect with an Expert
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>

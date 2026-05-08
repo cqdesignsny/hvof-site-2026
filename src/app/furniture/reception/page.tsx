@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function ReceptionPage() {
   return (
     <CategoryTemplate
+      category="reception"
       eyebrow="Furniture, Reception"
       title="The first thing every visitor sees."
       intro="Reception desks, lobby seating, and the front-door environment that tells visitors what kind of company you are. Stock and custom builds, finished to match your brand."

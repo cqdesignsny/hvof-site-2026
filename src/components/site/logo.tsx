@@ -9,9 +9,9 @@ interface LogoProps {
 }
 
 const SIZE_PX = {
-  sm: { h: 32, w: 60 },
-  md: { h: 42, w: 79 },
-  lg: { h: 64, w: 120 },
+  sm: { h: 40, w: 75 },
+  md: { h: 53, w: 99 },
+  lg: { h: 80, w: 150 },
 };
 
 /**

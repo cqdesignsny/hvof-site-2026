@@ -85,7 +85,7 @@ export default function HudsonValleyPage() {
                 className="h-14 rounded-full px-8 text-base font-semibold text-foreground hover:opacity-90"
                 style={{ backgroundColor: "var(--brand-yellow)" }}
               >
-                <Link href="/contact" className="group">
+                <Link href="/quote-request" className="group">
                   Request a quote
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
@@ -194,8 +194,8 @@ export default function HudsonValleyPage() {
           <div className="container-wide mt-10">
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
-                <Link href="/contact" className="group">
-                  Start a project
+                <Link href="/quote-request" className="group">
+                  Connect with an Expert
                   <ArrowUpRight className="ml-1 h-5 w-5 arrow-slide" />
                 </Link>
               </Button>

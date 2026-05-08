@@ -65,8 +65,8 @@ export function LocalLandingTemplate({
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">{intro}</p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full bg-brand-yellow px-6 text-base text-foreground hover:bg-brand-yellow-hover">
-                <Link href="/contact">
-                  Get a quote
+                <Link href="/quote-request">
+                  Connect with an Expert
                   <ArrowUpRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>
@@ -178,8 +178,8 @@ export function LocalLandingTemplate({
             </div>
           </div>
           <Button asChild className="rounded-full" size="lg">
-            <Link href="/contact">
-              Get a quote
+            <Link href="/quote-request">
+              Request a quote
               <ArrowUpRight className="ml-1 h-4 w-4" />
             </Link>
           </Button>
@@ -201,8 +201,8 @@ export function LocalLandingTemplate({
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full bg-foreground px-6 text-base text-background hover:bg-foreground/90">
-                <Link href="/contact">
-                  Start a project
+                <Link href="/quote-request">
+                  Connect with an Expert
                   <ArrowUpRight className="ml-1 h-4 w-4" />
                 </Link>
               </Button>

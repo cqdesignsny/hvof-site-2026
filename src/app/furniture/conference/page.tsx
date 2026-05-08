@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function ConferencePage() {
   return (
     <CategoryTemplate
+      category="conference"
       eyebrow="Furniture, Conference"
       title="Boardrooms, training rooms, and the spaces between."
       intro="Conference tables in every shape, scale, and finish. Matched seating in suites of six, eight, twelve, or thirty. Power and AV grommets cut where you need them."

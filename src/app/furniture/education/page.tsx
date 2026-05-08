@@ -11,11 +11,12 @@ export const metadata: Metadata = {
 export default function EducationPage() {
   return (
     <CategoryTemplate
+      category="education"
       eyebrow="Furniture, Education"
       title="Classrooms, faculty offices, and the library."
       intro="K through 12, BOCES, and higher-ed. We have furnished classrooms, lecture halls, faculty suites, and library commons across the Hudson Valley for forty years."
-      heroImage={IMG.marist.one}
-      heroAlt="HVOF education installation"
+      heroImage={IMG.marist.two}
+      heroAlt="HVOF education installation, Marist College"
       breadcrumb="Education"
       href="/furniture/education"
       subCategories={[

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { AddToQuoteButton } from "@/components/quote/add-to-quote-button";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
@@ -9,20 +10,25 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const isOnSale = product.originalPrice && product.originalPrice > product.price;
+  const hasPrice = typeof product.price === "number";
+  const isOnSale = hasPrice && product.originalPrice && product.originalPrice > (product.price ?? 0);
   const detailHref = `/furniture/${product.category}/${product.sku}`;
+  // AIS image library blocks Next.js image-optimizer requests (no Referer header).
+  // Loading direct in the browser sends Referer, so we skip the proxy for AIS URLs.
+  const isAisHosted = product.image?.includes("imagelibrary.ais-inc.com") ?? false;
 
   return (
     <div className="card-interactive group flex flex-col overflow-hidden">
       <Link href={detailHref} className="block">
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+        <div className="relative aspect-square overflow-hidden bg-white">
           {product.image ? (
             <Image
               src={product.image}
               alt={product.name}
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-              className="image-zoom object-cover"
+              className="object-contain p-8 transition-opacity duration-500 group-hover:opacity-95"
+              unoptimized={isAisHosted}
             />
           ) : (
             <div className="grid h-full place-items-center text-muted-foreground/40">
@@ -59,18 +65,36 @@ export function ProductCard({ product }: ProductCardProps) {
         </Link>
 
         <div className="mt-auto flex items-baseline gap-2 pt-2">
-          <span className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
-            {formatPrice(product.price)}
-          </span>
-          {isOnSale ? (
-            <span className="font-mono text-xs text-muted-foreground line-through">
-              {formatPrice(product.originalPrice!)}
+          {hasPrice ? (
+            <>
+              <span className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+                {formatPrice(product.price!)}
+              </span>
+              {isOnSale ? (
+                <span className="font-mono text-xs text-muted-foreground line-through">
+                  {formatPrice(product.originalPrice!)}
+                </span>
+              ) : null}
+            </>
+          ) : (
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+              Quote on request
             </span>
-          ) : null}
+          )}
         </div>
 
         <div className="flex items-center gap-2 pt-2">
-          <AddToQuoteButton product={product} className="flex-1" />
+          {hasPrice ? (
+            <AddToQuoteButton product={product} className="flex-1" />
+          ) : (
+            <Link
+              href={`/quote-request?product=${encodeURIComponent(product.sku)}`}
+              className="inline-flex h-10 flex-1 items-center justify-center gap-1 rounded-full bg-foreground px-4 text-sm font-medium text-background transition-all hover:bg-foreground/85"
+            >
+              Inquire
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          )}
           <Link
             href={detailHref}
             className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"

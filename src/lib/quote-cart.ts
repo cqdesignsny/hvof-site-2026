@@ -31,6 +31,8 @@ export const useQuoteCart = create<QuoteState>()(
       items: [],
 
       add: (product, qty = 1) => {
+        // Showcase products without a price quote on request and aren't cart-eligible.
+        if (typeof product.price !== "number") return;
         const existing = get().items.find((i) => i.sku === product.sku);
         if (existing) {
           set({
