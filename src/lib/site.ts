@@ -171,6 +171,7 @@ export const NAV = {
     { label: "Healthcare", href: "/furniture/healthcare", description: "Patient and clinical seating." },
     { label: "Education", href: "/furniture/education", description: "Classroom and lecture seating." },
     { label: "Pre-Owned", href: "/furniture/preowned", description: "Inspected, refurbished, save up to 70%." },
+    { label: "Giveaway", href: "/giveaway", description: "Enter our 40th-anniversary desk giveaway." },
   ],
   footer: {
     company: [
@@ -192,6 +193,25 @@ export const NAV = {
 export type CityServed = (typeof SITE.citiesServed)[number];
 
 /** Hudson Valley counties used in copy and SEO tags */
+/**
+ * Cities and towns that have their own dedicated /office-furniture-{slug}-ny landing page.
+ * Used by county pages to link cities to their detail pages where one exists.
+ */
+export const CITIES_WITH_PAGES: Record<string, string> = {
+  Beacon: "/office-furniture-beacon-ny",
+  Fishkill: "/office-furniture-fishkill-ny",
+  "Hyde Park": "/office-furniture-hyde-park-ny",
+  Kingston: "/office-furniture-kingston-ny",
+  Middletown: "/office-furniture-middletown-ny",
+  Newburgh: "/office-furniture-newburgh-ny",
+  "New Paltz": "/office-furniture-new-paltz-ny",
+  Peekskill: "/office-furniture-peekskill-ny",
+  Poughkeepsie: "/office-furniture-poughkeepsie-ny",
+  Rhinebeck: "/office-furniture-rhinebeck-ny",
+  "Wappingers Falls": "/office-furniture-wappingers-falls-ny",
+  "White Plains": "/office-furniture-white-plains-ny",
+};
+
 export const COUNTIES_SERVED = [
   "Dutchess",
   "Orange",

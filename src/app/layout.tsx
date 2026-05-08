@@ -2,10 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { SITE } from "@/lib/site";
 import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/components/seo/json-ld";
-import { Header } from "@/components/site/header";
-import { Footer } from "@/components/site/footer";
 import { Analytics } from "@/components/analytics";
-import { QuoteCartIndicator } from "@/components/quote/cart-indicator";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -91,10 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <QuoteCartIndicator />
+        {children}
         <OrganizationSchema />
         <LocalBusinessSchema />
         <WebSiteSchema />

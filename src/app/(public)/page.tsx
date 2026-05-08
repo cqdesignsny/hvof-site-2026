@@ -12,7 +12,7 @@ import { ProductCard } from "@/components/quote/product-card";
 import { FadeIn } from "@/components/motion/fade-in";
 import { ScrollText } from "@/components/motion/scroll-text";
 import { IMG } from "@/lib/images";
-import { SITE } from "@/lib/site";
+import { SITE, COUNTIES } from "@/lib/site";
 import { getProductsByCategory } from "@/lib/products";
 
 const HERO_SLIDES = [
@@ -384,6 +384,75 @@ export default function HomePage() {
             <p className="mt-10 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Hudson Valley Office Furniture
             </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Service areas, eight counties */}
+      <section className="bg-background section-y">
+        <div className="container-wide">
+          <FadeIn className="max-w-3xl">
+            <p className="eyebrow text-muted-foreground">Service area</p>
+            <h2 className="mt-4 font-display text-5xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
+              Hudson Valley,<br />
+              <span className="text-muted-foreground">top to bottom.</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-[1.5] text-muted-foreground md:text-xl">
+              Eight counties. Fifty-plus towns and cities. Same install crew, same warranty discipline, every job. Pick your county to see the towns and cities we deliver to.
+            </p>
+          </FadeIn>
+
+          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {COUNTIES.map((c, i) => (
+              <FadeIn key={c.slug} delay={(i % 4) * 0.04}>
+                <Link
+                  href={`/office-furniture-${c.slug}-county-ny`}
+                  className="card-interactive group flex h-full flex-col p-6 md:p-7"
+                >
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" style={{ color: "var(--brand-yellow)" }} />
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                      {c.driveTime}
+                    </p>
+                  </div>
+                  <h3 className="mt-4 font-display text-3xl font-semibold leading-[1] tracking-tight md:text-4xl">
+                    {c.name}
+                  </h3>
+                  <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    County
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {c.cities.slice(0, 4).map((city) => (
+                      <span
+                        key={city}
+                        className="rounded-full border border-foreground/15 px-3 py-1 text-xs text-foreground/70 md:text-sm"
+                      >
+                        {city}
+                      </span>
+                    ))}
+                    {c.cities.length > 4 ? (
+                      <span className="rounded-full border border-foreground/10 px-3 py-1 text-xs text-muted-foreground">
+                        +{c.cities.length - 4}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="mt-auto flex items-center gap-1 pt-7 text-sm font-semibold transition-all group-hover:gap-2">
+                    See {c.name} County
+                    <ArrowUpRight className="h-4 w-4 arrow-slide" style={{ color: "var(--brand-yellow)" }} />
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn className="mt-10">
+            <Link
+              href="/office-furniture-hudson-valley-ny"
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-foreground bg-background px-6 py-3 text-base font-semibold transition-all hover:bg-foreground hover:text-background"
+            >
+              Or see the whole Hudson Valley region
+              <ArrowUpRight className="h-4 w-4 arrow-slide" />
+            </Link>
           </FadeIn>
         </div>
       </section>

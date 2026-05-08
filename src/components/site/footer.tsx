@@ -52,7 +52,7 @@ export function Footer() {
           <div className="md:col-span-3">
             <p className="eyebrow text-background/50">Furniture</p>
             <ul className="mt-5 space-y-3">
-              {NAV.furniture.slice(0, 6).map((i) => (
+              {NAV.furniture.map((i) => (
                 <li key={i.href}>
                   <Link href={i.href} className="text-sm text-background/80 hover:text-background">
                     {i.label}
@@ -96,6 +96,7 @@ export function Footer() {
             <span>© {new Date().getFullYear()} {SITE.legalName}</span>
             <Link href="/privacy" className="hover:text-background/80">Privacy</Link>
             <Link href="/sitemap.xml" className="hover:text-background/80">Sitemap</Link>
+            <Link href="/admin" className="hover:text-background/80">Admin</Link>
           </div>
           <div className="flex items-center gap-3">
             {Object.entries(SITE.social).map(([key, url]) => {

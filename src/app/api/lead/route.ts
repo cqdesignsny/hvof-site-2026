@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { SITE } from "@/lib/site";
+import { recordLead } from "@/lib/leads-store";
 
 type FormType = "main-lead" | "sell-furniture" | "giveaway";
 
@@ -49,6 +50,13 @@ export async function POST(request: Request) {
     email,
     receivedAt: new Date().toISOString(),
   });
+
+  // Persist for the Floorplan admin lead pipeline. In-memory until Vercel KV is wired.
+  try {
+    await recordLead(payload);
+  } catch (err) {
+    console.error("[lead] recordLead error", err);
+  }
 
   if (process.env.RESEND_API_KEY && process.env.LEAD_EMAIL_TO) {
     const lines = buildEmailLines(payload);

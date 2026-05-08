@@ -7,7 +7,7 @@ import { ScrollText } from "@/components/motion/scroll-text";
 import { FAQSection } from "@/components/sections/faq-section";
 import { BreadcrumbSchema, ServiceSchema } from "@/components/seo/json-ld";
 import { IMG } from "@/lib/images";
-import { SITE } from "@/lib/site";
+import { SITE, CITIES_WITH_PAGES } from "@/lib/site";
 
 interface CountyLandingProps {
   county: string;
@@ -150,15 +150,34 @@ export function CountyLandingTemplate({
             </FadeIn>
             <FadeIn delay={0.1} className="md:col-span-7">
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {cities.map((city) => (
-                  <li
-                    key={city}
-                    className="flex items-center gap-3 rounded-xl border border-border bg-background px-5 py-4"
-                  >
-                    <MapPin className="h-4 w-4 shrink-0" style={{ color: "var(--brand-yellow)" }} />
-                    <span className="text-lg font-medium md:text-xl">{city}</span>
-                  </li>
-                ))}
+                {cities.map((city) => {
+                  const cityHref = CITIES_WITH_PAGES[city];
+                  const inner = (
+                    <>
+                      <MapPin className="h-4 w-4 shrink-0" style={{ color: "var(--brand-yellow)" }} />
+                      <span className="text-lg font-medium md:text-xl">{city}</span>
+                      {cityHref ? (
+                        <ArrowUpRight className="ml-auto h-4 w-4 text-muted-foreground transition-all group-hover:text-foreground arrow-slide" />
+                      ) : null}
+                    </>
+                  );
+                  return (
+                    <li key={city}>
+                      {cityHref ? (
+                        <Link
+                          href={cityHref}
+                          className="group flex items-center gap-3 rounded-xl border border-border bg-background px-5 py-4 transition-colors hover:border-foreground/40"
+                        >
+                          {inner}
+                        </Link>
+                      ) : (
+                        <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-5 py-4">
+                          {inner}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
               {notableClients && notableClients.length > 0 ? (
                 <p className="mt-8 text-base text-muted-foreground md:text-lg">
