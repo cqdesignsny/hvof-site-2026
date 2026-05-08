@@ -7,7 +7,7 @@ import { NAV, SITE } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="bg-foreground text-background">
-      <div className="container-editorial section-y">
+      <div className="container-wide section-y">
         <div className="grid gap-16 md:grid-cols-12">
           {/* Manifesto column */}
           <div className="md:col-span-5">

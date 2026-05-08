@@ -186,16 +186,102 @@
     letter-spacing: 0.18em;
     font-weight: 500;
   }
-  /* Generous container that aligns to a 1280 grid on desktop */
+
+  /* CONTAINER SYSTEM — fluid, wide-screen friendly */
+
+  /* Editorial container: text-heavy sections, comfortable reading width */
   .container-editorial {
-    @apply mx-auto px-6 md:px-10 lg:px-12;
-    max-width: 84rem;
+    @apply mx-auto px-6 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-20;
+    max-width: 92rem; /* 1472px on desktop, comfortable for longer text */
   }
-  /* Section padding scale */
+  /* Wide container: image grids and gallery layouts use the full screen */
+  .container-wide {
+    @apply mx-auto px-6 sm:px-8 md:px-10 lg:px-14 xl:px-16 2xl:px-24;
+    max-width: 110rem; /* 1760px */
+  }
+  /* Bleed container: hero galleries and full-bleed sections — uses near-full viewport */
+  .container-bleed {
+    @apply mx-auto px-4 sm:px-6 md:px-8;
+    max-width: 100%;
+  }
+
+  /* SECTION PADDING SCALE */
   .section-y {
-    @apply py-20 md:py-28 lg:py-36;
+    @apply py-20 md:py-28 lg:py-32 xl:py-40;
   }
   .section-y-sm {
-    @apply py-14 md:py-20;
+    @apply py-14 md:py-20 lg:py-24;
+  }
+  .section-y-lg {
+    @apply py-24 md:py-36 lg:py-44 xl:py-56;
+  }
+
+  /* HOVER INTERACTIONS — opt-in classes */
+
+  /* Image zoom on parent hover. Apply parent-hover with `group` and image with `image-zoom` */
+  .image-zoom {
+    @apply transition-transform duration-700 ease-out;
+    transform: scale(1.001); /* prevents subpixel shimmer */
+  }
+  .group:hover .image-zoom {
+    transform: scale(1.045);
+  }
+
+  /* Card with ring + lift on hover */
+  .card-interactive {
+    @apply relative overflow-hidden rounded-2xl border border-border/60 bg-card transition-all duration-300 ease-out;
+  }
+  .card-interactive:hover {
+    @apply border-foreground/40 shadow-2xl;
+    transform: translateY(-2px);
+  }
+
+  /* Outline on hover, for image-only cards */
+  .card-image-outline {
+    @apply relative overflow-hidden rounded-2xl transition-all duration-300 ease-out;
+    box-shadow: 0 0 0 0 transparent;
+  }
+  .card-image-outline:hover {
+    box-shadow: 0 0 0 2px var(--brand-yellow), 0 24px 48px -12px rgba(0,0,0,0.25);
+  }
+
+  /* Animated underline for inline links */
+  .link-underline {
+    @apply relative inline-flex items-center;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s ease-out;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  /* Arrow CTA that slides on hover (works inside `group`) */
+  .arrow-slide {
+    @apply transition-transform duration-300 ease-out;
+  }
+  .group:hover .arrow-slide {
+    transform: translate(2px, -2px);
+  }
+
+  /* Marquee — for trusted-by logo strip. Use with overflow-hidden parent. */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Soft fade mask for marquee edges */
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
 }

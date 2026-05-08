@@ -50,7 +50,7 @@ export function Hero({ eyebrow, headline, sub, imageSrc, imageAlt, primaryCta, s
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" aria-hidden="true" />
       </div>
 
-      <div className="container-editorial relative z-10 pb-20 pt-36 md:pb-28 md:pt-48 lg:pb-36">
+      <div className="container-wide relative z-10 pb-20 pt-36 md:pb-28 md:pt-48 lg:pb-36">
         <div className="max-w-4xl">
           <motion.p {...variants(0.1)} className="eyebrow text-brand-yellow">
             {eyebrow}

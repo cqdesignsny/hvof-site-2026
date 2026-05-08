@@ -5,6 +5,7 @@ import { OrganizationSchema, LocalBusinessSchema, WebSiteSchema } from "@/compon
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { Analytics } from "@/components/analytics";
+import { QuoteCartIndicator } from "@/components/quote/cart-indicator";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <QuoteCartIndicator />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <WebSiteSchema />
