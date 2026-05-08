@@ -39,7 +39,7 @@ export const PRODUCTS: Product[] = [
     price: 369,
     originalPrice: 638,
     description: "Mid-back ergonomic task chair with adjustable arms, lumbar, and seat depth.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-11730B.jpg",
     type: "Task seating",
   },
   {
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     price: 239,
     originalPrice: 654,
     description: "Mid-back conference seating in matched suites of 6, 8, or 12.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-7621.jpg",
     type: "Conference",
   },
   {
@@ -72,7 +72,7 @@ export const PRODUCTS: Product[] = [
     price: 379,
     originalPrice: 973,
     description: "High-back executive chair in fabric or leather. Boardroom-grade fit and finish.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-7754.jpg",
     type: "Executive",
   },
   {
@@ -83,7 +83,7 @@ export const PRODUCTS: Product[] = [
     price: 399,
     originalPrice: 715,
     description: "Engage-series task chair with adjustable seat depth and 4D arms.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-B8-Engage.jpg",
     type: "Task seating",
   },
   {
@@ -94,7 +94,7 @@ export const PRODUCTS: Product[] = [
     price: 499,
     originalPrice: 888,
     description: "Heavy-duty task seating rated for 24/7 use. Healthcare and dispatch approved.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-BM-9000.png",
     type: "Heavy-duty task",
   },
   {
@@ -105,7 +105,7 @@ export const PRODUCTS: Product[] = [
     price: 449,
     originalPrice: 701,
     description: "Leather-wrapped executive chair with polished aluminum base.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-LE521.png",
     type: "Executive",
   },
   {
@@ -116,7 +116,7 @@ export const PRODUCTS: Product[] = [
     price: 849,
     originalPrice: 1800,
     description: "Top-tier ergonomic chair. Mesh back, headrest, lumbar, multi-position lock.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-ME7ERG.jpg",
     type: "Ergonomic specialty",
   },
   {
@@ -126,8 +126,8 @@ export const PRODUCTS: Product[] = [
     subCategory: "Ergonomic",
     price: 849,
     originalPrice: 1800,
-    description: "OM Seating Truly. premium ergonomic with full-height back support.",
-    image: FALLBACK_IMAGE,
+    description: "OM Seating Truly, premium ergonomic with full-height back support.",
+    image: "/products/HVOF-OM-TRULY.png",
     type: "Ergonomic specialty",
   },
   {
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
     price: 249,
     originalPrice: 561,
     description: "Entry-tier task chair. Adjustable height, swivel base, contour seat.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-OSTW8001.jpg",
     type: "Task seating",
   },
   {
@@ -149,7 +149,7 @@ export const PRODUCTS: Product[] = [
     price: 649,
     originalPrice: 1096,
     description: "Vion 6321 high-back executive with synchro-tilt and integrated lumbar.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-Vion-6321.jpg",
     type: "Executive",
   },
   {
@@ -159,7 +159,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Task",
     price: 549,
     description: "Mesh-back task with auto-adjusting lumbar. Available in 2 colorways.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-YS78.jpg",
     type: "Task seating",
   },
   {
@@ -169,11 +169,11 @@ export const PRODUCTS: Product[] = [
     subCategory: "Task",
     price: 624,
     description: "Upgraded mesh task with headrest. Available in 2 colorways.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-YS79.jpg",
     type: "Task seating",
   },
 
-  // DESKS. placeholder shape until real catalog
+  // DESKS, photos pulled from HVOF's curated catalog
   {
     sku: "HVOF-DESK-SS72",
     name: "Sit-Stand Desk 72\"",
@@ -181,7 +181,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Sit-Stand",
     price: 1149,
     description: "Electric height-adjustable sit-stand desk, 72\" laminate top, 3-stage column.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-DESK-SS72.png",
   },
   {
     sku: "HVOF-DESK-EXEC",
@@ -190,7 +190,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Executive",
     price: 2899,
     description: "Walnut veneer L-shaped executive desk with integrated cable management.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-DESK-EXEC.png",
   },
   {
     sku: "HVOF-DESK-BENCH",
@@ -199,7 +199,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Benching",
     price: 1849,
     description: "Open-plan benching system. Modular, expandable, available in 4-, 6-, 8-seat configurations.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-DESK-BENCH.png",
   },
 
   // CONFERENCE
@@ -210,7 +210,7 @@ export const PRODUCTS: Product[] = [
     subCategory: "Boardroom",
     price: 4299,
     description: "Boat-shape conference table on slab base. Walnut, oak, and cypress finishes available.",
-    image: FALLBACK_IMAGE,
+    image: "/products/HVOF-CONF-12FT.png",
   },
 ];
 
