@@ -1,158 +1,208 @@
 # HVOF Site 2026
 
-Modern marketing site for **Hudson Valley Office Furniture** ([thewowguys.com](https://thewowguys.com)). A Next.js 16 rebuild of the existing WordPress site, designed to convert high-net-worth buyers and facilities directors into installations.
+Modern marketing + lead-gen site for **Hudson Valley Office Furniture**. Next.js 16 rebuild that will replace the legacy WordPress site at [thewowguys.com](https://thewowguys.com) after sign-off.
 
-> **Status:** Demo build. The legacy WordPress site stays live at thewowguys.com. This Next.js site deploys to a Vercel preview URL and replaces production after sign-off.
+**Live preview:** https://hvof-site-2026.vercel.app
 
-## Tech stack
+## Pickup-from-anywhere
 
-| Layer | Choice |
-|---|---|
-| Framework | Next.js 16.2 (App Router, Turbopack) |
-| UI | shadcn/ui (Radix primitives) + Tailwind CSS v4 |
-| Animation | Motion (`motion/react`) |
-| Type | IBM Plex Sans / Sans Condensed / Mono via `next/font/google` |
-| Forms | Native `<form>` posting to `/api/lead` (Resend optional) |
-| Analytics | GA4 via `@next/third-parties` + Meta Pixel |
-| Hosting | Vercel |
-| Images | next/image with the existing thewowguys.com WP CDN as remote source |
+If you are a contributor (or AI agent) opening this repo for the first time, read **[`docs/HANDOFF.md`](./docs/HANDOFF.md)** before writing code. It has the full project state, design rules, and pending work.
 
-## Getting started
+If you have credentialed access (the Cesar/CQ Marketing flow), there is a private CLAUDE.md in the parent Dropbox folder that holds SSH credentials and other secrets. It is not in this repo on purpose.
+
+## Quick start
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000
-pnpm build          # production build (turbopack)
-pnpm start          # serve the prod build
+pnpm dev          # http://localhost:3000
+pnpm build
+pnpm start
 ```
 
-> Node 22+ and pnpm 10+ recommended.
+Node 22+, pnpm 10+. Repository auto-deploys to Vercel on push to `main`.
+
+## Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16.2 App Router (Turbopack) |
+| UI | shadcn/ui (Radix base) + Tailwind CSS v4 |
+| Animation | `motion/react` |
+| State (cart) | Zustand + localStorage persist |
+| Type | Inter Tight (display) / Inter (body) / JetBrains Mono via `next/font/google` |
+| Forms | Native form posting to `/api/lead` and `/api/quote`, optional Resend |
+| Analytics | GA4 + Meta Pixel via `@next/third-parties` (env-gated) |
+| Hosting | Vercel (Fluid Compute) |
+| Image CDN | Existing thewowguys.com WP CDN + AIS Inc image library + `/public` |
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` and fill in:
+Copy `.env.example` to `.env.local`, fill what you need locally, manage in production with `vercel env add`:
 
 ```
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
-NEXT_PUBLIC_FB_PIXEL_ID=000000000000000
-RESEND_API_KEY=re_xxx
-LEAD_EMAIL_TO=cesar@creativequalitymarketing.com
+NEXT_PUBLIC_GA_ID         = G-XXXXXXXXXX
+NEXT_PUBLIC_FB_PIXEL_ID   = 000000000000000
+RESEND_API_KEY            = re_xxx
+LEAD_EMAIL_TO             = cesar@creativequalitymarketing.com
+LEAD_EMAIL_FROM           = "HVOF Site <noreply@thewowguys.com>"
 ```
-
-In production, manage these with `vercel env add`.
 
 ## Routes
 
-| Path | Status |
+| Path | What it is |
 |---|---|
-| `/` | Home — hero, featured installs, services, why HVOF, testimonial, showroom invite, FAQ, closer |
-| `/about` | Story, numbers, four pillars, showroom photos |
-| `/work` | Selected work gallery |
-| `/showroom` | Visit info, hours, parking, what to expect, map |
-| `/contact` | Contact info + form, map |
-| `/furniture/seating` | Sample category page (template) |
-| `/office-furniture-fishkill-ny` | Sample local landing page (template) |
-| `/office-furniture-poughkeepsie-ny` | Sample local landing page |
-| `/privacy` | Privacy policy stub |
-| `/api/lead` | Lead intake endpoint |
-| `/sitemap.xml` | Auto-generated from `app/sitemap.ts` |
-| `/robots.txt` | Auto-generated from `app/robots.ts` (AI bots allowlist) |
+| `/` | Hero slider, From Concept (with Dan photo), Trusted By marquee, categories, interactive gallery, featured seating + desks, featured clients, why HVOF, virtual tour CTA, testimonial, showroom invite, FAQ, newsletter, snap-pinned closer |
+| `/about` | Story, numbers, trusted-by, team panels (install photos), values grid, HVOF-30 video with play overlay, snap-pinned closer |
+| `/nys-contracts` | All 41 manufacturer cards with outbound links, eligibility, 4-step process, FAQs |
+| `/furniture` | Category overview |
+| `/furniture/seating` | Real product grid (13 SKUs, sub-category sections, Add-to-Quote) |
+| `/furniture/desks` | Sub-categories + FAQs |
+| `/furniture/conference`, `/healthcare`, `/pods`, `/education`, `/preowned`, `/reception` | CategoryTemplate pages |
+| `/furniture/systems` | Custom layout with AIS Inc imagery |
+| `/furniture/[category]/[sku]` | Dynamic product detail (17 SKUs statically generated) |
+| `/gallery` | CSS-columns masonry + lightbox |
+| `/e-catalog` | FlipHTML5 inline embed |
+| `/showroom` | Visit info + Matterport tour + Google Maps pinned to HVOF |
+| `/virtual-tour` | Standalone Matterport iframe |
+| `/contact` | Form + contact info + map |
+| `/quote` | RFQ cart submit |
+| `/privacy` | Stub |
+| `/office-furniture-fishkill-ny`, `/office-furniture-poughkeepsie-ny` | Local landing pages |
+| `/api/lead`, `/api/quote` | Form intake handlers |
+| `/sitemap.xml`, `/robots.txt` | Auto-generated |
+
+Permanent redirects: `/work` → `/gallery`, `/furniture/nys-contracts` → `/nys-contracts`.
 
 ## Project structure
 
 ```
 src/
-├── app/
-│   ├── layout.tsx                          Root layout, fonts, header, footer, schema, analytics
-│   ├── page.tsx                            Home page
+├── app/                            All routes (App Router)
+│   ├── layout.tsx                  Root layout, fonts, header, footer, schema, analytics, cart indicator
+│   ├── page.tsx                    Home
 │   ├── about/page.tsx
-│   ├── contact/page.tsx
-│   ├── work/page.tsx
+│   ├── nys-contracts/page.tsx
+│   ├── furniture/...               Category overview + 8 categories + dynamic [sku]
+│   ├── gallery/page.tsx
+│   ├── e-catalog/page.tsx
 │   ├── showroom/page.tsx
+│   ├── virtual-tour/page.tsx
+│   ├── contact/page.tsx
+│   ├── quote/page.tsx
 │   ├── privacy/page.tsx
-│   ├── furniture/seating/page.tsx
-│   ├── office-furniture-fishkill-ny/page.tsx
-│   ├── office-furniture-poughkeepsie-ny/page.tsx
-│   ├── api/lead/route.ts                   POST endpoint for the contact form
+│   ├── office-furniture-{city}-ny/ Local landing pages
+│   ├── api/lead/route.ts
+│   ├── api/quote/route.ts
 │   ├── sitemap.ts
 │   └── robots.ts
 ├── components/
-│   ├── analytics/                          GA4 + Meta Pixel
-│   ├── motion/                             FadeIn, Stagger primitives
-│   ├── seo/json-ld.tsx                     Org, LocalBiz, FAQ, Breadcrumb, Service schemas
-│   ├── sections/                           Hero, FAQ, ContactForm, CategoryTemplate, LocalLandingTemplate
-│   ├── site/                               Header, Footer, Logo
-│   └── ui/                                 shadcn primitives
+│   ├── analytics/                  GA4 + Meta Pixel
+│   ├── motion/                     FadeIn, Stagger, ScrollText (snap-pinned)
+│   ├── seo/json-ld.tsx             Org, LocalBusiness, FAQ, Breadcrumb, Service schemas
+│   ├── sections/                   Hero, HeroSlider, FAQ, ContactForm, CategoryTemplate, LocalLandingTemplate, InteractiveGallery, MasonryGallery (lightbox), TrustedBy, NewsletterSignup, VirtualTourCTA, VideoWithPoster, TeamSection
+│   ├── quote/                      AddToQuoteButton, ProductCard, QuoteCart, QuoteCartIndicator
+│   ├── site/                       Header, Footer, Logo, social-icons (inline brand SVG)
+│   └── ui/                         shadcn primitives (Radix base)
 └── lib/
-    ├── site.ts                             Brand + nav constants
-    ├── images.ts                           CDN image references
-    ├── local-faqs.ts                       City FAQ generator
-    └── utils.ts                            cn()
+    ├── site.ts                     Brand + nav + manufacturers + cities + featured clients + social URLs
+    ├── images.ts                   Centralized image references (mostly WP CDN URLs)
+    ├── products.ts                 Product catalog (real SKUs from live site)
+    ├── quote-cart.ts               Zustand cart store
+    ├── local-faqs.ts               City FAQ generator
+    └── utils.ts                    cn() helper
 ```
 
 ## Brand tokens
 
-Defined in `src/app/globals.css` under `@theme inline` and `:root`:
+In `src/app/globals.css`. **Do not introduce other yellows or fonts.**
 
-- **Yellow** `#e7c920` (hover `#d4b71c`) — accents, eyebrows, CTAs
-- **Ink** `#000000` — dark sections, body text on light
-- **Cream** `#f5f5f5` — soft section backgrounds
-- **Display font** IBM Plex Sans Condensed
-- **Body font** IBM Plex Sans
-- **Mono font** IBM Plex Mono — eyebrows, prices, technical labels
+- `--brand-yellow` `#E7C81F` (locked)
+- `--brand-yellow-hover` `#d4b71c`
+- `--brand-ink` `#000000`, `--brand-paper` `#fff`, `--brand-cream` `#f5f5f5`, `--brand-graphite` `#1a1a1a`
+- Display Inter Tight, Body Inter, Mono JetBrains Mono
+- Base font-size 18px, 18.5px at xl+
+- All h1/h2/h3 use `font-semibold` everywhere
 
-## Image assets
+## Design rules (non-negotiable)
 
-Currently all hero / case-study / install photos load from the existing WordPress CDN at `thewowguys.com/wp-content/uploads/`. See `src/lib/images.ts` for the manifest.
+1. **No em-dashes anywhere.** Replace with periods or commas.
+2. **No emojis.** Use the SVGs in `/public/icons/` and `components/site/social-icons.tsx`.
+3. **No numbered prefixes on cards** (no `01`, `02`, etc.). No slide counters. No fake bios on team cards.
+4. **One yellow only:** `#E7C81F`.
+5. **Header is solid black** with a full-color logo always.
+6. **Big-headline closer CTAs use `<ScrollText />`** with the snap-to-center pin (defaults already correct).
+7. **Card hover:** brand-yellow border at rest, ring + lift on hover (`.card-interactive` utility).
 
-When migration is complete, move source files into `public/images/` and update `IMG` references.
+## RFQ / quote-cart system
+
+- Every product page has `<AddToQuoteButton />` calling `useQuoteCart().add(product, 1)`.
+- Cart state in `src/lib/quote-cart.ts` (Zustand + persist, key `hvof-quote-cart`).
+- Floating yellow indicator pinned bottom-right (mobile) / top-right (desktop) when cart has items.
+- `/quote` page reviews cart, submits to `/api/quote`.
+- No Stripe, no checkout. Payment offline after the quote is finalized.
 
 ## Deployment
 
 ```bash
-# First-time link
-vercel link
+# Pushing to main auto-deploys to Vercel
+git push
 
-# Preview deploy (creates a unique URL per push)
-vercel deploy
-
-# Production
-vercel deploy --prod
+# Force a deploy from local
+vercel deploy --yes --prod
 ```
 
-Or push to `main` after connecting the GitHub repo in the Vercel dashboard.
+The Vercel project is on the `cq-marketings-projects` scope. Future plan: transfer to a dedicated HVOF team via the Vercel dashboard once the `hvofmarketing@gmail.com` account is set up.
 
-## What was migrated from the WordPress site
+## Important Next.js 16 notes
 
-- Brand identity (colors, fonts, tone)
-- Approved imagery (Marshall + Sterling, Marist installs)
-- All content from the 12 local landing pages (compressed into reusable template + 2 demo cities)
-- Schema markup (Organization, LocalBusiness/FurnitureStore, FAQPage, BreadcrumbList, Service)
-- Address, hours, social links, areas served
-- FAQ content (consolidated)
+This is **not the Next.js you know.** Read `node_modules/next/dist/docs/01-app/` before writing routing or data-fetching code. The `AGENTS.md` at the repo root enforces this for AI agents.
 
-## What still needs to ship before cutover
+Key changes from 15:
+- `params` is a `Promise` in dynamic routes: `const { sku } = await params`
+- shadcn defaults to Base UI now; this repo was re-init'd to Radix base. Don't switch back.
+- `async headers()` in `next.config.ts` is correct (verified against bundled docs). The Vercel plugin's validator complains that it should be awaited; that's a false positive (it's confusing the request-time `next/headers` API with the config's response-headers function).
 
-- Remaining 10 city pages (Newburgh, Middletown, Kingston, Beacon, Wappingers Falls, White Plains, New Paltz, Hyde Park, Peekskill, Rhinebeck) — copy the Fishkill page and edit
-- Furniture categories: Desks, Conference, Systems, Healthcare, Pods, Education, Pre-Owned, NYS Contracts (8 more)
-- Full Marshall + Sterling and Marist case study pages
-- Blog (if keeping)
-- WooCommerce — confirm whether the new site sells direct or just routes to inquiries
-- Real lead form integration (Resend, Typeform, or Vercel Form)
-- Real GA4 + Meta Pixel IDs in Vercel env
-- DNS cutover plan (currently thewowguys.com points to WP/Hostinger)
+## What's done, what's pending
+
+See [`docs/HANDOFF.md`](./docs/HANDOFF.md) for the full state.
+
+Highlights:
+
+- ✓ All major routes built and deployed
+- ✓ Real product catalog with 13 chair SKUs from the live site
+- ✓ All 41 NYS Contract manufacturers wired with outbound links
+- ✓ Snap-pinned ScrollText closer on every big-headline CTA
+- ✓ Quote cart system end-to-end
+- ✓ All hero images deduped, captions cleaned
+
+Pending:
+
+- WP media bulk transfer (rsync waiting on the SSH password being entered)
+- GA4 + Meta Pixel IDs
+- LinkedIn URL confirmation (placeholder set)
+- 10 remaining city pages (5-min each, copy Fishkill template)
+- Resend env vars in Vercel
+- Real WooCommerce product photos (waiting on bulk transfer)
+- DNS cutover
+- Google Business Profile + Search Console sitemap
 
 ## Decisions
 
 | Date | Decision | Why |
 |---|---|---|
-| 2026-05-07 | Build new site on Next.js 16 + Vercel rather than continue iterating on WordPress | App-like feel, faster pages, lead-gen optimized, easier to maintain at scale |
-| 2026-05-07 | Use shadcn/ui with Radix base | Familiar API, AI Elements compatible if needed later |
-| 2026-05-07 | Keep IBM Plex font stack | On-brand, technical/editorial feel matches portfolio aesthetic |
-| 2026-05-07 | Light-mode default with dark hero blocks | Editorial/portfolio aesthetic, content-first |
+| 2026-05-07 | Pivot from WP optimization to full Next.js rebuild | App-like feel, faster pages, lead-gen optimized, easier to maintain at scale |
+| 2026-05-07 | shadcn/ui re-init from Base UI default to Radix base | Familiar API, AI Elements compatible if needed later |
+| 2026-05-07 | Switched type stack from IBM Plex to Inter Tight + Inter | More modern, better readability, lower visual weight |
+| 2026-05-07 | Brand yellow locked to exactly `#E7C81F` | Match the brand spec, eliminate drift |
+| 2026-05-07 | Light-mode default with dark hero blocks | Editorial / portfolio aesthetic |
 | 2026-05-07 | Preserve existing local-page URL structure (`/office-furniture-{city}-ny/`) | SEO continuity from WP site |
+| 2026-05-08 | NYS Contracts moved from `/furniture/nys-contracts` to `/nys-contracts` (root nav) | Mirrors live site, confirms primary-page status |
+| 2026-05-08 | `/work` pages dropped, redirected to `/gallery` | Gallery already covers work showcase, simpler IA |
+| 2026-05-08 | Team panels show install photos, not Dan/John/Mark portraits | Less awkward, more "the working business" |
+| 2026-05-08 | All h1/h2/h3 sweepingly bolded (`font-semibold`) | Consistency across pages |
 
 ## Notes
 
-- The Dropbox folder marks `node_modules/` and `.next/` as ignored via `xattr com.dropbox.ignored 1` so they don't churn through sync.
-- See `AGENTS.md` for AI agent instructions specific to Next.js 16 (read bundled docs, not training data).
+- The Dropbox folder marks `node_modules/` and `.next/` as ignored via `xattr com.dropbox.ignored 1` so they don't churn through sync. Re-apply after a fresh clone.
+- See `AGENTS.md` for AI-agent instructions.
+- For credentials and the full handoff including SSH password, see the parent Dropbox folder's `CLAUDE.md` (not in git).
