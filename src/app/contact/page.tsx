@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, MapPin, Clock, Mail } from "lucide-react";
-import { ContactForm } from "@/components/sections/contact-form";
+import { LeadForm } from "@/components/forms/lead-form";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { SITE } from "@/lib/site";
 
@@ -67,7 +67,7 @@ export default function ContactPage() {
 
             {/* Right: form */}
             <div className="md:col-span-8">
-              <ContactForm />
+              <LeadForm />
             </div>
           </div>
         </div>
