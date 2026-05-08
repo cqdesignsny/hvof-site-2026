@@ -168,23 +168,33 @@ See [`docs/HANDOFF.md`](./docs/HANDOFF.md) for the full state.
 
 Highlights:
 
-- ✓ All major routes built and deployed
-- ✓ Real product catalog with 13 chair SKUs from the live site
+- ✓ ~44 unique routes deployed (12 city pages, 8 county pages, Hudson Valley region, all 8 furniture categories, dynamic product details, gallery, e-catalog, showroom, virtual tour, contact, quote, giveaway, NYS contracts)
+- ✓ Real product catalog with 13 chair SKUs from the live site, 16 product photos pulled from WP CDN
 - ✓ All 41 NYS Contract manufacturers wired with outbound links
 - ✓ Snap-pinned ScrollText closer on every big-headline CTA
-- ✓ Quote cart system end-to-end
-- ✓ All hero images deduped, captions cleaned
+- ✓ Quote cart RFQ system end-to-end (Zustand + /api/quote + Resend)
+- ✓ Native lead form replacing the JLIMOo51 Typeform on /contact
+- ✓ Trusted By marquee with 11 real partner logos, hero slider, interactive home gallery, masonry + lightbox
+- ✓ Vercel env wired: GA4 (verified firing), Resend, lead-email routing
+- ✓ Hero images deduped, all h1/h2/h3 bolded, em-dashes and numbered prefixes scrubbed sitewide
+- ✓ Permanent redirects for /work and the old /furniture/nys-contracts path
 
-Pending:
+Pending (priority order):
 
-- WP media bulk transfer (rsync waiting on the SSH password being entered)
-- GA4 + Meta Pixel IDs
-- LinkedIn URL confirmation (placeholder set)
-- 10 remaining city pages (5-min each, copy Fishkill template)
-- Resend env vars in Vercel
-- Real WooCommerce product photos (waiting on bulk transfer)
-- DNS cutover
-- Google Business Profile + Search Console sitemap
+- Sell Your Furniture form + own /sell-your-furniture landing page (Typeform JAHzhOUt)
+- Native giveaway entry form on /giveaway (Typeform e5SrmqW1)
+- /api/lead form-type differentiation
+- Weekly leads digest via Vercel Cron + Resend
+- Persistence layer for leads (Marketplace integration like Neon Postgres)
+- Admin / dashboard portal (TZ Marlon / Theory pattern)
+- More product photos pulled into Desks / Conference / Healthcare / Lounge categories
+- Borough / NYC / tri-state SEO landing pages
+- Service pages (/services/space-planning, /installation, /delivery)
+- Real WooCommerce-style descriptions for chairs
+- Marshall + Sterling case study at /gallery/marshall-sterling
+- DNS cutover, Google Business Profile, Search Console sitemap
+- Meta Pixel ID
+- GA Analytics MCP unblock (org policy issue documented in CLAUDE.md private)
 
 ## Decisions
 
@@ -200,6 +210,8 @@ Pending:
 | 2026-05-08 | `/work` pages dropped, redirected to `/gallery` | Gallery already covers work showcase, simpler IA |
 | 2026-05-08 | Team panels show install photos, not Dan/John/Mark portraits | Less awkward, more "the working business" |
 | 2026-05-08 | All h1/h2/h3 sweepingly bolded (`font-semibold`) | Consistency across pages |
+| 2026-05-08 | Built 8 county landing pages + Hudson Valley region page | Local SEO surface for Dutchess, Orange, Ulster, Putnam, Westchester, Rockland, Sullivan, Columbia |
+| 2026-05-08 | Native lead form replaces JLIMOo51 Typeform on /contact | Field options pulled from a CSV of 267 past Typeform responses; submits to /api/lead with formType=main-lead |
 
 ## Notes
 

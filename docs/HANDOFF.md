@@ -205,59 +205,82 @@ Key gotchas:
 
 ## What's done
 
-Major milestones, in rough order:
+Major milestones since the rebuild kicked off on 2026-05-07:
 
+**Foundation**
 - Next.js 16 scaffold, shadcn re-init to Radix base
 - Inter Tight + Inter + JetBrains Mono swap from IBM Plex
-- Brand yellow locked to `#E7C81F`
-- Header solid black, full-color logo always
-- Hero slider on home (5-image cross-fade)
-- Trusted By marquee with **real partner logos** (11 brands from WP CDN, soft grayscale)
-- From Concept to Completion editorial split with Dan photo
-- Interactive home gallery (8 hand-picked variety shots, click-to-swap thumbnails)
-- Featured Seating + Desks product cards on home
-- Why HVOF differentiators
-- Virtual Tour CTA + Matterport iframe on /virtual-tour AND /showroom
-- Testimonial pulled from live site copy verbatim
-- ScrollText with snap-to-center pin (home, About, NYS, all category pages)
-- Product detail pages dynamic at `/furniture/[category]/[sku]`, statically generated for 17 SKUs
-- All 8 furniture category pages (seating with full product grid; others CategoryTemplate)
-- /furniture/systems with AIS Inc imagery
+- Brand yellow locked to `#E7C81F`. All h1/h2/h3 use `font-semibold`. Em-dashes and numbered "01 02 03" prefixes removed sitewide.
+- Solid-black header with always full-color logo
+- Vercel project moved from `tz-electric` to `cq-marketings-projects` scope
+- All env vars set on Production + Development: GA4 ID `G-DS91V8CMF9` (verified firing), Resend API key, LEAD_EMAIL_TO, LEAD_EMAIL_FROM
+
+**Marketing pages**
+- Home with hero slider, From Concept (Dan photo), Trusted By marquee with 11 real partner logos, custom-icon category grid, interactive gallery (click-to-swap thumbnails), featured seating + desks product cards, featured clients, why-HVOF, virtual tour CTA, testimonial, showroom invite, FAQ, newsletter, snap-pinned ScrollText closer
+- About with numbers, story, trusted-by, install-photo team panels, values grid, HVOF-30 video with yellow play overlay, ScrollText closer
+- Showroom with Matterport iframe inline + Google Maps pinned to HVOF
+- Virtual Tour standalone Matterport
+- E-Catalog with FlipHTML5 inline embed
+- Gallery with CSS-columns masonry + lightbox arrow nav
+- Giveaway page recreated from live site (40th anniversary desk giveaway)
+
+**Furniture catalog**
+- /furniture overview + 8 categories (seating, desks, conference, healthcare, pods, education, preowned, reception, systems)
+- /furniture/seating shows real product grid with 13 SKUs, sub-category sections, Add-to-Quote
+- Dynamic /furniture/[category]/[sku] product detail, 17 SKUs statically generated, all wired to real photos pulled from WP `Webpage-Product-Gallery-*` and the manufacturer's product shots
+- /furniture/systems uses AIS Inc image library
+
+**SEO surface**
 - /nys-contracts at root with all 41 manufacturer outbound links
-- /e-catalog with FlipHTML5 inline embed
-- /gallery: CSS-columns masonry + lightbox
-- About page with HVOF-30 video (yellow play overlay), team panels using install photos
-- Contact form + /api/lead
-- Quote cart system end-to-end (Zustand + localStorage + /api/quote)
-- 2 local landing pages (Fishkill, Poughkeepsie)
-- JSON-LD: Organization + LocalBusiness/FurnitureStore + WebSite + per-page Breadcrumb + FAQPage + Service
-- sitemap.ts + robots.ts (AI bot allowlist)
-- Map pins land on HVOF (was BJ's)
-- Vercel project moved off `tz-electric` scope onto `cq-marketings-projects`
-- Social icons (Facebook, Instagram, LinkedIn) wired into Header + mobile sheet + Footer
+- 12 city landing pages: Beacon, Fishkill, Hyde Park, Kingston, Middletown, Newburgh, New Paltz, Peekskill, Poughkeepsie, Rhinebeck, Wappingers Falls, White Plains
+- 8 county landing pages: Dutchess, Orange, Ulster, Putnam, Westchester, Rockland, Sullivan, Columbia
+- Hudson Valley region page at /office-furniture-hudson-valley-ny
+- JSON-LD: Org + LocalBiz/FurnitureStore + WebSite + per-page Breadcrumb + FAQPage + Service
+- sitemap.ts auto-discovers cities + counties + furniture submenu, robots.ts AI bot allowlist
+
+**Conversion / lead capture**
+- Quote cart RFQ system (Zustand + localStorage + /api/quote, Resend email when env set)
+- **Native main lead form** at /contact (replaces Typeform JLIMOo51), branches at "Business or Individual," all multi-choice options pulled from a CSV of 267 past Typeform responses
+
+**Misc**
+- Header + mobile sheet + Footer wired with Facebook + Instagram + LinkedIn icons
 - Hero images deduped so no two pages share the same hero
-- All h1/h2/h3 sweepingly bolded `font-semibold`
-- All em-dashes removed sitewide
-- All numbered "01 02 03" prefixes removed
 - Permanent redirects: /work → /gallery, /furniture/nys-contracts → /nys-contracts
+- Map pins land on HVOF (was BJ's)
+- Bulk WP media transfer (1.8GB, 12k+ files) rsync'd to SSD; product photos mapped into /public/products
 
 ---
 
-## What's pending
+## What's pending (priority order)
 
-Roughly priority order:
+**In flight, picking up next session**
 
-1. **Bulk WP media transfer.** Run rsync (or Hostinger File Manager zip) so we have product images locally at `/Volumes/CQ-PRO-4TB/CQ Marketing/HVOF/wp-uploads-mirror/`. After that, index every chair/desk SKU to its real photo and replace `product-placeholder.svg`.
-2. **GA4 + Meta Pixel IDs** in Vercel env (waiting on real IDs).
-3. **LinkedIn URL.** Placeholder set to `linkedin.com/company/hudson-valley-office-furniture/`. Confirm or replace.
-4. **10 remaining city pages** (Newburgh, Middletown, Kingston, Beacon, Wappingers Falls, White Plains, New Paltz, Hyde Park, Peekskill, Rhinebeck). Copy `office-furniture-fishkill-ny/page.tsx`, swap `CITY` constant + `driveTime`, add to `SITE.citiesServed` in `lib/site.ts`. ~30 seconds each.
-5. **Resend integration**: paste `RESEND_API_KEY` + `LEAD_EMAIL_TO` into Vercel env so /api/lead and /api/quote actually email leads. Code is already wired.
-6. **Real WooCommerce content** for the 13 chairs (descriptions + photos). Replace `lib/products.ts` placeholders.
-7. **Marshall + Sterling case study page** was deleted in the /work consolidation. If a dedicated case-study is wanted back, build at `/gallery/marshall-sterling` and link from the home Featured Clients block.
-8. **Blog migration** if keeping (currently no blog on the new site).
-9. **Google Business Profile** still not claimed/verified per legacy project notes.
-10. **Google Search Console** sitemap not yet submitted.
-11. **DNS cutover** when approved. Update `SITE.url` in `lib/site.ts`. Coordinate with Hostinger DNS.
+1. **Sell Your Furniture form + /sell-your-furniture landing page.** Recreates Typeform `JAHzhOUt`. Cesar to provide the field list (Typeform JS-rendered, WebFetch can't see fields). Sample question seen: "Tell us a bit about you. How would you use the Desk? What Desk are you using right now?" Yellow background. Add to footer + furniture mega-menu.
+2. **Native giveaway entry form on /giveaway.** Recreates Typeform `e5SrmqW1`. /giveaway page exists, currently links to the Typeform. Replace.
+3. **Update /api/lead** to differentiate `formType` in email subject + tags so Cesar can sort main-lead vs sell-furniture vs giveaway entries in his inbox.
+4. **Weekly leads digest** via Vercel Cron + Resend. Last 7 days of submits → email digest every Monday morning. Requires #5.
+5. **Persistence layer for leads.** Right now /api/lead just logs and emails. Need a database for the digest + future admin portal. Vercel Marketplace integrations like Neon Postgres or Upstash Redis.
+
+**Bigger features**
+
+6. **Admin / dashboard portal.** Pattern from TZ Marlon and Theory: backend at /admin, auth-gated, lead inbox, giveaway entries, content management, internal agents. Big new project.
+7. **More product variety.** WP `Webpage-Product-Gallery-*` series has 150+ images organized by category. Pull more into Desks / Conference / Healthcare / Lounge to replace the 1-3 placeholders each currently has.
+
+**SEO + content**
+
+8. **Borough / NYC / tri-state SEO landing pages** if Cesar wants that surface. He mentioned tri-state and "down to the city."
+9. **Service pages.** /services/space-planning, /services/installation, /services/delivery are linked from Footer but pages don't exist yet.
+10. **Real WooCommerce-style descriptions** for the 13 chairs to replace the placeholder copy in `lib/products.ts`.
+11. **Marshall + Sterling case study page** at /gallery/marshall-sterling. Was deleted in the /work consolidation. Recreate if dedicated case study is wanted.
+12. **Blog migration** if keeping (no blog on the new site yet).
+
+**Ops / launch**
+
+13. **DNS cutover** when approved. Update `SITE.url` in `lib/site.ts`. Coordinate with Hostinger DNS.
+14. **Google Business Profile** still not claimed/verified per legacy project notes.
+15. **Google Search Console** sitemap not yet submitted.
+16. **Meta Pixel ID** still pending (only GA4 wired so far).
+17. **GA Analytics MCP unblock.** The `cq-reporting` GCP project under `cesar@creativequalitymarketing.com` has the org-level `iam.disableServiceAccountKeyCreation` policy enforced. Three documented unblock paths in Dropbox CLAUDE.md section 11a.
 
 ---
 
