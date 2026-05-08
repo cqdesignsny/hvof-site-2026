@@ -95,7 +95,7 @@ export function Header() {
           <Button
             asChild
             size="sm"
-            className="hidden md:inline-flex h-9 rounded-full bg-brand-yellow px-4 text-sm font-medium text-foreground hover:bg-brand-yellow-hover"
+            className="hidden md:inline-flex h-9 rounded-full bg-brand-yellow px-4 text-sm font-medium text-foreground hover:bg-white hover:text-foreground focus-visible:bg-white focus-visible:text-foreground"
           >
             <Link href="/quote-request">
               Get a quote
@@ -180,7 +180,7 @@ export function Header() {
                   <Button
                     asChild
                     size="lg"
-                    className="h-12 w-full rounded-full bg-brand-yellow text-base text-foreground hover:bg-brand-yellow-hover"
+                    className="h-12 w-full rounded-full bg-brand-yellow text-base text-foreground hover:bg-white hover:text-foreground focus-visible:bg-white focus-visible:text-foreground"
                   >
                     <Link href="/quote-request" onClick={() => setOpen(false)}>
                       Get a quote

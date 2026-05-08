@@ -7,7 +7,6 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { ScrollText } from "@/components/motion/scroll-text";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { FacebookIcon, InstagramIcon } from "@/components/site/social-icons";
-import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -61,15 +60,15 @@ export default function GiveawayPage() {
       <section className="relative isolate flex min-h-[80svh] items-end overflow-hidden bg-foreground text-background">
         <div className="absolute inset-0 -z-10">
           <Image
-            src={IMG.marshallSterling.gallery[1]}
-            alt="HVOF 40th anniversary giveaway"
+            src="/giveaway/desk-2026-q2.jpg"
+            alt="The height-adjustable desk we are giving away"
             fill
             priority
             sizes="100vw"
             quality={85}
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/15" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/20" aria-hidden="true" />
         </div>
         <div className="container-wide relative z-10 pb-24 pt-40 md:pb-32 md:pt-52">
           <FadeIn className="max-w-5xl">

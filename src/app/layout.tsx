@@ -52,6 +52,8 @@ export const metadata: Metadata = {
     description: SITE.description,
     url: SITE.url,
     locale: "en_US",
+    // og:image, twitter:image, and favicon/apple-icon are auto-discovered from
+    // app/opengraph-image.png, app/icon.png, app/apple-icon.png, app/favicon.ico.
   },
   twitter: {
     card: "summary_large_image",
