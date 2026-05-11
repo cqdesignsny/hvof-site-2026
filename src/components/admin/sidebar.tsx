@@ -7,6 +7,7 @@ import {
   Users,
   BookOpen,
   Bot,
+  GraduationCap,
   Map,
   BarChart3,
   LogOut,
@@ -19,6 +20,7 @@ const NAV = [
   { label: "Leads", href: "/admin/leads", icon: Users },
   { label: "Knowledge Base", href: "/admin/knowledge-base", icon: BookOpen },
   { label: "Agents", href: "/admin/agents", icon: Bot },
+  { label: "Agent Training", href: "/admin/training", icon: GraduationCap },
   { label: "Plan", href: "/admin/plan", icon: Map },
   { label: "Reports", href: "/admin/reports", icon: BarChart3 },
 ] as const;
