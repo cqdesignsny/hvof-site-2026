@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { SITE } from "@/lib/site";
 import { recordLead } from "@/lib/leads-store";
+import { ingestLeadToSignal } from "@/lib/signal/lead-ingest";
 
 type FormType = "main-lead" | "sell-furniture" | "giveaway";
 
@@ -53,7 +54,8 @@ export async function POST(request: Request) {
 
   // Persist for the Floorplan admin lead pipeline. In-memory until Vercel KV is wired.
   try {
-    await recordLead(payload);
+    const stored = await recordLead(payload);
+    ingestLeadToSignal(stored, payload);
   } catch (err) {
     console.error("[lead] recordLead error", err);
   }

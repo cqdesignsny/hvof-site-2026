@@ -41,6 +41,7 @@ Node 22+, pnpm 10+. Repository auto-deploys to Vercel on push to `main`.
 | Lead store | Neon Postgres (HVOF-DB) via `@neondatabase/serverless`. In-memory fallback for local dev. |
 | Admin | `/admin` (Floorplan), HMAC cookie auth, light/dark theme |
 | Analytics | GA4 + Meta Pixel via `@next/third-parties` (env-gated) |
+| Reporting data plane | **CQ Signal** (separate Next.js app) via REST. Floorplan reads `/api/v1/businesses/hudson-valley-office-furniture/{snapshot,brief,recommendations}` and renders in HVOF tokens. Mock fallback while the Signal contract is being shipped. |
 | Hosting | Vercel (Fluid Compute) |
 | Image CDN | thewowguys.com WP CDN + AIS Inc image library + local `/public/products/` |
 
@@ -62,6 +63,10 @@ ADMIN_SESSION_SECRET      Long random string for HMAC
 DATABASE_URL              Pooled, primary
 DATABASE_URL_UNPOOLED     Direct
 POSTGRES_*, PG*, NEON_PROJECT_ID
+
+# CQ Signal data plane (set both, or leave both unset for mock mode)
+SIGNAL_API_BASE           e.g. https://cq-signal-app.vercel.app
+SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents & AI
 ```
 
 ## Routes
@@ -92,7 +97,9 @@ POSTGRES_*, PG*, NEON_PROJECT_ID
 | `/admin/login` | Public, password gate |
 | `/admin` | Dashboard: stat tiles, recent leads, quick links, storage status |
 | `/admin/leads` | Pipeline table, filterable by formType (All / Quote Request / Sell-to-Us / Giveaway) |
-| `/admin/knowledge-base`, `/admin/agents`, `/admin/plan`, `/admin/reports` | Stubs + live data where applicable |
+| `/admin/training` | Agent Training questionnaire. 13 sections, ~67 questions, autosaves to localStorage, on send writes to Neon and emails the markdown packet via Resend. |
+| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channel breakdown, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Pulls from CQ Signal when `SIGNAL_API_BASE` is set, otherwise renders a realistic HVOF mock. |
+| `/admin/knowledge-base`, `/admin/agents`, `/admin/plan` | Stubs + live data where applicable |
 
 ### API
 
@@ -153,8 +160,17 @@ src/
     ├── leads-store.ts                 Neon Postgres + in-memory fallback
     ├── admin-auth.ts                  HMAC cookie auth helpers
     ├── local-faqs.ts                  City FAQ generator
+    ├── training-questions.ts          /admin/training schema
+    ├── training-store.ts              Neon training_submissions table
+    ├── signal/                        CQ Signal data plane consumer
+    │   ├── types.ts                   Contract types (snapshot, brief, recommendations)
+    │   ├── mock.ts                    Realistic HVOF mock for 7d / 30d / 90d / 1y
+    │   ├── client.ts                  fetchSnapshot/Brief/Recommendations, env-gated mock fallback
+    │   └── lead-ingest.ts             Fire-and-forget POST to Signal's /api/v1/leads/ingest
     └── utils.ts                       cn() helper
 ```
+
+`src/components/admin/report/` holds the report UI primitives (DeltaPill, TrendChart, ChannelDonut, MetricTile, SectionCard, RangeTabs, StatusPill, RecommendationsList, BriefMarkdown, MockBanner). All hand-rolled SVG, no chart library, in HVOF tokens.
 
 ## Brand tokens
 
@@ -254,12 +270,14 @@ Highlights:
 - ✓ Trusted By marquee with 11 partner logos (cream + grayscale + larger)
 - ✓ Mobile horizontal overflow fixed
 - ✓ Get a Quote button hover legibility fixed (white bg, black text)
+- ✓ Agent Training questionnaire (`/admin/training`, 13 sections, markdown email packet)
+- ✓ CQ Signal data-plane consumer wired: types, mock, fetch client, `/admin/reports` page in HVOF tokens, env-gated lead-ingest webhook from `/api/lead`. Mock until `SIGNAL_API_BASE` is set.
 
 Pending (priority order):
 
+- Live Signal credentials: paste `SIGNAL_API_BASE` and `SIGNAL_API_KEY` once the Signal-side session ships v1 REST (see `SIGNAL-HANDOFF.md` in the Dropbox project root)
 - Sell Your Furniture form + own /sell-your-furniture page (Typeform JAHzhOUt)
 - Native giveaway entry form on /giveaway (Typeform e5SrmqW1)
-- Wire Neon to Development env on Vercel (currently Production + Preview only)
 - Weekly leads digest via Vercel Cron + Resend (now feasible with persistence)
 - Knowledge base content authoring + display
 - Concierge web-chat agent
@@ -293,6 +311,8 @@ Pending (priority order):
 | 2026-05-08 | Public routes moved into `/app/(public)/` | Keeps public chrome out of admin |
 | 2026-05-08 | Neon Postgres for lead pipeline | Durable, serverless-friendly via @neondatabase/serverless |
 | 2026-05-08 | Trusted-By bar lightened to cream | Logos read better on light bg |
+| 2026-05-11 | Agent Training questionnaire built into Floorplan | Bootstrap the HVOF agent from team knowledge before any code |
+| 2026-05-18 | CQ Signal as the reporting data plane (not per-client wiring) | Build connectors once; every client admin pulls via REST. HVOF Floorplan is the first consumer. See `SIGNAL-HANDOFF.md`. |
 
 ## Notes
 
