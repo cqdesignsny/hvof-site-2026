@@ -36,11 +36,11 @@ export default function ECatalogPage() {
         <div className="container-wide">
           <p className="eyebrow text-muted-foreground">E-Catalog</p>
           <h1 className="mt-5 max-w-5xl font-display text-5xl font-semibold leading-[0.92] tracking-[-0.035em] md:text-7xl lg:text-8xl xl:text-9xl">
-            The full catalog,<br />
-            <span className="text-muted-foreground">at your fingertips.</span>
+            In-stock favorites. Delivered fast.<br />
+            <span className="text-muted-foreground">Deeply discounted from the listed price.</span>
           </h1>
           <p className="mt-8 max-w-3xl text-xl leading-[1.5] text-muted-foreground md:text-2xl">
-            Browse thousands of office furniture options with full specs, finishes, and dimensions. When you are ready, send us a list and we build the quote.
+            Browse our catalog of best-selling products, all available within a one-week lead time. HVOF offers deep discounts on all catalog pricing. This selection complements the 40+ premier manufacturers we also represent.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Button asChild size="lg" className="h-14 rounded-full bg-brand-yellow px-8 text-base font-semibold text-foreground hover:bg-brand-yellow-hover">

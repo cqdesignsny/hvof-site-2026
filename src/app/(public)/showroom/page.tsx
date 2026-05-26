@@ -37,10 +37,10 @@ export default function ShowroomPage() {
           <FadeIn className="max-w-4xl">
             <p className="eyebrow text-brand-yellow">The Showroom</p>
             <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
-              Come spend<br />an afternoon.
+              See it. Feel it.<br />Experience 37,000 sf of furniture.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
-              37,000 square feet on Route 9. Every category we sell, laid out at full scale. Bring your team, bring your floor plans, bring your coffee mug.
+              Spend an afternoon inside our 37,000-square-foot showroom on Route 9 in Wappingers Falls, New York, where every category we represent is thoughtfully displayed at full scale. Bring your team, your floor plans, your coffee mug, and explore the possibilities in person.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full bg-brand-yellow px-6 text-base text-foreground hover:bg-brand-yellow-hover">

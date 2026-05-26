@@ -52,7 +52,7 @@ export default function GalleryPage() {
             <span className="text-muted-foreground">Recent work.</span>
           </h1>
           <p className="mt-8 max-w-3xl text-xl leading-[1.5] text-muted-foreground md:text-2xl">
-            A small slice of what we have built across the Hudson Valley. Click any photo to open it large. The full archive grows with every project.
+            A visual archive of projects built across the Northeast corridor. Click any image to explore it in full, with new work added continuously as the portfolio grows.
           </p>
         </div>
       </section>

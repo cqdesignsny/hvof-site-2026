@@ -18,7 +18,7 @@ export const SITE = {
   logo: "/logo.svg",
   ogImage: "/og.jpg",
 
-  founded: "1985",
+  founded: "1986",
   showroomSqft: "37,000",
   largestClaim: "Largest showroom between New York City and Albany",
 

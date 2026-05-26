@@ -269,7 +269,7 @@ function FurnitureMenu() {
       </button>
       {open ? (
         <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3">
-          <div className="grid w-[640px] grid-cols-3 gap-1 rounded-2xl border border-border bg-background p-3 shadow-2xl shadow-black/20">
+          <div className="grid w-[min(40rem,calc(100vw-3rem))] grid-cols-3 gap-1 rounded-2xl border border-border bg-background p-3 shadow-2xl shadow-black/20">
             {NAV.furniture.map((item) => (
               <Link
                 key={item.href}

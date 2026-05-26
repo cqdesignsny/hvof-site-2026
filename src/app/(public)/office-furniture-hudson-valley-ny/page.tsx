@@ -69,7 +69,7 @@ export default function HudsonValleyPage() {
         <div className="container-wide relative z-10 pb-24 pt-40 md:pb-32 md:pt-52">
           <FadeIn className="max-w-5xl">
             <p className="eyebrow" style={{ color: "var(--brand-yellow)" }}>
-              The whole Hudson Valley, since 1985
+              The whole Hudson Valley, since 1986
             </p>
             <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,6rem)] font-semibold leading-[0.92] tracking-[-0.035em] text-white">
               The Hudson Valley&apos;s<br />

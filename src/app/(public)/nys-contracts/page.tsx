@@ -90,11 +90,11 @@ export default function NYSContractsPage() {
               NYS Contracts
             </p>
             <h1 className="mt-6 font-display text-[clamp(2.75rem,7vw,6rem)] font-semibold leading-[0.92] tracking-[-0.035em] text-white">
-              State, municipal,<br />
+              State, municipal, nonprofit,<br />
               and educational pricing.
             </h1>
             <p className="mt-7 max-w-3xl text-xl leading-[1.5] text-white/80 md:text-2xl">
-              Authorized NYS contract dealer. 40+ manufacturers, fixed pricing, no negotiation. If you receive even one dollar of state aid, you qualify.
+              Authorized New York State contract dealer. 40+ premier manufacturers. Fixed, pre-negotiated pricing backed by collective purchasing power. Any organization receiving New York State funding, even as little as one dollar, is eligible to participate.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button

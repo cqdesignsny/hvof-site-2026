@@ -135,12 +135,16 @@ export function HeroSlider({
                 type="button"
                 onClick={() => setIndex(i)}
                 aria-label={`Show slide ${i + 1}`}
-                className="h-1.5 w-12 rounded-full transition-all"
-                style={{
-                  backgroundColor:
-                    i === index ? "var(--brand-yellow)" : "rgba(255,255,255,0.28)",
-                }}
-              />
+                className="flex h-11 w-12 items-center justify-center"
+              >
+                <span
+                  className="block h-1.5 w-full rounded-full transition-all"
+                  style={{
+                    backgroundColor:
+                      i === index ? "var(--brand-yellow)" : "rgba(255,255,255,0.28)",
+                  }}
+                />
+              </button>
             ))}
           </div>
         </motion.div>

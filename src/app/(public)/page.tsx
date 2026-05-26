@@ -86,7 +86,7 @@ const FAQS = [
 
 const DIFFERENTIATORS = [
   {
-    title: "Founded 1985. Family-owned.",
+    title: "Founded 1986. Family-owned.",
     body: "Three generations of the same Hudson Valley family. Still here when the warranty needs us, and still answering the phone.",
   },
   {
@@ -118,9 +118,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSlider
-        eyebrow="Established 1985, Wappingers Falls NY"
+        eyebrow="Established 1986"
         headline="Furniture for the rooms where work happens."
-        sub="New, pre-owned, and custom office furniture. The largest showroom between New York City and Albany at 37,000 square feet."
+        sub="New, pre-owned, and custom office spaces. The largest showroom between New York City and Albany at 37,000 square feet."
         slides={HERO_SLIDES}
         primaryCta={{ label: "See our work", href: "/gallery" }}
         secondaryCta={{ label: "Visit the showroom", href: "/showroom" }}

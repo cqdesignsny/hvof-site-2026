@@ -15,11 +15,11 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Hudson Valley Office Furniture is a modern office furniture company in Wappingers Falls, NY. The largest showroom between New York City and Albany at 37,000 square feet. Family-owned since 1985.",
+    "Hudson Valley Office Furniture is a modern office furniture company in Wappingers Falls, NY. The largest showroom between New York City and Albany at 37,000 square feet. Family-owned since 1986.",
 };
 
 const NUMBERS = [
-  { value: "1985", label: "Founded" },
+  { value: "1986", label: "Founded" },
   { value: "37,000", label: "Sqft showroom" },
   { value: "Largest", label: "Between NYC + Albany" },
   { value: "40+", label: "Manufacturers" },
@@ -92,11 +92,11 @@ export default function AboutPage() {
           <FadeIn className="max-w-5xl">
             <p className="eyebrow text-brand-yellow">About HVOF</p>
             <h1 className="mt-6 font-display text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
-              A modern office furniture<br />
-              company. Hudson Valley made.
+              Modern workspaces.<br />
+              Hudson Valley roots.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
-              Cutting-edge design meets ergonomic functionality. Workspaces that inspire innovation, collaboration, and the kind of long days good work demands.
+              Cutting-edge design meets ergonomic performance in thoughtfully crafted workspaces built for innovation, collaboration, and the kind of meaningful work that fills long, productive days.
             </p>
           </FadeIn>
         </div>
@@ -125,21 +125,15 @@ export default function AboutPage() {
         <div className="container-wide">
           <div className="grid gap-16 md:grid-cols-12 md:gap-20">
             <FadeIn className="md:col-span-5">
-              <p className="eyebrow text-muted-foreground">Our story</p>
+              <p className="eyebrow text-muted-foreground">Hudson Valley Office Furniture. The Wow Guys.</p>
               <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
-                Built for the Hudson Valley, by the Hudson Valley.
+                Three generations deep.
               </h2>
             </FadeIn>
             <FadeIn delay={0.1} className="md:col-span-7">
               <div className="space-y-6 text-base leading-relaxed text-foreground/85 md:text-lg lg:text-xl">
-                <p>
-                  HVOF opened in 1985 with a small storefront on Route 9 in Wappingers Falls and one promise: that businesses across the Hudson Valley would not have to drive to New York City to buy serious office furniture. Forty years later, the storefront has grown into 37,000 square feet of working configurations. the largest showroom between NYC and Albany. and we are still on Route 9.
-                </p>
-                <p>
-                  Three generations of the same family have run this company. We know the brands because we have sold them for decades. We know the buildings because we have installed in most of them. And we know the buyers because they keep coming back. for a fifth chair, a third floor, a second decade.
-                </p>
-                <p>
-                  Today we serve corporate offices, healthcare facilities, colleges, K–12 schools, government agencies, manufacturers, and the kind of small businesses that grow into big ones. From single ergonomic chairs to floor-by-floor installations, we spec, source, deliver, and install. all with the same crew you met at the showroom.
+                <p className="italic text-muted-foreground">
+                  Waiting on revised copy from Dina.
                 </p>
               </div>
             </FadeIn>

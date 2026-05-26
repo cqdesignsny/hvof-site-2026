@@ -25,7 +25,7 @@ const PANELS: TeamPanel[] = [
   },
   {
     title: "Three generations on Route 9.",
-    body: "Family-owned since 1985. Local hires, local crews, local relationships. We are forty minutes from your office, not an 800 number.",
+    body: "Family-owned since 1986. Local hires, local crews, local relationships. We are forty minutes from your office, not an 800 number.",
     image: IMG.marshallSterling.gallery[3],
   },
 ];
