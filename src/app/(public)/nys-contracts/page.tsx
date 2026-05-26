@@ -13,7 +13,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "NYS Contract Office Furniture",
   description:
-    "Authorized NYS contract dealer. State, municipal, and educational buyers can purchase office furniture from 40+ manufacturers at contract pricing. Even one dollar of state aid qualifies.",
+    "Authorized New York State contract dealer. State, municipal, nonprofit, and educational buyers can purchase office furniture from 40+ premier manufacturers at fixed, pre-negotiated contract pricing. Any organization receiving even one dollar of New York State funding qualifies.",
 };
 
 const ELIGIBLE = [

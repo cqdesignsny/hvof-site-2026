@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "E-Catalog",
   description:
-    "Browse the full HVOF e-catalog. Thousands of office furniture options with specs, finishes, and dimensions. Powered by OfficeSource.",
+    "HVOF in-stock favorites, delivered fast. Best-selling office furniture deeply discounted from listed pricing, available within a one-week lead time. Browse the full catalog inline.",
 };
 
 const EXTERNAL_CATALOG_URL = "https://www.coedistributing.com/officesource-catalog/";

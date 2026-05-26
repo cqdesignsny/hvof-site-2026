@@ -48,7 +48,7 @@ const CATEGORIES = [
   { name: "Education", href: "/furniture/education", icon: "/icons/classroom.webp", desc: "Classrooms, lecture halls, faculty offices, libraries, and student lounges." },
   { name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
   { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.webp", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
-  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.webp", desc: "OGS pricing for state, municipal, and educational buyers. 40 plus manufacturers." },
+  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.webp", desc: "OGS pricing for state, municipal, nonprofit, and educational buyers. 40 plus manufacturers." },
 ];
 
 const FAQS = [
@@ -80,7 +80,7 @@ const FAQS = [
   {
     question: "Do you accept NYS Contracts and procurement codes?",
     answer:
-      "Yes. We are an authorized vendor on multiple New York State OGS contracts. Even minimal state aid qualifies an organization for contract pricing. Government, municipal, and educational buyers welcome.",
+      "Yes. We are an authorized vendor on multiple New York State OGS contracts. Even minimal state aid qualifies an organization for contract pricing. Government, municipal, nonprofit, and educational buyers welcome.",
   },
 ];
 
@@ -99,7 +99,7 @@ const DIFFERENTIATORS = [
   },
   {
     title: "Hudson Valley to NYC. NYS-contract approved.",
-    body: "Dutchess to Westchester to the boroughs. Authorized OGS vendor for state, municipal, and educational buyers.",
+    body: "Dutchess to Westchester to the boroughs. Authorized OGS vendor for state, municipal, nonprofit, and educational buyers.",
   },
 ];
 

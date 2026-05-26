@@ -15,7 +15,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Hudson Valley Office Furniture is a modern office furniture company in Wappingers Falls, NY. The largest showroom between New York City and Albany at 37,000 square feet. Family-owned since 1986.",
+    "Modern workspaces. Hudson Valley roots. Hudson Valley Office Furniture is family-owned since 1986, with a 37,000 square foot showroom in Wappingers Falls, NY, the largest between New York City and Albany.",
 };
 
 const NUMBERS = [

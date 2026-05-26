@@ -17,6 +17,6 @@ export const cityFaqs = (city: string) => [
   },
   {
     question: `Do you accept NYS Contract or municipal procurement codes for ${city}?`,
-    answer: `Yes. We are an authorized vendor on multiple New York State OGS contracts, available to state, municipal, and educational buyers in ${city} and surrounding areas.`,
+    answer: `Yes. We are an authorized vendor on multiple New York State OGS contracts, available to state, municipal, nonprofit, and educational buyers in ${city} and surrounding areas.`,
   },
 ];

@@ -128,7 +128,7 @@ export function CountyLandingTemplate({
         <div className="container-wide">
           <FadeIn className="max-w-4xl">
             <p className="text-xl leading-[1.5] text-foreground md:text-2xl lg:text-3xl">
-              <strong className="font-semibold">Hudson Valley Office Furniture serves {fullName}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls, the largest office furniture showroom between New York City and Albany. Most of {fullName} is around {driveTime} away. New, pre-owned, custom, and NYS contract pricing for state and municipal buyers.
+              <strong className="font-semibold">Hudson Valley Office Furniture serves {fullName}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls, the largest office furniture showroom between New York City and Albany. Most of {fullName} is around {driveTime} away. New, pre-owned, custom, and NYS contract pricing for state, municipal, and nonprofit buyers.
             </p>
           </FadeIn>
         </div>
@@ -208,7 +208,7 @@ export function CountyLandingTemplate({
               { name: "Conference rooms", desc: "Tables, chairs, AV-integrated boardrooms." },
               { name: "Workstation systems", desc: "Panels, benching, cubicles, full-floor reconfigurations." },
               { name: "Healthcare seating", desc: "Patient rooms, exam areas, waiting rooms. Antimicrobial finishes." },
-              { name: "Pre-owned + NYS contract", desc: "Tier-A brands inspected and warranted. Contract pricing for state and municipal." },
+              { name: "Pre-owned + NYS contract", desc: "Tier-A brands inspected and warranted. Contract pricing for state, municipal, and nonprofit buyers." },
             ].map((s, i) => (
               <FadeIn key={s.name} delay={(i % 3) * 0.04} className="border-t border-background/15 py-7 md:py-9">
                 <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{s.name}</h3>
@@ -245,7 +245,7 @@ export function CountyLandingTemplate({
                   { title: `${driveTime} from the showroom`, body: "Quote, delivery, and installation timelines that match your project schedule." },
                   { title: "Same crew from spec to install", body: "The team that quotes you delivers and sets it up. No hand-offs, no surprises." },
                   { title: "Pre-owned + new together", body: "Outfit faster, spend less, scale without compromise. Mix and match in one quote." },
-                  { title: "NYS contracts welcome", body: "Authorized vendor on multiple OGS contracts for state, municipal, and educational buyers." },
+                  { title: "NYS contracts welcome", body: "Authorized vendor on multiple OGS contracts for state, municipal, nonprofit, and educational buyers." },
                 ].map((item) => (
                   <li key={item.title} className="flex gap-4">
                     <Check className="mt-1.5 h-6 w-6 shrink-0" style={{ color: "var(--brand-yellow)" }} />

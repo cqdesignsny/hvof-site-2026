@@ -142,7 +142,7 @@ export function LocalLandingTemplate({
                   { title: `${driveTime} drive from {city}`.replace("{city}", city), body: "Quote, delivery, and installation timelines that match your project schedule." },
                   { title: "Same crew from spec to install", body: "The team that quotes you delivers and sets it up. No hand-offs, no surprises." },
                   { title: "Pre-owned + new inventory", body: "Outfit faster, spend less, scale without compromise. Quality controlled at our facility." },
-                  { title: "NYS contracts welcome", body: "Authorized vendor on multiple OGS contracts for state, municipal, and educational buyers." },
+                  { title: "NYS contracts welcome", body: "Authorized vendor on multiple OGS contracts for state, municipal, nonprofit, and educational buyers." },
                 ].map((item) => (
                   <li key={item.title} className="flex gap-4 border-t border-background/15 pt-5">
                     <Check className="mt-1 h-5 w-5 shrink-0 text-brand-yellow" />
