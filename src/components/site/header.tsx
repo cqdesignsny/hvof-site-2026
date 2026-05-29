@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/site/logo";
+import { FurnitureMegaMenu } from "@/components/site/furniture-mega-menu";
 import { NAV, SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +39,7 @@ export function Header() {
         <nav className="hidden items-center gap-1 md:flex">
           {NAV.primary.map((item) =>
             item.label === "Furniture" ? (
-              <FurnitureMenu key={item.label} />
+              <FurnitureMegaMenu key={item.label} />
             ) : (
               <Link
                 key={item.href}
@@ -253,39 +254,3 @@ function MobileNav({ onClose }: { onClose: () => void }) {
   );
 }
 
-function FurnitureMenu() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button
-        type="button"
-        className={cn(
-          "rounded-full px-4 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white",
-          open && "bg-white/10 text-white",
-        )}
-        aria-expanded={open}
-      >
-        Furniture
-      </button>
-      {open ? (
-        <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3">
-          <div className="grid w-[min(40rem,calc(100vw-3rem))] grid-cols-3 gap-1 rounded-2xl border border-border bg-background p-3 shadow-2xl shadow-black/20">
-            {NAV.furniture.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group rounded-xl p-3 transition-colors hover:bg-foreground/[0.04]"
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="text-sm font-medium text-foreground">{item.label}</span>
-                  <ArrowUpRight className="h-3 w-3 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">{item.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-}
