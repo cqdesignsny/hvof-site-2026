@@ -153,9 +153,12 @@
   }
   html {
     @apply antialiased font-sans;
-    /* Larger, more readable base. Bumped ~17% (May 29 2026) so body copy reads
-       comfortably; headings scale proportionally. Was 18px. */
-    font-size: 21px;
+    /* Fluid, responsive root size (May 29 2026). Every rem-based size on the
+       site — body, navigation, and headings — scales from this one value:
+       ~14px on phones, ~16px on laptops, growing to 20px on large screens and
+       TVs. Adjust the 0.32vw slope or the px bounds to resize all site text at
+       once. Replaces the old fixed 18px / 21px base. */
+    font-size: clamp(14px, 0.7rem + 0.32vw, 20px);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -165,11 +168,6 @@
   }
   body {
     overflow-x: clip;
-  }
-  @media (min-width: 1280px) {
-    html {
-      font-size: 22px;
-    }
   }
   body {
     @apply bg-background text-foreground;
