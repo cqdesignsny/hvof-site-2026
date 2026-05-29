@@ -16,7 +16,7 @@ export default function FishkillPage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="8 minutes"
-      intro={`Hudson Valley Office Furniture serves ${CITY} and the Route 9 corridor with task seating, desks, conference rooms, and full-floor installations. New, pre-owned, custom. quoted same-day, delivered fast, installed by our own crew.`}
+      intro={`Hudson Valley Office Furniture serves ${CITY} and the Route 9 corridor with task seating, desks, conference rooms, and full-floor installations. New, pre-owned, custom. quoted promptly, delivered fast, installed by our own crew.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />

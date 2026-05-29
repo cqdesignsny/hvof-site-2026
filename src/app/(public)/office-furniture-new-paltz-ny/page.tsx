@@ -16,7 +16,7 @@ export default function NewPaltzPage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="30 minutes"
-      intro={`Hudson Valley Office Furniture serves ${CITY}, SUNY New Paltz, and Ulster County. Education, government, and small-business furniture with NYS contract pricing where eligible. Same-day quotes, in-house install crews.`}
+      intro={`Hudson Valley Office Furniture serves ${CITY}, SUNY New Paltz, and Ulster County. Education, government, and small-business furniture with NYS contract pricing where eligible. Prompt quotes, in-house install crews.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />

@@ -153,8 +153,9 @@
   }
   html {
     @apply antialiased font-sans;
-    /* Bigger, more readable base. About 12% bump from default 16px */
-    font-size: 18px;
+    /* Larger, more readable base. Bumped ~17% (May 29 2026) so body copy reads
+       comfortably; headings scale proportionally. Was 18px. */
+    font-size: 21px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -167,7 +168,7 @@
   }
   @media (min-width: 1280px) {
     html {
-      font-size: 18.5px;
+      font-size: 22px;
     }
   }
   body {

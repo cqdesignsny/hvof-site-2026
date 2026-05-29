@@ -66,7 +66,7 @@ const LOOKING_FOR_OPTIONS = [
   "Conference / meeting rooms",
   "Reception / lobby",
   "Lounge / waiting area",
-  "Panel systems / cubicles",
+  "Panel systems",
   "Office design + space planning",
   "Other",
 ] as const;
@@ -229,7 +229,7 @@ export function QuoteRequestForm() {
           You&apos;re in good hands.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          A real human follows up within 4 business hours, often same-day. For anything urgent, call <span className="font-mono font-semibold text-foreground">{SITE.contact.phone}</span>.
+          A real human follows up promptly. For anything urgent, call <span className="font-mono font-semibold text-foreground">{SITE.contact.phone}</span>.
         </p>
       </div>
     );

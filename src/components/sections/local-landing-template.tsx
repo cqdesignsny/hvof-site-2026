@@ -88,7 +88,7 @@ export function LocalLandingTemplate({
         <div className="container-editorial">
           <FadeIn className="max-w-3xl">
             <p className="text-xl leading-relaxed text-foreground md:text-2xl">
-              <strong className="font-medium">Hudson Valley Office Furniture serves {city}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls. about {driveTime} from {city}. We deliver and install task seating, desks, conference tables, and full-floor installations, with in-house crews and same-day quote turnaround.
+              <strong className="font-medium">Hudson Valley Office Furniture serves {city}, {state}</strong> from a 37,000 sqft showroom on Route 9 in Wappingers Falls. about {driveTime} from {city}. We deliver and install task seating, desks, conference tables, and full-floor installations, with in-house crews and prompt quote turnaround.
             </p>
           </FadeIn>
         </div>
@@ -108,8 +108,8 @@ export function LocalLandingTemplate({
             {[
               { name: "Task & ergonomic seating", desc: "Steelcase, Herman Miller, Humanscale, HON" },
               { name: "Sit-stand desks", desc: "Single units to floor-wide benching." },
-              { name: "Conference rooms", desc: "Tables, chairs, AV-integrated boardrooms." },
-              { name: "Workstation systems", desc: "Panels, benching, cubicles, reconfigurations." },
+              { name: "Conference rooms", desc: "Tables, chairs, technology-integrated boardrooms." },
+              { name: "Workstation systems", desc: "Panels, benching, panel systems, reconfigurations." },
               { name: "Healthcare seating", desc: "Patient rooms, exam, waiting areas." },
               { name: "Pre-owned inventory", desc: "Tier-A brands, inspected and warranted." },
             ].map((s, i) => (
@@ -197,7 +197,7 @@ export function LocalLandingTemplate({
               Ready, {city}?
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              Get a quote in under 24 hours. Often same-day for stocked items.
+              Get a quote promptly.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="rounded-full bg-foreground px-6 text-base text-background hover:bg-foreground/90">

@@ -16,7 +16,7 @@ export default function PeekskillPage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="40 minutes"
-      intro={`Hudson Valley Office Furniture covers ${CITY} and the lower Westchester corridor. Healthcare seating, executive offices, conference rooms, and small-business furniture with same-day quotes.`}
+      intro={`Hudson Valley Office Furniture covers ${CITY} and the lower Westchester corridor. Healthcare seating, executive offices, conference rooms, and small-business furniture with prompt quotes.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />

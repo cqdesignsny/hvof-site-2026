@@ -64,7 +64,7 @@ export function QuoteCart() {
             Quote received.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            A team member will email you a finalized quote within 24 hours, often same-day for stocked items. Payment is collected offline once you approve.
+            A team member will email you a finalized quote promptly. Payment is collected offline once you approve.
           </p>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="h-12 rounded-full px-7 text-base">
@@ -90,7 +90,7 @@ export function QuoteCart() {
             Your quote cart is empty.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            Add chairs, desks, conference tables, or anything else from our catalog. We will compile a quote, often same-day.
+            Add chairs, desks, conference tables, or anything else from our catalog. We will compile a quote promptly.
           </p>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base text-background hover:bg-foreground/90">
@@ -119,7 +119,7 @@ export function QuoteCart() {
             purchase order.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Adjust quantities, add notes, and submit. We confirm pricing, delivery dates, and contract eligibility within 24 hours. Payment is processed offline by check, ACH, or PO once you approve.
+            Adjust quantities, add notes, and submit. We confirm pricing, delivery dates, and contract eligibility promptly. Payment is processed offline by check, ACH, or PO once you approve.
           </p>
         </div>
 

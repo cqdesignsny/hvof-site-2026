@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Workstation Systems",
   description:
-    "Panel systems, benching, cubicles, and full-floor reconfigurations. AIS Divi, Steelcase, and Knoll systems. Floor planning, install, and reconfiguration by our crews.",
+    "Panel systems, benching, workstations, and full-floor reconfigurations. AIS Divi, Steelcase, and Knoll systems. Floor planning, install, and reconfiguration by our crews.",
 };
 
 const AIS_BASE = "https://imagelibrary.ais-inc.com/files/images/_webp";
@@ -75,7 +75,7 @@ export default function SystemsPage() {
               Done with care.
             </h1>
             <p className="mt-7 max-w-3xl text-xl leading-[1.5] text-white/80 md:text-2xl">
-              Panel systems, benching, cubicles, and full-floor reconfigurations. AIS Divi, Steelcase, Knoll. Field-measured, CAD-drawn, installed by our crews.
+              Panel systems, benching, workstations, and full-floor reconfigurations. AIS Divi, Steelcase, Knoll. Field-measured, CAD-drawn, installed by our crews.
             </p>
           </FadeIn>
         </div>
@@ -92,7 +92,7 @@ export default function SystemsPage() {
           </FadeIn>
           <div className="mt-16 grid grid-cols-1 gap-x-12 gap-y-2 md:grid-cols-2">
             {[
-              { name: "Panel-based cubicles", desc: "Acoustic panels, stack-on tiles, integrated power-data, glass headers." },
+              { name: "Panel-based workstations", desc: "Acoustic panels, stack-on tiles, integrated power-data, glass headers." },
               { name: "Benching systems", desc: "Open-plan benching with shared power, 4 to 30 person rows." },
               { name: "Spine-and-wing", desc: "Power spine with offset wings. Maximum density without a panel forest." },
               { name: "Hot-desk + hoteling", desc: "Mobile, height-adjustable workstations with locker integration." },

@@ -50,7 +50,7 @@ export function NewsletterSignup({ variant = "dark" }: { variant?: "dark" | "lig
         }
       >
         New showroom arrivals,<br />
-        deals, and Hudson Valley install reveals.
+        deals, and install reveals.
       </h3>
 
       {done ? (

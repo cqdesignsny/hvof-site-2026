@@ -16,7 +16,7 @@ export default function HydeParkPage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="20 minutes"
-      intro={`Hudson Valley Office Furniture serves ${CITY} and the Route 9 corridor heading north. Healthcare, hospitality, education, and small-business furniture with same-day quotes and in-house install.`}
+      intro={`Hudson Valley Office Furniture serves ${CITY} and the Route 9 corridor heading north. Healthcare, hospitality, education, and small-business furniture with prompt quotes and in-house install.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />

@@ -205,8 +205,8 @@ export function CountyLandingTemplate({
             {[
               { name: "Task and ergonomic seating", desc: "Steelcase, Herman Miller, Humanscale, HON, and a dozen more." },
               { name: "Sit-stand desks", desc: "Single units to floor-wide benching." },
-              { name: "Conference rooms", desc: "Tables, chairs, AV-integrated boardrooms." },
-              { name: "Workstation systems", desc: "Panels, benching, cubicles, full-floor reconfigurations." },
+              { name: "Conference rooms", desc: "Tables, chairs, technology-integrated boardrooms." },
+              { name: "Workstation systems", desc: "Panels, benching, panel systems, full-floor reconfigurations." },
               { name: "Healthcare seating", desc: "Patient rooms, exam areas, waiting rooms. Antimicrobial finishes." },
               { name: "Pre-owned + NYS contract", desc: "Tier-A brands inspected and warranted. Contract pricing for state, municipal, and nonprofit buyers." },
             ].map((s, i) => (

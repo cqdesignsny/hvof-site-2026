@@ -5,7 +5,7 @@ import { IMG } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Panel Systems and Pods",
   description:
-    "Open-plan panel systems, cubicles, acoustic phone booths, and meeting pods. AIS Divi, AIS Matrix, and ROOM brand pre-wired and pre-engineered options.",
+    "Open-plan panel systems, acoustic phone booths, and meeting pods. AIS Divi, AIS Matrix, and ROOM brand pre-wired and pre-engineered options.",
 };
 
 export default function PodsPage() {
@@ -13,8 +13,8 @@ export default function PodsPage() {
     <CategoryTemplate
       category="pods"
       eyebrow="Furniture, Panel Systems and Pods"
-      title="Panels, cubicles, and quiet rooms."
-      intro="Open-plan panel systems for the floor, cubicles for the team, and acoustic pods for focus and video calls. AIS Divi, AIS Matrix, and ROOM lines installed and serviced in-house."
+      title="Panel systems and quiet rooms."
+      intro="Open-plan panel systems, acoustic pods, call center solutions, and collaborative team workspaces. Designed to support focus, privacy, and productivity at every scale."
       heroImage={IMG.marshallSterling.gallery[6]}
       heroAlt="HVOF panel system and acoustic pod installation"
       breadcrumb="Panel Systems and Pods"
@@ -23,7 +23,7 @@ export default function PodsPage() {
         { name: "Single-person phonebooths", description: "30 NRC sound rating, integrated power-USB, stand-or-sit. Most popular: Frame, Loop, Q-Series.", startingPrice: "From $5,499" },
         { name: "Two-person huddle pods", description: "Side-by-side meeting pods with shared screen mount and acoustic glass.", startingPrice: "From $8,999" },
         { name: "Four-person meeting pods", description: "Soft-seating arrangements for video calls and quick syncs.", startingPrice: "From $14,999" },
-        { name: "Six-person conference pods", description: "Full conference rooms inside the floor plate. AV-ready, lighting, ventilation.", startingPrice: "From $24,999" },
+        { name: "Six-person conference pods", description: "Full conference rooms inside the floor plate. Technology-ready, lighting, ventilation.", startingPrice: "From $24,999" },
         { name: "Open-air booths", description: "Lower-cost privacy with sound-absorbing fabric and partial enclosure.", startingPrice: "From $2,899" },
       ]}
       features={[

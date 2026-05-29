@@ -14,7 +14,7 @@ export default function PreOwnedPage() {
       category="preowned"
       eyebrow="Furniture, Pre-Owned"
       title="Tier-A brands. Half the price. Same warranty discipline."
-      intro="We inspect, clean, and warranty every pre-owned piece in our showroom. For startups, expansions, or anyone watching the budget, pre-owned is often the smarter buy."
+      intro="Save 70 percent or more on premium pre-owned office furniture, without compromising on quality. Featuring top brands from some of the nation's finest workplaces."
       heroImage={IMG.marshallSterling.angle20}
       heroAlt="HVOF pre-owned showroom"
       breadcrumb="Pre-Owned"

@@ -9,7 +9,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Request a Quote",
   description:
-    "Tell us about your project. Office, healthcare, education, or home office. We'll come back with pricing, finishes, and lead time within 24 hours.",
+    "Tell us about your project. Office, healthcare, education, or home office. We'll come back with pricing, finishes, and lead time promptly.",
 };
 
 export default function QuoteRequestPage() {
@@ -32,7 +32,7 @@ export default function QuoteRequestPage() {
                   an expert.
                 </h1>
                 <p className="mt-7 max-w-2xl text-xl leading-[1.45] text-foreground/85 md:text-2xl">
-                  Four quick steps. No friction. We come back same-day with pricing, finishes, and a lead time you can build a calendar around.
+                  Four quick steps. No friction. We come back promptly with pricing, finishes, and a lead time you can build a calendar around.
                 </p>
               </div>
               <div className="hidden md:block">
@@ -119,7 +119,7 @@ export default function QuoteRequestPage() {
                 What happens next
               </p>
               <h2 className="mt-4 font-display text-3xl font-semibold leading-[1] tracking-tight md:text-5xl">
-                A real human, same day.
+                A real human, promptly.
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-background/75 md:text-lg">
                 Our team reads every submission and gets back within 4 business hours, often within minutes. No bots, no autoresponders, no twelve-step nurture sequence.

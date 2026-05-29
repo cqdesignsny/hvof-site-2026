@@ -151,7 +151,7 @@ export default function NYSContractsPage() {
                 ))}
               </ul>
               <p className="mt-10 text-base text-muted-foreground md:text-lg">
-                Not sure if your organization qualifies? Send us your entity name and we will confirm in 24 hours.
+                Not sure if your organization qualifies? Send us your entity name and we will confirm promptly.
               </p>
             </FadeIn>
           </div>

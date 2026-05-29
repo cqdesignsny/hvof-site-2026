@@ -44,7 +44,7 @@ export default function FurniturePage() {
             <span className="text-muted-foreground">Every brand. Every floor.</span>
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Browse the catalog, build a quote cart, and submit. We confirm pricing, delivery, and contract eligibility within 24 hours.
+            Browse the catalog, build a quote cart, and submit. We confirm pricing, delivery, and contract eligibility promptly.
           </p>
         </div>
       </section>

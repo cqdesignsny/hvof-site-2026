@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -17,6 +19,9 @@ interface FAQSectionProps {
   intro?: string;
   items: FAQ[];
   withSchema?: boolean;
+  /** When set, renders a "See more" button below the list linking here. */
+  moreHref?: string;
+  moreLabel?: string;
 }
 
 export function FAQSection({
@@ -25,6 +30,8 @@ export function FAQSection({
   intro,
   items,
   withSchema = true,
+  moreHref,
+  moreLabel = "See more FAQs",
 }: FAQSectionProps) {
   return (
     <section className="bg-background section-y">
@@ -50,6 +57,15 @@ export function FAQSection({
                 </AccordionItem>
               ))}
             </Accordion>
+            {moreHref ? (
+              <Link
+                href={moreHref}
+                className="group mt-8 inline-flex items-center gap-1 text-base font-semibold text-foreground hover:gap-2"
+              >
+                {moreLabel}
+                <ArrowUpRight className="h-5 w-5 arrow-slide" style={{ color: "var(--brand-yellow)" }} />
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

@@ -14,14 +14,14 @@ export default function EducationPage() {
       category="education"
       eyebrow="Furniture, Education"
       title="Classrooms, faculty offices, and the library."
-      intro="K through 12, BOCES, and higher-ed. We have furnished classrooms, lecture halls, faculty suites, and library commons across the Hudson Valley for forty years."
+      intro="From classrooms and lecture halls to faculty offices, libraries, student lounges, and collaborative learning spaces, we provide furniture solutions that support teaching, learning, and connection."
       heroImage={IMG.marist.two}
       heroAlt="HVOF education installation, Marist College"
       breadcrumb="Education"
       href="/furniture/education"
       subCategories={[
         { name: "Classroom seating", description: "Tablet-arm, sled-base, and stack-chair classroom seating in matched sets.", startingPrice: "From $169" },
-        { name: "Lecture-hall seating", description: "Fixed and tiered lecture-hall seating with tablet arms and AV integration.", startingPrice: "From $599 per seat" },
+        { name: "Lecture-hall seating", description: "Fixed and tiered lecture-hall seating with tablet arms and technology integration.", startingPrice: "From $599 per seat" },
         { name: "Faculty offices", description: "Single and shared faculty workstations with bookcase storage and tackable surfaces.", startingPrice: "From $1,899" },
         { name: "Student commons", description: "Soft-seating clusters, modular benching, and study-pod environments.", startingPrice: "From $1,499" },
         { name: "Library tables + carrels", description: "Quiet-study carrels, reading tables, and group-study booths.", startingPrice: "From $899" },

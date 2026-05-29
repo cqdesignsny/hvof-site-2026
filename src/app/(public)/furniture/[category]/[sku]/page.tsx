@@ -148,7 +148,7 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
                   <>
                     <AddToQuoteButton product={product} className="w-full md:w-auto" />
                     <p className="mt-3 text-sm text-muted-foreground">
-                      Adds to your purchase-order cart. Submit when ready, we email a finalized quote within 24 hours. Payment processed offline.
+                      Adds to your purchase-order cart. Submit when ready, we email a finalized quote promptly. Payment processed offline.
                     </p>
                   </>
                 ) : (
@@ -161,7 +161,7 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
                       <ArrowUpRight className="h-4 w-4" />
                     </Link>
                     <p className="mt-3 text-sm text-muted-foreground">
-                      Send a quick note and we&apos;ll come back with pricing, finishes, and lead time within 24 hours.
+                      Send a quick note and we&apos;ll come back with pricing, finishes, and lead time promptly.
                     </p>
                   </>
                 )}

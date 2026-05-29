@@ -5,7 +5,7 @@ import { IMG } from "@/lib/images";
 export const metadata: Metadata = {
   title: "Office Desks",
   description:
-    "Sit-stand, executive, benching, and height-adjustable desks. Steelcase, OFS, Knoll, HON. Single units to floor-wide installs, delivered and installed by our crews.",
+    "Sit-stand, executive, benching, and height-adjustable desks from leading manufacturers. Single units to floor-wide installs, delivered and installed by our crews.",
 };
 
 export default function DesksPage() {
@@ -13,8 +13,8 @@ export default function DesksPage() {
     <CategoryTemplate
       category="desks"
       eyebrow="Furniture, Desks"
-      title="Desks built around the way you actually work."
-      intro="Single sit-stand for the home office. Bench-seating systems for thirty engineers. Walnut executive suites. We spec the right top, the right column, and the right cable management for every floor."
+      title="Desks built around the way you work."
+      intro="Sit. Stand. Collaborate. Lead. From executive suites to floor-wide installations, many workspace solutions are available in one week or less."
       heroImage={IMG.marshallSterling.gallery[7]}
       heroAlt="HVOF desk installation"
       breadcrumb="Desks"

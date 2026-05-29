@@ -5,7 +5,7 @@ import { BreadcrumbSchema } from "@/components/seo/json-ld";
 export const metadata: Metadata = {
   title: "Request a Quote",
   description:
-    "Build your purchase order, then submit it to Hudson Valley Office Furniture for a same-day quote. Add chairs, desks, conference tables and more. Pay offline after we confirm.",
+    "Build your purchase order, then submit it to Hudson Valley Office Furniture for a prompt quote. Add chairs, desks, conference tables and more. Pay offline after we confirm.",
 };
 
 export default function QuotePage() {

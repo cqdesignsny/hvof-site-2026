@@ -9,6 +9,8 @@ import { ProductCard } from "@/components/quote/product-card";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { getProductsByCategory, type ProductCategory } from "@/lib/products";
 import { SITE } from "@/lib/site";
+import { ShopTheLook } from "@/components/sections/shop-the-look";
+import { WHATS_INCLUDED, FAQ_PREVIEW } from "@/lib/faqs";
 
 interface SubCategory {
   name: string;
@@ -25,8 +27,10 @@ interface CategoryTemplateProps {
   heroImage: string;
   heroAlt: string;
   subCategories: SubCategory[];
-  features: string[];
-  faqs: { question: string; answer: string }[];
+  /** Deprecated: What's-included is now site-wide generic content (lib/faqs). */
+  features?: string[];
+  /** Deprecated: FAQs are now site-wide generic content (lib/faqs). */
+  faqs?: { question: string; answer: string }[];
   breadcrumb: string;
   href: string;
   /** Optional override on the showcase heading copy */
@@ -42,8 +46,6 @@ export function CategoryTemplate({
   heroImage,
   heroAlt,
   subCategories,
-  features,
-  faqs,
   breadcrumb,
   href,
   showcaseHeading = "Lines we spec.",
@@ -77,6 +79,9 @@ export function CategoryTemplate({
           </FadeIn>
         </div>
       </section>
+
+      {/* Shop the look */}
+      <ShopTheLook category={category} />
 
       {/* Sub-categories */}
       <section className="bg-background section-y">
@@ -120,7 +125,7 @@ export function CategoryTemplate({
                 A snapshot of the brands and lines we stock and spec for this category. Inquire on any line and we&apos;ll come back with finishes, lead time, and pricing.
               </p>
             </FadeIn>
-            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {products.map((p) => (
                 <ProductCard key={p.sku} product={p} />
               ))}
@@ -139,7 +144,7 @@ export function CategoryTemplate({
             </h2>
           </FadeIn>
           <ul className="mt-10 grid gap-4 md:grid-cols-2">
-            {features.map((f) => (
+            {WHATS_INCLUDED.map((f) => (
               <li key={f} className="flex gap-3 border-t border-border pt-5">
                 <Check className="mt-1 h-4 w-4 shrink-0 text-brand-yellow" />
                 <span className="text-base leading-relaxed">{f}</span>
@@ -153,7 +158,8 @@ export function CategoryTemplate({
       <FAQSection
         eyebrow="Common Questions"
         heading="Buyers ask first."
-        items={faqs}
+        items={FAQ_PREVIEW}
+        moreHref="/faq"
       />
 
       {/* CTA with snap-pinned scroll text */}

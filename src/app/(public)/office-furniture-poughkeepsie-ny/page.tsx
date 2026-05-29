@@ -16,7 +16,7 @@ export default function PoughkeepsiePage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="15 minutes"
-      intro={`Hudson Valley Office Furniture has installed for ${CITY}'s largest insurance brokers, hospitals, colleges, and law firms. Task seating, full-floor systems, healthcare suites, conference rooms. quoted same-day, installed by our crew.`}
+      intro={`Hudson Valley Office Furniture has installed for ${CITY}'s largest insurance brokers, hospitals, colleges, and law firms. Task seating, full-floor systems, healthcare suites, conference rooms. quoted promptly, installed by our crew.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />

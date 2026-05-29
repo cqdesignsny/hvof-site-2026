@@ -40,15 +40,15 @@ const HOME_GALLERY_SHOTS: GalleryShot[] = [
 ];
 
 const CATEGORIES = [
-  { name: "Seating", href: "/furniture/seating", icon: "/icons/chair.webp", desc: "Task, executive, ergonomic, conference. Steelcase, Herman Miller, Knoll, Humanscale, HON." },
-  { name: "Desks", href: "/furniture/desks", icon: "/icons/desk.webp", desc: "Sit-stand, executive, benching, height-adjustable. Single units to floor-wide." },
-  { name: "Conference", href: "/furniture/conference", icon: "/icons/round-table.webp", desc: "Boardroom tables, training rooms, AV-integrated meeting spaces." },
-  { name: "Panel Systems and Pods", href: "/furniture/pods", icon: "/icons/cubicle.webp", desc: "AIS Divi panel systems, cubicles, and acoustic phone booths." },
-  { name: "Healthcare", href: "/furniture/healthcare", icon: "/icons/doctors-room.webp", desc: "Patient rooms, exam rooms, waiting areas, and nurse stations." },
-  { name: "Education", href: "/furniture/education", icon: "/icons/classroom.webp", desc: "Classrooms, lecture halls, faculty offices, libraries, and student lounges." },
+  { name: "Seating", href: "/furniture/seating", icon: "/icons/chair.webp", desc: "Over a dozen manufacturers of task, executive, ergonomic, conference seating." },
+  { name: "Desks", href: "/furniture/desks", icon: "/icons/desk.webp", desc: "Sit. Stand. Collaborate. Lead. From executive suites to floor-wide installations, many workspace solutions are available in one week or less." },
+  { name: "Conference", href: "/furniture/conference", icon: "/icons/round-table.webp", desc: "Boardroom tables, training rooms, Zoom rooms, and technology-integrated meeting spaces." },
+  { name: "Panel Systems and Pods", href: "/furniture/pods", icon: "/icons/cubicle.webp", desc: "Open-plan panel systems, acoustic pods, call center solutions, and collaborative team workspaces. Designed to support focus, privacy, and productivity at every scale." },
+  { name: "Healthcare", href: "/furniture/healthcare", icon: "/icons/doctors-room.webp", desc: "From pediatrics to oncology, and from bariatrics to behavioral health, our comprehensive portfolio of healthcare furnishings and equipment provides solutions for every care environment." },
+  { name: "Education", href: "/furniture/education", icon: "/icons/classroom.webp", desc: "From classrooms and lecture halls to faculty offices, libraries, student lounges, and collaborative learning spaces, we provide furniture solutions that support teaching, learning, and connection." },
   { name: "Reception", href: "/furniture/reception", icon: "/icons/reception.svg", desc: "Reception desks, lobby seating, first-impression environments." },
-  { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.webp", desc: "Inspected, refurbished, warrantied. Save up to 70 percent without compromising on quality." },
-  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.webp", desc: "OGS pricing for state, municipal, nonprofit, and educational buyers. 40 plus manufacturers." },
+  { name: "Pre-Owned", href: "/furniture/preowned", icon: "/icons/chair.webp", desc: "Save 70 percent or more on premium pre-owned office furniture, without compromising on quality. Featuring top brands from some of the nation's finest workplaces." },
+  { name: "NYS Contracts", href: "/nys-contracts", icon: "/icons/desk.webp", desc: "Access pre-negotiated pricing for over 40 vendors for government agencies, municipalities, nonprofits, educational institutions, and healthcare organizations." },
 ];
 
 const FAQS = [
@@ -94,12 +94,12 @@ const DIFFERENTIATORS = [
     body: "The largest office furniture showroom between New York City and Albany. Real configurations at full scale. Walk in or schedule a tour.",
   },
   {
-    title: "In-house installation crews.",
-    body: "Our installers are direct hires, not subcontracted day labor. Same names, same trucks, year after year.",
+    title: "In-House. End-to-End.",
+    body: "From sales and design to delivery and installation, every project is managed by our own team.",
   },
   {
-    title: "Hudson Valley to NYC. NYS-contract approved.",
-    body: "Dutchess to Westchester to the boroughs. Authorized OGS vendor for state, municipal, nonprofit, and educational buyers.",
+    title: "Northeast Corridor and Beyond.",
+    body: "Our in-house crews operate company-owned trucks throughout the Northeast Corridor, ensuring accountability, consistency, and quality from start to finish.",
   },
 ];
 
@@ -119,7 +119,7 @@ export default function HomePage() {
     <>
       <HeroSlider
         eyebrow="Established 1986"
-        headline="Furniture for the rooms where work happens."
+        headline="Furniture for the spaces where work happens."
         sub="New, pre-owned, and custom office spaces. The largest showroom between New York City and Albany at 37,000 square feet."
         slides={HERO_SLIDES}
         primaryCta={{ label: "See our work", href: "/gallery" }}
@@ -149,7 +149,7 @@ export default function HomePage() {
                 to completion.
               </h2>
               <p className="mt-8 max-w-xl text-xl leading-[1.5] text-muted-foreground md:text-2xl">
-                Empty space to move-in ready, without the vendor chaos. Our team handles every step, with one point of contact and one schedule.
+                Empty space to move-in ready, without the vendor chaos. Our expert team handles every step, with one point of contact and one schedule.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
@@ -181,7 +181,7 @@ export default function HomePage() {
               Built for real life.
             </h2>
             <p className="mt-8 max-w-2xl text-xl leading-[1.5] text-muted-foreground md:text-2xl">
-              Every category of working office furniture, all stocked at the showroom. Browse, build a quote, and we follow up the same day.
+              From workstations to boardrooms, every category of office furniture is on display. Browse the showroom, build your quote online, and our team will follow up promptly.
             </p>
           </FadeIn>
 
@@ -533,7 +533,7 @@ export default function HomePage() {
           />
           <div className="container-wide mt-12">
             <p className="max-w-2xl text-xl leading-relaxed text-foreground/80 md:text-2xl">
-              Single-chair upgrade or a full-floor install. Get a quote in under 24 hours, often same-day for stocked items.
+              Single-chair upgrade or a full-floor install. Build your quote online and our team will follow up promptly.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">

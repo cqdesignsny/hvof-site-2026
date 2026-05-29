@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
     price: 339,
     originalPrice: 570,
     description: "Mesh-back task chair, ideal for daily 8-hour use. BIFMA-certified.",
-    image: FALLBACK_IMAGE,
+    image: "/products/hvof-4003.jpg",
     type: "Task seating",
   },
   {
@@ -355,7 +355,7 @@ export const PRODUCTS: Product[] = [
     name: "Enwork Stealth Table + Credenza",
     category: "conference",
     subCategory: "Boardroom",
-    description: "Stealth conference table paired with matching credenza. AV-ready cable channel and grommet plate.",
+    description: "Stealth conference table paired with matching credenza. technology-ready cable channel and grommet plate.",
     image: "https://thewowguys.com/wp-content/uploads/2024/08/Enwork_Stealth_Conference_Table_and_Credenza_0720_resize_52145e5117869aa50425c0a5f0eb3b0c.jpg",
   },
   {
@@ -371,7 +371,7 @@ export const PRODUCTS: Product[] = [
     name: "COE 8 ft on Elliptical Base",
     category: "conference",
     subCategory: "Mid-size",
-    description: "8 ft elliptical-base table. Right-sized for 6-person rooms with full AV cable management.",
+    description: "8 ft elliptical-base table. Right-sized for 6-person rooms with full technology cable management.",
     image: "https://thewowguys.com/wp-content/uploads/2024/08/COE-8-foot-on-eliptical-base.jpg",
   },
   {
@@ -451,7 +451,7 @@ export const PRODUCTS: Product[] = [
     name: "COE Cosmo Conference",
     category: "conference",
     subCategory: "Boardroom",
-    description: "COE Cosmo conference suite with integrated AV cable channel and matching credenza.",
+    description: "COE Cosmo conference suite with integrated technology cable channel and matching credenza.",
     image: "https://thewowguys.com/wp-content/uploads/2024/08/Media_Gallery_Environment_Thumb_cosmo_upholstered_681x322.jpg",
   },
   {
@@ -802,7 +802,7 @@ export const PRODUCTS: Product[] = [
     sku: "HVOF-POD-DIVI-HIGH-PANELS",
     name: "AIS Divi High-Panel Privacy",
     category: "pods",
-    subCategory: "Cubicle",
+    subCategory: "Panel System",
     description: "Divi open-plan workstation with high panels for increased privacy. Right-sized for finance, legal, or focus-heavy teams.",
     image: "/products/panels/divi-open-plan-workstation-with-high-panels-for-increased-privacy_md.jpg",
   },
@@ -810,7 +810,7 @@ export const PRODUCTS: Product[] = [
     sku: "HVOF-POD-DIVI-O-LEG",
     name: "AIS Divi Shared Office",
     category: "pods",
-    subCategory: "Cubicle",
+    subCategory: "Panel System",
     description: "Divi shared office with O-leg worksurfaces, L-Series steel storage, and Natick seating. Compact two-person setup.",
     image: "/products/panels/divi-shared-office-with-o-leg-worksuraces-l-series-steel-storage-and-natick-seating_md.jpg",
   },
@@ -874,10 +874,10 @@ export const PRODUCTS: Product[] = [
   },
   {
     sku: "HVOF-PRE-006",
-    name: "Pre-owned Cubicle Set, 006",
+    name: "Pre-owned Panel System Set, 006",
     category: "preowned",
     subCategory: "Panels",
-    description: "Set of 8 fabric-panel cubicles, 64 in heights. Power harnesses tested and rebuilt.",
+    description: "Set of 8 fabric-panel workstations, 64 in heights. Power harnesses tested and rebuilt.",
     image: "https://thewowguys.com/wp-content/uploads/2024/10/image00006.jpeg",
   },
   {

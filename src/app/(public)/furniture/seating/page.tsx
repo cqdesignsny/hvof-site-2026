@@ -10,49 +10,14 @@ import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { getProductsByCategory } from "@/lib/products";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
+import { ShopTheLook } from "@/components/sections/shop-the-look";
+import { WHATS_INCLUDED, FAQ_PREVIEW } from "@/lib/faqs";
 
 export const metadata: Metadata = {
   title: "Office Seating",
   description:
-    "Task chairs, executive seating, ergonomic chairs, and conference seating from Steelcase, Herman Miller, Knoll, Humanscale, and HON. Sit in the chair before you spec. or build a quote online.",
+    "Task chairs, executive seating, ergonomic chairs, and conference seating from over a dozen manufacturers. Sit in the chair before you spec, or build a quote online.",
 };
-
-const FEATURES = [
-  "Free in-showroom trials. Sit in any chair as long as you want.",
-  "Custom upholstery and finish matching to your brand or existing palette.",
-  "BIFMA-certified construction. Manufacturer warranty handled by us.",
-  "Installation crew adjusts every chair to its end user on delivery day.",
-  "Pre-owned options inspected, cleaned, and warranted in-house.",
-  "Bulk pricing on orders of 12+ matched chairs. Volume discounts on 50+.",
-];
-
-const FAQS = [
-  {
-    question: "Can I try a chair before buying?",
-    answer:
-      "Always. Every chair we sell is in the showroom and available for hands-on testing. We also offer 7-day office trials on select task chairs over $600.",
-  },
-  {
-    question: "What is the warranty on task seating?",
-    answer:
-      "New chairs from major brands carry 10–12 year manufacturer warranties on frames and 5–7 years on upholstery and mechanisms. Pre-owned chairs come with our in-house 1-year warranty.",
-  },
-  {
-    question: "Do you handle warranty service?",
-    answer:
-      "Yes. We register every chair with the manufacturer at delivery, and our team handles warranty claims so you do not spend an hour on hold with a 1-800 number.",
-  },
-  {
-    question: "Can I order custom upholstery?",
-    answer:
-      "Yes. All major brands offer custom fabric and leather options. We carry sample books in the showroom and can match to brand colors, existing palettes, or commercial-grade requirements.",
-  },
-  {
-    question: "Lead times for custom seating?",
-    answer:
-      "In-stock task chairs ship in 1–2 weeks. Custom-upholstered orders typically run 6–10 weeks depending on the brand. We give a hard date with the quote.",
-  },
-];
 
 export default function SeatingPage() {
   const products = getProductsByCategory("seating");
@@ -97,7 +62,7 @@ export default function SeatingPage() {
               Seating that<br />earns its eight hours.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-white/75 md:text-xl">
-              Task, executive, ergonomic, conference, lounge. Steelcase, Herman Miller, Knoll, HON, Humanscale, and a dozen specialty brands. Sit in the chair before you spec. or build a quote online.
+              Over a dozen manufacturers of task, executive, ergonomic, conference seating. Sit in the chair before you spec, or build a quote online.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-brand-yellow px-7 text-base text-foreground hover:bg-brand-yellow-hover">
@@ -118,6 +83,9 @@ export default function SeatingPage() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Shop the look */}
+      <ShopTheLook category="seating" />
 
       {/* Catalog */}
       <section id="catalog" className="bg-background section-y">
@@ -146,7 +114,7 @@ export default function SeatingPage() {
                     {subProducts.length} {subProducts.length === 1 ? "model" : "models"}
                   </p>
                 </div>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                   {subProducts.map((p) => (
                     <ProductCard key={p.sku} product={p} />
                   ))}
@@ -161,13 +129,13 @@ export default function SeatingPage() {
       <section className="bg-muted section-y-sm">
         <div className="container-wide">
           <FadeIn className="max-w-3xl">
-            <p className="eyebrow text-muted-foreground">What is included</p>
+            <p className="eyebrow text-muted-foreground">What&apos;s included</p>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.1] tracking-tight md:text-4xl lg:text-5xl">
-              Every chair, every order.
+              Every order, regardless of size.
             </h2>
           </FadeIn>
-          <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {FEATURES.map((f) => (
+          <ul className="mt-10 grid gap-4 md:grid-cols-2">
+            {WHATS_INCLUDED.map((f) => (
               <li key={f} className="flex gap-3 border-t border-border pt-5">
                 <Check className="mt-1 h-4 w-4 shrink-0 text-brand-yellow" />
                 <span className="text-base leading-relaxed">{f}</span>
@@ -178,7 +146,7 @@ export default function SeatingPage() {
       </section>
 
       {/* FAQ */}
-      <FAQSection eyebrow="Common Questions" heading="Buyers ask first." items={FAQS} />
+      <FAQSection eyebrow="Common Questions" heading="Buyers ask first." items={FAQ_PREVIEW} moreHref="/faq" />
 
       {/* CTA */}
       <section className="bg-brand-yellow section-y">
@@ -188,7 +156,7 @@ export default function SeatingPage() {
               Ready to spec?
             </h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
-              Build your quote cart, then submit. We confirm pricing, delivery dates, and contract eligibility within 24 hours.
+              Build your quote cart, then submit. We confirm pricing, delivery dates, and contract eligibility promptly.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base text-background hover:bg-foreground/90">

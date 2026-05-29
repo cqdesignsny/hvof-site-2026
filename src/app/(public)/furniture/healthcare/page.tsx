@@ -13,8 +13,8 @@ export default function HealthcarePage() {
     <CategoryTemplate
       category="healthcare"
       eyebrow="Furniture, Healthcare"
-      title="Furniture for the rooms where people heal."
-      intro="Patient rooms, exam rooms, waiting areas, and nurse stations. Antimicrobial finishes, cleanable surfaces, bariatric ratings, and the comfort that long days demand."
+      title="Furniture for the spaces where people care."
+      intro="From pediatrics to oncology, and from bariatrics to behavioral health, our comprehensive portfolio of healthcare furnishings and equipment provides solutions for every care environment."
       heroImage={IMG.marshallSterling.gallery[4]}
       heroAlt="HVOF healthcare-style install"
       breadcrumb="Healthcare"

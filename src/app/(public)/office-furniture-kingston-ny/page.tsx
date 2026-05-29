@@ -16,7 +16,7 @@ export default function KingstonPage() {
     <LocalLandingTemplate
       city={CITY}
       driveTime="35 minutes"
-      intro={`Hudson Valley Office Furniture serves ${CITY} and Ulster County. Task seating, sit-stand desks, conference rooms, healthcare suites, and full-floor reconfigurations. Same-day quotes, in-house install crews.`}
+      intro={`Hudson Valley Office Furniture serves ${CITY} and Ulster County. Task seating, sit-stand desks, conference rooms, healthcare suites, and full-floor reconfigurations. Prompt quotes, in-house install crews.`}
       faqs={cityFaqs(CITY)}
       href={SLUG}
     />
