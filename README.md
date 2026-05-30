@@ -84,8 +84,10 @@ SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents &
 | `/giveaway` | Q2 2026 anniversary giveaway. Hero is the actual desk photo. |
 | `/furniture` + 9 categories | seating (13 priced SKUs), desks, conference, **panel-systems-and-pods (renamed from "pods")**, healthcare, education, reception, preowned, systems |
 | `/furniture/[category]/[sku]` | Dynamic product detail. 30+ SKUs. |
+| `/furniture/[category]/style/[look]` | **"Shop the look" detail** (seating + desks). Curated picks + "starting at" + lead CTA. Driven by `lib/looks.ts`. |
 | `/gallery` | Masonry + lightbox |
 | `/e-catalog`, `/showroom`, `/virtual-tour`, `/privacy` | |
+| `/faq` | Generic FAQ list, footer-linked. Category pages show a preview + "See more FAQs" (`lib/faqs.ts`). |
 | `/office-furniture-{city}-ny` | 12 cities |
 | `/office-furniture-{county}-county-ny` | 8 counties (cities link to city pages where one exists) |
 | `/office-furniture-hudson-valley-ny` | Region |
@@ -148,14 +150,16 @@ src/
 │   ├── forms/                         QuoteRequestForm, SimpleContactForm
 │   ├── motion/                        FadeIn, Stagger, ScrollText (snap-pinned)
 │   ├── seo/json-ld.tsx                Schema components
-│   ├── sections/                      Hero, FAQ, CategoryTemplate, LocalLandingTemplate, CountyLandingTemplate, TrustedBy, NewsletterSignup, VirtualTourCTA, ...
+│   ├── sections/                      Hero, FAQ, CategoryTemplate, ShopTheLook, LocalLandingTemplate, CountyLandingTemplate, TrustedBy, NewsletterSignup, VirtualTourCTA, ...
 │   ├── quote/                         AddToQuoteButton, ProductCard, QuoteCart, QuoteCartIndicator
-│   ├── site/                          Header, Footer, Logo, social-icons
+│   ├── site/                          Header, Footer, Logo, social-icons, FurnitureMegaMenu
 │   └── ui/                            shadcn primitives (Radix base)
 └── lib/
     ├── site.ts                        Brand + nav + manufacturers + cities + counties + CITIES_WITH_PAGES
     ├── images.ts                      Centralized image refs (mostly WP CDN URLs)
     ├── products.ts                    Product catalog (50+ SKUs)
+    ├── faqs.ts                        Generic site-wide What's-Included + FAQ content
+    ├── looks.ts                       "Shop the look" data (3 looks per category)
     ├── quote-cart.ts                  Zustand cart store
     ├── leads-store.ts                 Neon Postgres + in-memory fallback
     ├── admin-auth.ts                  HMAC cookie auth helpers
@@ -180,7 +184,7 @@ In `src/app/globals.css`. **Do not introduce other yellows or fonts.**
 - `--brand-yellow-hover` `#d4b71c`
 - `--brand-ink` `#000000`, `--brand-paper` `#fff`, `--brand-cream` `#f5f5f5` (Trusted-By bar)
 - Display Inter Tight, Body Inter, Mono JetBrains Mono
-- Base font-size 18px, 18.5px at xl+
+- Base font-size is **fluid**: root `clamp(14px, 0.7rem + 0.32vw, 20px)`. Everything is rem-based, so all text scales from it (~14px phone, ~16px laptop, up to 20px on large screens/TVs)
 - All h1/h2/h3 use `font-semibold` everywhere
 
 ## Design rules (non-negotiable)
@@ -195,6 +199,9 @@ In `src/app/globals.css`. **Do not introduce other yellows or fonts.**
 8. **Get a Quote button hover**: white background, BLACK text. Do not let it go dark on the black header.
 9. **Product card images**: square + object-contain on white, padded, no zoom on hover.
 10. **Trusted-By bar**: cream background, grayscale logos.
+11. **No "AV"** → "technology-integrated". **No "cubicles"** → "panel systems". **No "same-day"/"24-hour" promises** → "promptly". **No unauthorized brand names** (Steelcase/Herman Miller/Knoll/Humanscale/HON) in non-preowned copy. Founded **1986**.
+12. **Typography is fluid** (one root clamp); don't add fixed px font-sizes that fight it.
+13. **"Shop the look"**: image-first look tiles per category; the price range is the budget signal, not a tier label.
 
 ## Quote cart vs Quote Request
 
@@ -258,6 +265,11 @@ See [`docs/HANDOFF.md`](./docs/HANDOFF.md) for the full state.
 
 Highlights:
 
+- ✓ **"Shop the look"** image-first category navigation (mockup) on Seating + Desks: look tiles, look detail pages, budget shown as a price range, AI-placeholder imagery
+- ✓ **Furniture mega menu** (centered, wide: categories + featured looks + CTA card)
+- ✓ **Responsive fluid typography** (one root clamp scales all text phone→TV)
+- ✓ Site-wide copy pass + locked voice rules (AV→technology-integrated, cubicles→panel systems, no "same-day"→"promptly")
+- ✓ Generic, site-wide What's-Included + FAQ with a dedicated `/faq` page
 - ✓ ~44 unique public routes deployed (12 city pages, 8 county pages, Hudson Valley region, all 9 furniture categories, dynamic product details, gallery, e-catalog, showroom, virtual tour, contact, quote, giveaway, NYS contracts, quote-request)
 - ✓ 50+ products across the catalog (13 priced chairs + 36+ showcase items)
 - ✓ All 41 NYS Contract manufacturers wired with outbound links
@@ -275,6 +287,8 @@ Highlights:
 
 Pending (priority order):
 
+- Swap the AI placeholder "shop the look" tiles for Dan's real grouped photos; extend shop-the-look to the rest of the categories; wire Mark's tier "starting at" prices; replace misleading exact prices with ranges
+- E-catalog "quick-ship + 75 vendors" disclaimer / rebrand (COE e-commerce platform under evaluation)
 - Live Signal credentials: paste `SIGNAL_API_BASE` and `SIGNAL_API_KEY` once the Signal-side session ships v1 REST (see `SIGNAL-HANDOFF.md` in the Dropbox project root)
 - Sell Your Furniture form + own /sell-your-furniture page (Typeform JAHzhOUt)
 - Native giveaway entry form on /giveaway (Typeform e5SrmqW1)
@@ -313,6 +327,10 @@ Pending (priority order):
 | 2026-05-08 | Trusted-By bar lightened to cream | Logos read better on light bg |
 | 2026-05-11 | Agent Training questionnaire built into Floorplan | Bootstrap the HVOF agent from team knowledge before any code |
 | 2026-05-18 | CQ Signal as the reporting data plane (not per-client wiring) | Build connectors once; every client admin pulls via REST. HVOF Floorplan is the first consumer. See `SIGNAL-HANDOFF.md`. |
+| 2026-05-29 | Category nav reframed as "shop the look" (image-first; budget via price range) | Matches how buyers shop; no tier labels or jargon |
+| 2026-05-29 | Generic site-wide What's-Included + FAQ; warranty questions removed | Old per-product placeholders were untrue / a liability |
+| 2026-05-29 | Voice rules: AV→technology-integrated, cubicles→panel systems, no "same-day"→"promptly", no unauthorized brand names | Accuracy + legal |
+| 2026-05-30 | Fluid typography (one root clamp); Furniture mega menu | Responsive text phone→TV; higher-end nav |
 
 ## Notes
 

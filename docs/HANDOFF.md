@@ -2,7 +2,7 @@
 
 This document is for picking up the project on a new machine, in a new session, or with a new contributor. It does not contain credentials. For credentialed access (SSH, admin password, etc.) the project owner has a separate private file.
 
-Last updated: 2026-05-18
+Last updated: 2026-05-30
 
 ---
 
@@ -84,7 +84,7 @@ Fonts (via `next/font/google`):
 - Body: **Inter**
 - Mono: **JetBrains Mono** (eyebrows, prices, technical labels)
 
-Base font-size 18px (18.5px at xl+).
+Base font-size is **fluid/responsive**: root `font-size: clamp(14px, 0.7rem + 0.32vw, 20px)` in `globals.css`. The whole site is rem-based, so all text (nav, headings, body, hero clamps) scales from this one value: ~14px on phones, ~16px on laptops, up to 20px on large screens/TVs. It is the single lever to resize all site text.
 
 ---
 
@@ -102,6 +102,11 @@ These were called out by the owner across multiple feedback rounds. Do not viola
 8. **Get a Quote button hover**: white background, BLACK text. Do not let it go dark on the black header.
 9. **Product card images**: square aspect ratio + object-contain on white background, no zoom on hover, padded with breathing room.
 10. **Trusted-By bar**: cream background, grayscale logos, tighter spacing.
+11. **No "AV"** in copy → "technology-integrated". **No "cubicles"** → "panel systems" (replace the word, keep the concept). **No "same-day" / "24-hour" promises** → "promptly". (All locked 2026-05-29.)
+12. **Do not advertise unauthorized manufacturer names** (Steelcase, Herman Miller, Knoll, Humanscale, HON) as if HVOF is a dealer; they are carried pre-owned only. Pre-owned copy may say "top brands" generically.
+13. **Founded 1986** (not 1985), family-owned, three generations.
+14. **Typography is fluid** (one root clamp). Don't add fixed px font-sizes that fight it.
+15. **"Shop the look"**: image-first look tiles per category; the price range is the budget signal, never a "basic/low" tier label or style jargon ("industrial").
 
 ---
 
@@ -124,8 +129,10 @@ All public routes live under `/app/(public)/` route group as of 2026-05-08, so a
 | `/giveaway` | Q2 2026 anniversary giveaway. Hero is the actual desk photo. Currently links Typeform; pending native form. |
 | `/furniture` + 9 categories | Includes **/furniture/pods (renamed "Panel Systems and Pods")** |
 | `/furniture/[category]/[sku]` | Dynamic product detail. 30+ SKUs. |
+| `/furniture/[category]/style/[look]` | **"Shop the look" detail.** Curated products for a look + "starting at" + lead CTA. Live for seating + desks. Driven by `lib/looks.ts`. |
 | `/gallery` | Masonry + lightbox |
 | `/e-catalog`, `/showroom`, `/virtual-tour`, `/privacy` | |
+| `/faq` | Full generic FAQ list, footer-linked. Category pages show a 3-4 question preview + "See more FAQs". Content in `lib/faqs.ts`. |
 | `/office-furniture-{city}-ny` | 12 cities |
 | `/office-furniture-{county}-county-ny` | 8 counties. Cities link to city pages where one exists (`CITIES_WITH_PAGES` map). |
 | `/office-furniture-hudson-valley-ny` | Region |
@@ -156,7 +163,7 @@ Permanent redirects: `/work` → `/gallery`, `/furniture/nys-contracts` → `/ny
 
 ## Navigation
 
-Primary nav: Furniture (mega-menu, 8 sub-categories + Giveaway), NYS Contracts, Gallery, E-Catalog, Showroom, About, Contact.
+Primary nav: Furniture (**centered mega menu** — shop-by-category 2×4 grid with webp icons, a "Shop the look" strip of featured looks, and a black CTA card; `src/components/site/furniture-mega-menu.tsx`), NYS Contracts, Gallery, E-Catalog, Showroom, About, Contact.
 
 Plus social icons (Facebook + Instagram + LinkedIn) on lg+, phone, and the **Get a Quote** button (yellow → white on hover, links to /quote-request).
 
@@ -296,6 +303,15 @@ Key gotchas:
 
 Major milestones (rolling list, latest at top):
 
+**2026-05-29/30**
+- Site-wide copy pass (Dina's PDF + a full team review): hero "rooms→spaces", "expert team", all 8 home category-card descriptions rewritten and reused as each landing page's intro, healthcare hero "Furniture for the spaces where people care", desks drops "actually", two Why-HVOF differentiators (In-House. End-to-End. / Northeast Corridor and Beyond), newsletter drops "Hudson Valley".
+- Voice rules locked + swept site-wide: AV→"technology-integrated", cubicles→"panel systems", no "same-day"/"24-hour"→"promptly", unauthorized brand names removed from non-preowned copy.
+- Generic, site-wide What's-Included + FAQ content (`src/lib/faqs.ts`): a 3-4 question preview on every category page + a new `/faq` page (footer-linked). Warranty questions removed pending official language.
+- **"Shop the look"** image-first category navigation (mockup) on Seating + Desks: `src/lib/looks.ts`, `src/components/sections/shop-the-look.tsx`, route `/furniture/[category]/style/[look]`. Look tiles correlate to budget via a price range, never a tier label. Tile imagery is AI-generated placeholder (`/public/looks/`) until real grouped photos arrive.
+- **Furniture mega menu** (`src/components/site/furniture-mega-menu.tsx`) replaces the simple dropdown: centered wide panel, category grid + look strip + CTA card, hover/keyboard, motion.
+- **Responsive fluid typography**: root `font-size: clamp(14px, 0.7rem + 0.32vw, 20px)`.
+- Product grids → rows of 4. HVOF-4003 chair photo wired (`/public/products/hvof-4003.jpg`).
+
 **2026-05-18**
 - CQ Signal data-plane consumer wired into Floorplan. Signal owns all reporting connectors (GA4, Typeform, Meta, etc.); HVOF only reads.
 - New `/admin/reports` page: range tabs (7d / 30d / 90d / 1y), hero traffic card (sessions + delta + sparkline + channel donut), 4-up KPI tiles, channels in detail with bars, top sources + landings side by side, native lead pipeline, Signal recommendations, brief markdown, footer attribution. All in HVOF tokens (`#E7C81F` yellow, Inter Tight, JetBrains Mono numbers).
@@ -333,6 +349,14 @@ Major milestones (rolling list, latest at top):
 **In flight, blocked on the Signal-side session**
 
 1. **Paste live Signal credentials.** Once the Signal session ships v1 REST + issues an HVOF workspace API key, add `SIGNAL_API_BASE=https://cq-signal-app.vercel.app` and `SIGNAL_API_KEY=sigk_live_...` to Vercel env. Floorplan reports flip from mock to live and `/api/lead` starts ingesting into Signal. Full contract in `SIGNAL-HANDOFF.md` at the Dropbox project root.
+
+**Shop the look + content (from the 2026-05-29 team meeting)**
+
+- Swap the AI placeholder look tiles (`/public/looks/`) for Dan's real grouped product photos; extend "shop the look" to the remaining categories.
+- Wire Mark's tier "starting at" prices; replace the misleading exact prices (a $2,899 desk, a ~$25k executive setup) with starting-at / ranges. Keep exact prices only where confirmed correct (in-stock quick-ship items).
+- E-catalog: rebrand as a "quick-ship catalog of most popular items" with a "75+ other vendors" disclaimer. (COE's new e-commerce platform is being evaluated for integration.)
+- John to supply official warranty language + final What's-Included wording.
+- Cesar decisions pending: ship strategy (go live with/without the product section), hide-or-keep the home service-areas section, nav restructure.
 
 **Forms + content**
 
@@ -418,12 +442,15 @@ hvof-site-2026/
     │   ├── seo/json-ld.tsx           Schema components
     │   ├── sections/                 Page sections
     │   ├── quote/                    Cart components
-    │   ├── site/                     Header, Footer, Logo, social-icons
+    │   ├── site/                     Header, Footer, Logo, social-icons, furniture-mega-menu
+    │   ├── sections/                 Page sections (incl. category-template, shop-the-look)
     │   └── ui/                       shadcn primitives
     └── lib/
         ├── site.ts                   Brand + nav + manufacturers + cities + counties + CITIES_WITH_PAGES
         ├── images.ts                 Centralized image refs
         ├── products.ts               Product catalog (50+ SKUs)
+        ├── faqs.ts                   Generic site-wide What's-Included + FAQ content
+        ├── looks.ts                  "Shop the look" data (3 looks per category)
         ├── quote-cart.ts             Zustand cart store
         ├── leads-store.ts            Neon Postgres + in-memory fallback
         ├── admin-auth.ts             HMAC cookie auth helpers
@@ -471,6 +498,11 @@ src/components/admin/report/          Report UI primitives, all in HVOF tokens
 | 2026-05-08 | Trusted-By bar lightened to cream | Logos read better; user feedback called the dark version too heavy |
 | 2026-05-11 | Agent Training questionnaire surface | Bootstrap the HVOF agent from team-supplied knowledge before any code |
 | 2026-05-18 | CQ Signal becomes the reporting data plane; client admins are presentation-only consumers | Build connectors once; HVOF Floorplan and every future client admin (TZ Switchboard, etc.) pull via a versioned REST contract. No GA4 / Meta / Typeform SDKs in HVOF. Full contract documented in `SIGNAL-HANDOFF.md` at the Dropbox project root. |
+| 2026-05-29 | Category navigation reframed as "shop the look" (image-first look tiles; budget shown as a price range, no tier labels) | Matches how buyers shop; educates on price without overwhelming. Internal low/mid/high mapping stays backend-only. |
+| 2026-05-29 | What's-Included + FAQ made generic and site-wide; warranty questions removed | Old per-product placeholders were untrue / a liability; service-driven generic content reads better and is reusable. |
+| 2026-05-29 | Voice rules: AV→technology-integrated, cubicles→panel systems, no "same-day"/"24hr"→"promptly", no unauthorized brand names | Accuracy + legal; only authorized lines advertised, others carried pre-owned only. |
+| 2026-05-30 | Typography made fluid via one root clamp (responsive, ~25% smaller than the over-bump) | One lever; scales phone→laptop→TV; fixes "too big even on a laptop". |
+| 2026-05-30 | Furniture nav upgraded to a centered mega menu | Higher-end feel; showcases categories + looks + a clear quote path. |
 
 ---
 
