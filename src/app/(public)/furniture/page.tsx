@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
+import { SampleNotice } from "@/components/sections/sample-notice";
 import { IMG } from "@/lib/images";
 import { NAV } from "@/lib/site";
 
@@ -83,6 +84,8 @@ export default function FurniturePage() {
           </div>
         </div>
       </section>
+
+      <SampleNotice />
 
       <section className="bg-foreground text-background section-y-sm">
         <div className="container-wide flex flex-col gap-6 md:flex-row md:items-center md:justify-between">

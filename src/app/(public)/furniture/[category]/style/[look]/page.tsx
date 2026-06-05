@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { ProductCard } from "@/components/quote/product-card";
+import { SampleNotice } from "@/components/sections/sample-notice";
 import { LOOKS, getLook, getLookProducts } from "@/lib/looks";
-import { SITE } from "@/lib/site";
 
 interface LookPageParams {
   params: Promise<{ category: string; look: string }>;
@@ -69,6 +69,8 @@ export default async function LookPage({ params }: LookPageParams) {
         </div>
       </section>
 
+      <SampleNotice category={found.category} />
+
       {/* Curated grid */}
       <section className="bg-background pb-16 md:pb-24">
         <div className="container-wide">
@@ -88,7 +90,7 @@ export default async function LookPage({ params }: LookPageParams) {
               Don&apos;t see it here?
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/80 md:text-xl">
-              This is a curated slice. We carry over 75 more lines across every budget. Tell us the look you are after and we will send options that fit.
+              This is a sample, here to show you the look and the price range. We carry hundreds more across every style and budget. Tell us what you are after, or visit the showroom, and we will find it.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Button asChild size="lg" className="h-14 rounded-full bg-foreground px-8 text-base font-semibold text-background hover:bg-foreground/90">
@@ -103,7 +105,7 @@ export default async function LookPage({ params }: LookPageParams) {
                 variant="outline"
                 className="h-14 rounded-full border-foreground/30 bg-transparent px-8 text-base text-foreground hover:bg-foreground/10"
               >
-                <Link href={`tel:${SITE.contact.phoneE164}`}>{SITE.contact.phone}</Link>
+                <Link href="/showroom">Visit the showroom</Link>
               </Button>
             </div>
           </FadeIn>

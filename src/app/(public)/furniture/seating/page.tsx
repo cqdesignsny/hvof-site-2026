@@ -11,6 +11,7 @@ import { getProductsByCategory } from "@/lib/products";
 import { IMG } from "@/lib/images";
 import { SITE } from "@/lib/site";
 import { ShopTheLook } from "@/components/sections/shop-the-look";
+import { SampleNotice } from "@/components/sections/sample-notice";
 import { WHATS_INCLUDED, FAQ_PREVIEW } from "@/lib/faqs";
 
 export const metadata: Metadata = {
@@ -84,6 +85,8 @@ export default function SeatingPage() {
         </div>
       </section>
 
+      <SampleNotice category="seating" />
+
       {/* Shop the look */}
       <ShopTheLook category="seating" />
 
@@ -147,6 +150,8 @@ export default function SeatingPage() {
 
       {/* FAQ */}
       <FAQSection eyebrow="Common Questions" heading="Buyers ask first." items={FAQ_PREVIEW} moreHref="/faq" />
+
+      <SampleNotice category="seating" />
 
       {/* CTA */}
       <section className="bg-brand-yellow section-y">

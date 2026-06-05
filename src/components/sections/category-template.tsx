@@ -10,6 +10,7 @@ import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { getProductsByCategory, type ProductCategory } from "@/lib/products";
 import { SITE } from "@/lib/site";
 import { ShopTheLook } from "@/components/sections/shop-the-look";
+import { SampleNotice } from "@/components/sections/sample-notice";
 import { WHATS_INCLUDED, FAQ_PREVIEW } from "@/lib/faqs";
 
 interface SubCategory {
@@ -79,6 +80,8 @@ export function CategoryTemplate({
           </FadeIn>
         </div>
       </section>
+
+      <SampleNotice category={category} />
 
       {/* Shop the look */}
       <ShopTheLook category={category} />
@@ -161,6 +164,8 @@ export function CategoryTemplate({
         items={FAQ_PREVIEW}
         moreHref="/faq"
       />
+
+      <SampleNotice category={category} />
 
       {/* CTA with snap-pinned scroll text */}
       <section className="section-y" style={{ backgroundColor: "var(--brand-yellow)" }}>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { ProductCard } from "@/components/quote/product-card";
+import { SampleNotice } from "@/components/sections/sample-notice";
 import { AddToQuoteButton } from "@/components/quote/add-to-quote-button";
 import { PRODUCTS, getProductBySku, getProductsByCategory, formatPrice } from "@/lib/products";
 import { SITE } from "@/lib/site";
@@ -194,6 +195,8 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
           </div>
         </div>
       </section>
+
+      <SampleNotice category={product.category} />
 
       {/* Long description / details. Placeholder for richer copy */}
       <section className="bg-muted py-16 md:py-20">
