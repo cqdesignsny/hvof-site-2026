@@ -2,7 +2,7 @@
 
 This document is for picking up the project on a new machine, in a new session, or with a new contributor. It does not contain credentials. For credentialed access (SSH, admin password, etc.) the project owner has a separate private file.
 
-Last updated: 2026-05-30
+Last updated: 2026-06-05
 
 ---
 
@@ -107,6 +107,11 @@ These were called out by the owner across multiple feedback rounds. Do not viola
 13. **Founded 1986** (not 1985), family-owned, three generations.
 14. **Typography is fluid** (one root clamp). Don't add fixed px font-sizes that fight it.
 15. **"Shop the look"**: image-first look tiles per category; the price range is the budget signal, never a "basic/low" tier label or style jargon ("industrial").
+16. **All prices are "starting at ~$X" (approximate).** Every displayed price carries a `~` prefix; nothing is a fixed/final price. Cart + purchase-order email read "Starting at ~$X each" / "Estimated starting total." Only the T-series *products* (T-01..T-20) are locked, not their prices; every price is placeholder/subject to change. (2026-06-05.)
+17. **Team follow-up is "as soon as possible"**, never a fixed time window ("4 business hours", "24 hours"). (2026-06-05.)
+18. **Quote contact prompt is "Who can we contact about your quote?"** (not "Where should we send your quote?"). (2026-06-05.)
+19. **"Shop the Look" CTA is a brand-yellow pill** (label + small arrow). The three seating looks: Basic Tasking and Ergonomic / Conference and Executive / Lounge and Guest. (2026-06-05.)
+20. **Mobile product listings use `<ProductDeck>`** (a swipeable stacked deck: center card front, neighbors peeking, native scroll-snap); desktop stays the grid. (2026-06-05.)
 
 ---
 
@@ -302,6 +307,18 @@ Key gotchas:
 ## What's done
 
 Major milestones (rolling list, latest at top):
+
+**2026-06-05**
+- **Basic Tasking and Ergonomic** seating look fully built: renamed from "Clean and everyday" (slug `basic-tasking-and-ergonomic`); **20 real curated task chairs HVOF T-01..T-20** (`/public/products/hvof-t-0X.jpg`) with real "starting at" prices ($229–$859, in `lib/products.ts`). The 9 old task/ergonomic placeholder SKUs removed (kept the 4 Conference/Executive placeholders). New `Product.startingAt` flag. The T-series *products* are locked; their prices and every other price are approximate/placeholder.
+- **Seating looks regrouped to three:** Basic Tasking and Ergonomic / **Conference and Executive** (slug `conference-and-executive`, shows the 4 kept placeholders) / **Lounge and Guest** (slug `lounge-and-guest`, no products yet → a "coming together" empty state). `getLookProducts` no longer falls back to the full category.
+- **"Starting at ~$X" approximate pricing sitewide:** a `~` (approximate) prefix on every displayed price (product cards, product detail, the category "From ~$X" subcategory labels, the quote cart). The quote cart + the purchase-order email are framed as starting prices with a prominent "Estimated starting total" block ("Starting point, not final" pill) and a "final number set with a rep" note.
+- **"These aren't your only options" notice** (`components/sections/sample-notice.tsx`): a prominent yellow-bordered banner ("hundreds more {chairs/desks}", Tell-us + Visit-showroom CTAs) on category pages (top + bottom), look pages, product detail pages, and the furniture overview.
+- **Quote / cart copy:** every "within 4 business hours" → "as soon as possible"; the quote contact heading → "Who can we contact about your quote?"; the shop-the-look card CTA → a sleek brand-yellow pill ("Shop the Look" + arrow).
+- **Cart findability:** fixed the floating cart indicator (it read `window.location` once on mount and got stuck hidden after visiting /quote; now `usePathname()` + a spring "pop" entrance, label "View quote"). Added a header cart link (icon + live count, appears once items are added) and a footer "Your quote cart" link.
+- **Full-width header** (was `container-editorial`, capped + heavy padding, cramping/wrapping the nav on laptops) with `whitespace-nowrap` nav links. Mobile/hamburger unchanged.
+- **Mega-menu hover fix:** the full-width fixed panel held the hover handlers so its invisible side band kept the menu stuck open; now `pointer-events-none` on the container and the hover handlers on the visible card.
+- **Mobile swipeable stacked product deck** (`components/quote/product-deck.tsx`, `<ProductDeck>`): on phones (< `sm`) products render as a snapping, peeking stacked deck (center card front + full-size, neighbors scaled back), built on native CSS scroll-snap with no new dependency. Desktop stays the grid. Swapped into every product grid (home featured, category pages, shop-the-look pages, seating catalog, related products).
+- **Working rule:** ship straight to the live link, no local dev server / preview; commit + push to `main` + verify on the production URL.
 
 **2026-05-29/30**
 - Site-wide copy pass (Dina's PDF + a full team review): hero "rooms→spaces", "expert team", all 8 home category-card descriptions rewritten and reused as each landing page's intro, healthcare hero "Furniture for the spaces where people care", desks drops "actually", two Why-HVOF differentiators (In-House. End-to-End. / Northeast Corridor and Beyond), newsletter drops "Hudson Valley".

@@ -82,7 +82,7 @@ SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents &
 | `/quote-request` | **Multi-step Quote Request form**, yellow theme, numbered round indicators. Steps: audience → branch → hear+notes → contact LAST → submit. Reads `?product=<sku>` to prefill notes. |
 | `/quote` | RFQ cart submit |
 | `/giveaway` | Q2 2026 anniversary giveaway. Hero is the actual desk photo. |
-| `/furniture` + 9 categories | seating (13 priced SKUs), desks, conference, **panel-systems-and-pods (renamed from "pods")**, healthcare, education, reception, preowned, systems |
+| `/furniture` + 9 categories | seating (20 T-series "Basic Tasking and Ergonomic" chairs + 4 placeholders), desks, conference, **panel-systems-and-pods (renamed from "pods")**, healthcare, education, reception, preowned, systems |
 | `/furniture/[category]/[sku]` | Dynamic product detail. 30+ SKUs. |
 | `/furniture/[category]/style/[look]` | **"Shop the look" detail** (seating + desks). Curated picks + "starting at" + lead CTA. Driven by `lib/looks.ts`. |
 | `/gallery` | Masonry + lightbox |
@@ -150,8 +150,8 @@ src/
 │   ├── forms/                         QuoteRequestForm, SimpleContactForm
 │   ├── motion/                        FadeIn, Stagger, ScrollText (snap-pinned)
 │   ├── seo/json-ld.tsx                Schema components
-│   ├── sections/                      Hero, FAQ, CategoryTemplate, ShopTheLook, LocalLandingTemplate, CountyLandingTemplate, TrustedBy, NewsletterSignup, VirtualTourCTA, ...
-│   ├── quote/                         AddToQuoteButton, ProductCard, QuoteCart, QuoteCartIndicator
+│   ├── sections/                      Hero, FAQ, CategoryTemplate, ShopTheLook, SampleNotice, LocalLandingTemplate, CountyLandingTemplate, TrustedBy, NewsletterSignup, VirtualTourCTA, ...
+│   ├── quote/                         AddToQuoteButton, ProductCard, ProductDeck (mobile swipe deck), QuoteCart, QuoteCartIndicator
 │   ├── site/                          Header, Footer, Logo, social-icons, FurnitureMegaMenu
 │   └── ui/                            shadcn primitives (Radix base)
 └── lib/
@@ -202,6 +202,11 @@ In `src/app/globals.css`. **Do not introduce other yellows or fonts.**
 11. **No "AV"** → "technology-integrated". **No "cubicles"** → "panel systems". **No "same-day"/"24-hour" promises** → "promptly". **No unauthorized brand names** (Steelcase/Herman Miller/Knoll/Humanscale/HON) in non-preowned copy. Founded **1986**.
 12. **Typography is fluid** (one root clamp); don't add fixed px font-sizes that fight it.
 13. **"Shop the look"**: image-first look tiles per category; the price range is the budget signal, not a tier label.
+14. **All prices are "starting at ~$X" (approximate).** Every displayed price carries a `~` prefix; nothing is a fixed/final price. Cart + purchase-order email read "Starting at ~$X each" / "Estimated starting total." Only the T-series *products* are locked, not their prices.
+15. **Team follow-up is "as soon as possible"** (never a fixed time window like "4 business hours").
+16. **Quote contact prompt is "Who can we contact about your quote?"**
+17. **"Shop the Look" CTA is a brand-yellow pill.** The three seating looks: Basic Tasking and Ergonomic / Conference and Executive / Lounge and Guest.
+18. **Mobile product listings use `<ProductDeck>`** (a swipeable stacked deck: centered card front, neighbors peeking, native scroll-snap); desktop stays the grid.
 
 ## Quote cart vs Quote Request
 
@@ -265,6 +270,11 @@ See [`docs/HANDOFF.md`](./docs/HANDOFF.md) for the full state.
 
 Highlights:
 
+- ✓ **Basic Tasking and Ergonomic** seating look fully built: 20 real curated task chairs (HVOF T-01..T-20) with real "starting at" prices ($229–$859); seating looks regrouped to three (Basic Tasking and Ergonomic / Conference and Executive / Lounge and Guest)
+- ✓ **"Starting at ~$X" approximate pricing sitewide** + cart / purchase-order framing ("Estimated starting total", "as soon as possible" follow-up, "Who can we contact about your quote?")
+- ✓ **Mobile swipeable stacked product deck** (`<ProductDeck>`, native scroll-snap) — desktop stays the grid
+- ✓ **"These aren't your only options" notice** (`SampleNotice`) across category / look / product pages + furniture overview
+- ✓ Cart findability: fixed floating pill + header cart link + footer link; full-width header; mega-menu hover fix; sleek shop-the-look pill CTA
 - ✓ **"Shop the look"** image-first category navigation (mockup) on Seating + Desks: look tiles, look detail pages, budget shown as a price range, AI-placeholder imagery
 - ✓ **Furniture mega menu** (centered, wide: categories + featured looks + CTA card)
 - ✓ **Responsive fluid typography** (one root clamp scales all text phone→TV)
@@ -331,6 +341,10 @@ Pending (priority order):
 | 2026-05-29 | Generic site-wide What's-Included + FAQ; warranty questions removed | Old per-product placeholders were untrue / a liability |
 | 2026-05-29 | Voice rules: AV→technology-integrated, cubicles→panel systems, no "same-day"→"promptly", no unauthorized brand names | Accuracy + legal |
 | 2026-05-30 | Fluid typography (one root clamp); Furniture mega menu | Responsive text phone→TV; higher-end nav |
+| 2026-06-05 | First seating look "Basic Tasking and Ergonomic" built with 20 real T-series chairs + real "starting at" prices; seating looks regrouped to 3 | Perfecting the catalog one subcategory at a time |
+| 2026-06-05 | All prices shown "starting at ~$X" (approximate); nothing fixed | Customers need room to add options; final price is set with a rep |
+| 2026-06-05 | Mobile product listings = swipeable stacked `<ProductDeck>` | Native, interactive phone browsing; desktop stays the grid |
+| 2026-06-05 | Ship straight to the live link (no local preview) | Owner reviews on production; faster iteration |
 
 ## Notes
 
