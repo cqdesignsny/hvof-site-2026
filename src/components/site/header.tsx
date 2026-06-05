@@ -34,7 +34,7 @@ export function Header() {
           : "bg-black/95 supports-[backdrop-filter]:bg-black/90 backdrop-blur-xl",
       )}
     >
-      <div className="container-editorial flex h-16 items-center justify-between md:h-20">
+      <div className="flex h-16 w-full items-center justify-between px-4 sm:px-6 lg:px-8 md:h-20">
         <Logo size="md" />
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -45,7 +45,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-4 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                className="whitespace-nowrap rounded-full px-3 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white"
               >
                 {item.label}
               </Link>
@@ -88,7 +88,7 @@ export function Header() {
 
           <Link
             href={`tel:${SITE.contact.phoneE164}`}
-            className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-white/85 hover:text-white lg:inline-flex"
+            className="hidden items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/85 hover:text-white lg:inline-flex"
             aria-label={`Call ${SITE.contact.phone}`}
           >
             <Phone className="h-3.5 w-3.5" />

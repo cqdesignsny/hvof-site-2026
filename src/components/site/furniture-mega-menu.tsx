@@ -84,7 +84,7 @@ export function FurnitureMegaMenu() {
         onClick={() => (open ? setOpen(false) : openNow())}
         onFocus={openNow}
         className={cn(
-          "inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white",
+          "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white",
           open && "bg-white/10 text-white",
         )}
       >
