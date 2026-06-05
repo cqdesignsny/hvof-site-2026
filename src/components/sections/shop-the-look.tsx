@@ -60,15 +60,11 @@ export function ShopTheLook({
                     <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                       {look.blurb}
                     </p>
-                    <div className="mt-auto flex items-end justify-between gap-2 pt-6">
-                      <span className="font-display font-semibold leading-none tracking-tight">
-                        <span className="text-3xl md:text-4xl">Shop</span>{" "}
-                        <span className="text-lg text-muted-foreground md:text-xl">the Look</span>
+                    <div className="mt-auto pt-6">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-yellow px-5 py-2.5 text-sm font-semibold text-foreground transition-colors group-hover:bg-brand-yellow-hover">
+                        Shop the Look
+                        <ArrowUpRight className="h-4 w-4 arrow-slide" />
                       </span>
-                      <ArrowUpRight
-                        className="h-7 w-7 shrink-0 arrow-slide"
-                        style={{ color: "var(--brand-yellow)" }}
-                      />
                     </div>
                   </div>
                 </Link>
