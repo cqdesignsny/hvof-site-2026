@@ -107,10 +107,10 @@ export default function HomePage() {
   const allSeating = getProductsByCategory("seating");
   // Pick 4 featured chairs to show on home
   const featuredChairs = [
-    allSeating.find((p) => p.sku === "HVOF-ME7ERG")!,
+    allSeating.find((p) => p.sku === "HVOF-T-01")!,
     allSeating.find((p) => p.sku === "HVOF-Vion-6321")!,
-    allSeating.find((p) => p.sku === "HVOF-B8-Engage")!,
-    allSeating.find((p) => p.sku === "HVOF-11730B")!,
+    allSeating.find((p) => p.sku === "HVOF-T-02")!,
+    allSeating.find((p) => p.sku === "HVOF-T-03")!,
   ].filter(Boolean);
 
   const featuredDesks = getProductsByCategory("desks");
