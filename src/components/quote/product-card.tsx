@@ -64,17 +64,24 @@ export function ProductCard({ product }: ProductCardProps) {
           </p>
         </Link>
 
-        <div className="mt-auto flex items-baseline gap-2 pt-2">
+        <div className="mt-auto flex flex-col gap-0.5 pt-2">
           {hasPrice ? (
             <>
-              <span className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
-                {formatPrice(product.price!)}
-              </span>
-              {isOnSale ? (
-                <span className="font-mono text-xs text-muted-foreground line-through">
-                  {formatPrice(product.originalPrice!)}
+              {product.startingAt ? (
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                  Starting at
                 </span>
               ) : null}
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+                  {formatPrice(product.price!)}
+                </span>
+                {isOnSale ? (
+                  <span className="font-mono text-xs text-muted-foreground line-through">
+                    {formatPrice(product.originalPrice!)}
+                  </span>
+                ) : null}
+              </div>
             </>
           ) : (
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">

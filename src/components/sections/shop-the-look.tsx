@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { FadeIn } from "@/components/motion/fade-in";
-import { getLooksByCategory, lookPriceFrom } from "@/lib/looks";
-import { formatPrice, type ProductCategory } from "@/lib/products";
+import { getLooksByCategory } from "@/lib/looks";
+import { type ProductCategory } from "@/lib/products";
 
 interface ShopTheLookProps {
   category: ProductCategory;
@@ -32,13 +32,12 @@ export function ShopTheLook({
             {heading}
           </h2>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Pick the look you are after. Each one opens a curated set with starting prices, so you can see the range before you ever pick up the phone.
+            Pick the look you are after. Each one opens to a curated set you can browse, compare, and add to your quote.
           </p>
         </FadeIn>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {looks.map((look, i) => {
-            const from = lookPriceFrom(look);
             return (
               <FadeIn key={look.slug} delay={(i % 3) * 0.05}>
                 <Link
@@ -61,14 +60,15 @@ export function ShopTheLook({
                     <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                       {look.blurb}
                     </p>
-                    <div className="mt-auto flex items-center justify-between pt-6">
-                      <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                        {from ? `Starting at ${formatPrice(from)}` : "Pricing on request"}
+                    <div className="mt-auto flex items-end justify-between gap-2 pt-6">
+                      <span className="font-display font-semibold leading-none tracking-tight">
+                        <span className="text-3xl md:text-4xl">Shop</span>{" "}
+                        <span className="text-lg text-muted-foreground md:text-xl">the Look</span>
                       </span>
-                      <span className="inline-flex items-center gap-1 text-sm font-semibold transition-all group-hover:gap-2">
-                        Shop the look
-                        <ArrowUpRight className="h-4 w-4 arrow-slide" style={{ color: "var(--brand-yellow)" }} />
-                      </span>
+                      <ArrowUpRight
+                        className="h-7 w-7 shrink-0 arrow-slide"
+                        style={{ color: "var(--brand-yellow)" }}
+                      />
                     </div>
                   </div>
                 </Link>

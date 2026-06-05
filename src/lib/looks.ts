@@ -30,8 +30,8 @@ export const LOOKS: Look[] = [
   // Seating
   {
     category: "seating",
-    slug: "clean-and-everyday",
-    name: "Clean and everyday",
+    slug: "basic-tasking-and-ergonomic",
+    name: "Basic Tasking and Ergonomic",
     blurb: "Task and ergonomic seating built for everyday work.",
     image: "/looks/seating-clean-and-everyday.png",
     subCategories: ["Task", "Ergonomic"],

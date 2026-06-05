@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { ProductCard } from "@/components/quote/product-card";
-import { LOOKS, getLook, getLookProducts, lookPriceFrom } from "@/lib/looks";
-import { formatPrice } from "@/lib/products";
+import { LOOKS, getLook, getLookProducts } from "@/lib/looks";
 import { SITE } from "@/lib/site";
 
 interface LookPageParams {
@@ -35,7 +34,6 @@ export default async function LookPage({ params }: LookPageParams) {
   if (!found) notFound();
 
   const products = getLookProducts(found);
-  const from = lookPriceFrom(found);
   const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
 
   return (
@@ -67,11 +65,6 @@ export default async function LookPage({ params }: LookPageParams) {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               {found.blurb}
             </p>
-            {from ? (
-              <p className="mt-6 font-mono text-sm uppercase tracking-[0.18em] text-muted-foreground">
-                Starting at <span className="text-foreground">{formatPrice(from)}</span>
-              </p>
-            ) : null}
           </FadeIn>
         </div>
       </section>

@@ -22,7 +22,7 @@ const CATEGORY_ICONS: Record<string, string> = {
 };
 
 /** Three featured looks in the menu (a mix of seating + desks). */
-const FEATURED_LOOK_SLUGS = ["clean-and-everyday", "executive-and-lounge", "modern-with-detail"];
+const FEATURED_LOOK_SLUGS = ["basic-tasking-and-ergonomic", "executive-and-lounge", "modern-with-detail"];
 
 export function FurnitureMegaMenu() {
   const [open, setOpen] = useState(false);
