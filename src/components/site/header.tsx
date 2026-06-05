@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Menu, ArrowUpRight, Phone } from "lucide-react";
+import { Menu, ArrowUpRight, Phone, ShoppingBag } from "lucide-react";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/site/social-icons";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Logo } from "@/components/site/logo";
 import { FurnitureMegaMenu } from "@/components/site/furniture-mega-menu";
 import { NAV, SITE } from "@/lib/site";
+import { useQuoteCart } from "@/lib/quote-cart";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -93,6 +94,7 @@ export function Header() {
             <Phone className="h-3.5 w-3.5" />
             <span className="font-mono text-xs tracking-wide">{SITE.contact.phone}</span>
           </Link>
+          <HeaderQuoteCart />
           <Button
             asChild
             size="sm"
@@ -195,6 +197,28 @@ export function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+/** Quote-cart link in the header. Appears once the cart has items so people
+ *  can always find their way back to /quote. */
+function HeaderQuoteCart() {
+  const count = useQuoteCart((s) => s.count());
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  if (!hydrated || count === 0) return null;
+  return (
+    <Link
+      href="/quote"
+      aria-label={`View quote cart (${count} item${count === 1 ? "" : "s"})`}
+      className="inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+    >
+      <ShoppingBag className="h-4 w-4" />
+      <span className="hidden sm:inline">Quote</span>
+      <span className="grid h-5 min-w-[1.25rem] place-items-center rounded-full bg-brand-yellow px-1 text-[11px] font-bold text-foreground">
+        {count}
+      </span>
+    </Link>
   );
 }
 

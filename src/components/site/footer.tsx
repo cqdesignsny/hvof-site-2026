@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Phone, MapPin } from "lucide-react";
+import { ArrowUpRight, Phone, MapPin, ShoppingBag } from "lucide-react";
 import { FacebookIcon, InstagramIcon, LinkedInIcon } from "@/components/site/social-icons";
 
 const SOCIAL_ICONS = {
@@ -85,6 +85,13 @@ export function Footer() {
             >
               Connect with an Expert
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+            <Link
+              href="/quote"
+              className="mt-4 flex items-center gap-1.5 text-sm text-background/70 hover:text-background"
+            >
+              <ShoppingBag className="h-4 w-4" />
+              Your quote cart
             </Link>
           </div>
         </div>
