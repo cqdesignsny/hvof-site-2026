@@ -162,11 +162,11 @@ export function QuoteCart() {
                             {item.name}
                           </h3>
                           <p className="font-display text-lg font-semibold tracking-tight">
-                            {formatPrice(item.price * item.qty)}
+                            ~{formatPrice(item.price * item.qty)}
                           </p>
                         </div>
                         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          {item.sku} · Starting at {formatPrice(item.price)} each
+                          {item.sku} · Starting at ~{formatPrice(item.price)} each
                         </p>
                         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
                           <div className="inline-flex items-center rounded-full border">
@@ -205,17 +205,28 @@ export function QuoteCart() {
                   ))}
               </ul>
 
-              <div className="border-t px-5 py-5 md:px-7 md:py-6">
-                <div className="flex items-baseline justify-between gap-4">
-                  <p className="text-sm text-muted-foreground">
-                    Estimated starting total
-                  </p>
-                  <p className="font-display text-2xl font-semibold md:text-3xl">
-                    {formatPrice(estimatedTotal)}
+              <div
+                className="rounded-b-2xl border-t-2 bg-muted/40 px-5 py-6 md:px-7 md:py-7"
+                style={{ borderColor: "var(--brand-yellow)" }}
+              >
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <span
+                      className="inline-flex items-center rounded-full px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground"
+                      style={{ backgroundColor: "var(--brand-yellow)" }}
+                    >
+                      Starting point, not final
+                    </span>
+                    <p className="mt-2.5 font-display text-xl font-semibold tracking-tight md:text-2xl">
+                      Estimated starting total
+                    </p>
+                  </div>
+                  <p className="font-display text-4xl font-semibold leading-none tracking-tight md:text-5xl">
+                    ~{formatPrice(estimatedTotal)}
                   </p>
                 </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  These are starting prices, a budget starting point only, not a fixed price per item. Your dedicated rep sets the final number once options, finishes, freight, and contract pricing are discussed and confirmed.
+                <p className="mt-4 text-sm leading-relaxed text-foreground/70">
+                  This is a starting point to ballpark your budget, not a fixed price per item. Your dedicated rep sets the final number once options, finishes, freight, and contract pricing are discussed and confirmed.
                 </p>
               </div>
             </div>
