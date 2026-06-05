@@ -8,7 +8,7 @@ import { TrustedBy } from "@/components/sections/trusted-by";
 import { VirtualTourCTA } from "@/components/sections/virtual-tour-cta";
 import { NewsletterSignup } from "@/components/sections/newsletter";
 import { InteractiveGallery, type GalleryShot } from "@/components/sections/interactive-gallery";
-import { ProductCard } from "@/components/quote/product-card";
+import { ProductDeck } from "@/components/quote/product-deck";
 import { FadeIn } from "@/components/motion/fade-in";
 import { ScrollText } from "@/components/motion/scroll-text";
 import { IMG } from "@/lib/images";
@@ -238,11 +238,11 @@ export default function HomePage() {
               </Button>
             </FadeIn>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredChairs.map((p) => (
-              <ProductCard key={p.sku} product={p} />
-            ))}
-          </div>
+          <ProductDeck
+            products={featuredChairs}
+            gridClassName="sm:grid-cols-2 lg:grid-cols-4"
+            className="mt-12"
+          />
         </div>
       </section>
 
@@ -265,11 +265,11 @@ export default function HomePage() {
               </Button>
             </FadeIn>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredDesks.slice(0, 3).map((p) => (
-              <ProductCard key={p.sku} product={p} />
-            ))}
-          </div>
+          <ProductDeck
+            products={featuredDesks.slice(0, 3)}
+            gridClassName="md:grid-cols-3"
+            className="mt-12"
+          />
         </div>
       </section>
 

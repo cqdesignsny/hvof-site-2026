@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
-import { ProductCard } from "@/components/quote/product-card";
+import { ProductDeck } from "@/components/quote/product-deck";
 import { SampleNotice } from "@/components/sections/sample-notice";
 import { LOOKS, getLook, getLookProducts } from "@/lib/looks";
 
@@ -75,11 +75,7 @@ export default async function LookPage({ params }: LookPageParams) {
       <section className="bg-background pb-16 md:pb-24">
         <div className="container-wide">
           {products.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {products.map((p) => (
-                <ProductCard key={p.sku} product={p} />
-              ))}
-            </div>
+            <ProductDeck products={products} gridClassName="sm:grid-cols-2 lg:grid-cols-4" />
           ) : (
             <FadeIn className="rounded-2xl border-2 border-dashed border-border p-10 text-center md:p-16">
               <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">

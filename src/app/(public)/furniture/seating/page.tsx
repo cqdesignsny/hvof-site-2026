@@ -5,7 +5,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { FAQSection } from "@/components/sections/faq-section";
-import { ProductCard } from "@/components/quote/product-card";
+import { ProductDeck } from "@/components/quote/product-deck";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { getProductsByCategory } from "@/lib/products";
 import { IMG } from "@/lib/images";
@@ -117,11 +117,7 @@ export default function SeatingPage() {
                     {subProducts.length} {subProducts.length === 1 ? "model" : "models"}
                   </p>
                 </div>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                  {subProducts.map((p) => (
-                    <ProductCard key={p.sku} product={p} />
-                  ))}
-                </div>
+                <ProductDeck products={subProducts} gridClassName="sm:grid-cols-2 lg:grid-cols-4" />
               </div>
             );
           })}

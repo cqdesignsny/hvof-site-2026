@@ -6,7 +6,7 @@ import { ArrowUpRight, ArrowLeft, Check, Truck, Shield, Hammer } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
-import { ProductCard } from "@/components/quote/product-card";
+import { ProductDeck } from "@/components/quote/product-deck";
 import { SampleNotice } from "@/components/sections/sample-notice";
 import { AddToQuoteButton } from "@/components/quote/add-to-quote-button";
 import { PRODUCTS, getProductBySku, getProductsByCategory, formatPrice } from "@/lib/products";
@@ -236,11 +236,11 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
                 More from {categoryLabel.toLowerCase()}.
               </h2>
             </FadeIn>
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {related.map((p) => (
-                <ProductCard key={p.sku} product={p} />
-              ))}
-            </div>
+            <ProductDeck
+              products={related}
+              gridClassName="sm:grid-cols-2 lg:grid-cols-4"
+              className="mt-10"
+            />
           </div>
         </section>
       ) : null}

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/motion/fade-in";
 import { ScrollText } from "@/components/motion/scroll-text";
 import { FAQSection } from "@/components/sections/faq-section";
-import { ProductCard } from "@/components/quote/product-card";
+import { ProductDeck } from "@/components/quote/product-deck";
 import { BreadcrumbSchema } from "@/components/seo/json-ld";
 import { getProductsByCategory, type ProductCategory } from "@/lib/products";
 import { SITE } from "@/lib/site";
@@ -128,11 +128,11 @@ export function CategoryTemplate({
                 A snapshot of the brands and lines we stock and spec for this category. Inquire on any line and we&apos;ll come back with finishes, lead time, and pricing.
               </p>
             </FadeIn>
-            <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {products.map((p) => (
-                <ProductCard key={p.sku} product={p} />
-              ))}
-            </div>
+            <ProductDeck
+              products={products}
+              gridClassName="sm:grid-cols-2 lg:grid-cols-4"
+              className="mt-12"
+            />
           </div>
         </section>
       ) : null}
