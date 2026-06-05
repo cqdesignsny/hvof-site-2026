@@ -106,11 +106,13 @@ export function FurnitureMegaMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-16 z-40 px-4 md:top-20"
-            onMouseEnter={openNow}
-            onMouseLeave={scheduleClose}
+            className="pointer-events-none fixed inset-x-0 top-16 z-40 px-4 md:top-20"
           >
-            <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-2xl border border-border bg-background shadow-2xl shadow-black/25">
+            <div
+              className="pointer-events-auto mx-auto w-full max-w-6xl overflow-hidden rounded-2xl border border-border bg-background shadow-2xl shadow-black/25"
+              onMouseEnter={openNow}
+              onMouseLeave={scheduleClose}
+            >
               <div className="grid grid-cols-12">
                 {/* Shop by category */}
                 <div className="col-span-7 p-7">
