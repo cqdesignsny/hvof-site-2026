@@ -122,7 +122,7 @@ export default function QuoteRequestPage() {
                 A real human, promptly.
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-background/75 md:text-lg">
-                Our team reads every submission and gets back within 4 business hours, often within minutes. No bots, no autoresponders, no twelve-step nurture sequence.
+                Our team reads every submission and gets back to you as soon as possible. No bots, no autoresponders, no twelve-step nurture sequence.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-3">

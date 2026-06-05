@@ -64,7 +64,7 @@ export function QuoteCart() {
             Quote received.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-            A team member will email you a finalized quote promptly. Payment is collected offline once you approve.
+            A team member will follow up and email you a finalized quote as soon as possible. The prices you saw are starting points, your final number is set once all the options are discussed. Payment is collected offline once you approve.
           </p>
           <div className="mt-12 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg" className="h-12 rounded-full px-7 text-base">
@@ -119,7 +119,7 @@ export function QuoteCart() {
             purchase order.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Adjust quantities, add notes, and submit. We confirm pricing, delivery dates, and contract eligibility promptly. Payment is processed offline by check, ACH, or PO once you approve.
+            Every price here is a starting point to help you set a budget, not a final number. Adjust quantities, add notes, and submit. Your dedicated rep confirms the final pricing, delivery, and contract eligibility once you walk through the options together. Payment is processed offline by check, ACH, or PO once you approve.
           </p>
         </div>
 
@@ -166,7 +166,7 @@ export function QuoteCart() {
                           </p>
                         </div>
                         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          {item.sku} · {formatPrice(item.price)} each
+                          {item.sku} · Starting at {formatPrice(item.price)} each
                         </p>
                         <div className="mt-auto flex items-center justify-between gap-3 pt-2">
                           <div className="inline-flex items-center rounded-full border">
@@ -208,14 +208,14 @@ export function QuoteCart() {
               <div className="border-t px-5 py-5 md:px-7 md:py-6">
                 <div className="flex items-baseline justify-between gap-4">
                   <p className="text-sm text-muted-foreground">
-                    Estimated subtotal at list price
+                    Estimated starting total
                   </p>
                   <p className="font-display text-2xl font-semibold md:text-3xl">
                     {formatPrice(estimatedTotal)}
                   </p>
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  Final pricing depends on configuration, freight, contract eligibility, and current promotions. We will send a binding quote.
+                  These are starting prices, a budget starting point only, not a fixed price per item. Your dedicated rep sets the final number once options, finishes, freight, and contract pricing are discussed and confirmed.
                 </p>
               </div>
             </div>
@@ -228,10 +228,10 @@ export function QuoteCart() {
               className="rounded-2xl border bg-muted/30 p-6 md:p-8"
             >
               <h2 className="font-display text-2xl font-normal leading-snug md:text-3xl">
-                Where should we send your quote?
+                Who can we contact about your quote?
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                A team member follows up within 4 business hours.
+                A team member will follow up with your quote and contact you as soon as possible.
               </p>
 
               <div className="mt-6 grid gap-5">

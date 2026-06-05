@@ -428,7 +428,7 @@ function computeSteps(audience: Audience): StepDef[] {
       key: "contact",
       shortLabel: "You",
       eyebrow: "Last step",
-      title: "Where do we send the quote?",
+      title: "Who can we contact about your quote?",
       isValid: (s) =>
         s.firstName.trim().length > 0 &&
         s.lastName.trim().length > 0 &&

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   // Optional: forward via Resend
   if (process.env.RESEND_API_KEY && process.env.LEAD_EMAIL_TO) {
     const itemLines = items.map(
-      (i) => `  - ${i.qty}× ${i.name} (${i.sku}) @ $${i.price.toLocaleString()}`,
+      (i) => `  - ${i.qty}× ${i.name} (${i.sku}) @ starting at $${i.price.toLocaleString()} each`,
     );
     const body = [
       `New quote request from ${contact.name}${contact.company ? ` at ${contact.company}` : ""}`,
@@ -56,7 +56,8 @@ export async function POST(request: Request) {
       `Items (${items.length}):`,
       ...itemLines,
       ``,
-      `Estimated subtotal at list: $${estimatedTotal.toLocaleString()}`,
+      `Estimated starting total: $${estimatedTotal.toLocaleString()}`,
+      `(Starting prices only, a budget starting point. Final pricing is set once options are confirmed with the customer.)`,
       ``,
       contact.notes ? `Notes:\n${contact.notes}` : null,
       ``,

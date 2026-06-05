@@ -54,7 +54,7 @@ export function SimpleContactForm() {
           Thanks. We&apos;ll be in touch.
         </h2>
         <p className="mt-3 max-w-md text-base text-muted-foreground md:text-lg">
-          Replies typically within 4 business hours. For urgent needs call <span className="font-mono">{SITE.contact.phone}</span>.
+          We reply as soon as possible. For urgent needs call <span className="font-mono">{SITE.contact.phone}</span>.
         </p>
       </div>
     );

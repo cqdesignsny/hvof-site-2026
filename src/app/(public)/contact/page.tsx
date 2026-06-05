@@ -50,7 +50,7 @@ export default function ContactPage() {
                   label="Email"
                   value={SITE.contact.email}
                   href={`mailto:${SITE.contact.email}`}
-                  hint="Replies within 4 business hours"
+                  hint="We reply as soon as possible"
                 />
                 <ContactItem
                   icon={<MapPin className="h-4 w-4" />}
