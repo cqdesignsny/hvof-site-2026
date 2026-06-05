@@ -74,11 +74,30 @@ export default async function LookPage({ params }: LookPageParams) {
       {/* Curated grid */}
       <section className="bg-background pb-16 md:pb-24">
         <div className="container-wide">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((p) => (
-              <ProductCard key={p.sku} product={p} />
-            ))}
-          </div>
+          {products.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {products.map((p) => (
+                <ProductCard key={p.sku} product={p} />
+              ))}
+            </div>
+          ) : (
+            <FadeIn className="rounded-2xl border-2 border-dashed border-border p-10 text-center md:p-16">
+              <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">
+                This collection is coming together.
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                We are curating this look right now. Tell us what you are after and we will send options that fit, or browse the full {categoryLabel.toLowerCase()} catalog.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <Button asChild size="lg" className="h-12 rounded-full bg-foreground px-7 text-base font-semibold text-background hover:bg-foreground/90">
+                  <Link href={`/quote-request?category=${category}`}>Tell us what you need</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-12 rounded-full px-7 text-base">
+                  <Link href={`/furniture/${category}`}>Browse all {categoryLabel.toLowerCase()}</Link>
+                </Button>
+              </div>
+            </FadeIn>
+          )}
         </div>
       </section>
 

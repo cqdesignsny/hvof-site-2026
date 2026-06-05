@@ -124,7 +124,7 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
                 {hasPrice ? (
                   <>
                     <span className="font-display text-4xl font-semibold tracking-tight md:text-5xl">
-                      {formatPrice(product.price!)}
+                      ~{formatPrice(product.price!)}
                     </span>
                     {isOnSale ? (
                       <span className="font-mono text-base text-muted-foreground line-through">

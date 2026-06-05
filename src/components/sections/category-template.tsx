@@ -102,7 +102,7 @@ export function CategoryTemplate({
                   <h3 className="font-display text-2xl font-semibold tracking-tight md:text-3xl">{sub.name}</h3>
                   {sub.startingPrice ? (
                     <p className="shrink-0 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                      {sub.startingPrice}
+                      {sub.startingPrice.replace("$", "~$")}
                     </p>
                   ) : null}
                 </div>

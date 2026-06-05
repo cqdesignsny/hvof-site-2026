@@ -38,19 +38,19 @@ export const LOOKS: Look[] = [
   },
   {
     category: "seating",
-    slug: "conference-and-guests",
-    name: "Conference and guests",
-    blurb: "Padded conference and guest seating for meeting spaces.",
+    slug: "conference-and-executive",
+    name: "Conference and Executive",
+    blurb: "Boardroom and executive seating for meetings, training rooms, and leadership offices.",
     image: "/looks/seating-conference-and-guests.png",
-    subCategories: ["Conference", "Guest"],
+    subCategories: ["Conference", "Executive"],
   },
   {
     category: "seating",
-    slug: "executive-and-lounge",
-    name: "Executive and lounge",
-    blurb: "High-back executive chairs and soft lounge seating.",
+    slug: "lounge-and-guest",
+    name: "Lounge and Guest",
+    blurb: "Soft lounge seating and guest chairs for waiting areas, reception, and breakout spaces.",
     image: "/looks/seating-executive-and-lounge.png",
-    subCategories: ["Executive", "Lounge"],
+    subCategories: ["Lounge", "Guest"],
   },
   // Desks
   {
@@ -90,9 +90,9 @@ export function getLook(category: string, slug: string): Look | undefined {
 export function getLookProducts(look: Look): Product[] {
   const products = getProductsByCategory(look.category);
   const set = new Set(look.subCategories);
-  const matched = products.filter((p) => p.subCategory && set.has(p.subCategory));
-  // Never show an empty page in the mockup: fall back to the full category.
-  return matched.length > 0 ? matched : products;
+  // Only the products curated into this look. An empty look renders a
+  // "coming together" state on the look page, not the whole category.
+  return products.filter((p) => p.subCategory && set.has(p.subCategory));
 }
 
 export function lookPriceFrom(look: Look): number | undefined {
