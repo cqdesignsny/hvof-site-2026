@@ -1,6 +1,12 @@
+import { Suspense } from "react";
 import { ArrowUpRight, FileText, Sparkles } from "lucide-react";
 import { fetchBrief, fetchRecommendations, fetchSnapshot, SIGNAL_MODE } from "@/lib/signal/client";
-import { isSignalRange, type SignalRange } from "@/lib/signal/types";
+import {
+  isSignalRange,
+  type SignalBrief,
+  type SignalRange,
+  type SignalRecommendations,
+} from "@/lib/signal/types";
 import { BriefMarkdown } from "@/components/admin/report/brief-markdown";
 import { CHANNEL_COLORS, ChannelDonut, paletteFor } from "@/components/admin/report/channel-donut";
 import { DeltaPill } from "@/components/admin/report/delta-pill";
@@ -126,11 +132,17 @@ export default async function ReportsPage({ searchParams }: Props) {
   const sp = await searchParams;
   const range = resolveRange(sp.range);
 
-  const [snapshot, recs, brief] = await Promise.all([
-    fetchSnapshot(range),
-    fetchRecommendations(range),
-    fetchBrief(range),
-  ]);
+  // Kick off all three Signal calls in parallel, but only block the page
+  // commit on the snapshot — it drives nearly every section. Recommendations
+  // (a Claude call on Signal's side, several seconds) and the brief stream in
+  // behind Suspense below, so switching ranges repaints the core report as soon
+  // as the snapshot lands instead of waiting on the slowest call. The
+  // `.catch(() => null)` keeps a hiccup in either deferred call from blanking
+  // the whole report — that section degrades to a retry line on its own.
+  const snapshotPromise = fetchSnapshot(range);
+  const recsPromise = fetchRecommendations(range).catch(() => null);
+  const briefPromise = fetchBrief(range).catch(() => null);
+  const snapshot = await snapshotPromise;
 
   const ga4 = snapshot.ga4;
   const leadsNative = snapshot.leads_native;
@@ -644,36 +656,34 @@ export default async function ReportsPage({ searchParams }: Props) {
         </div>
       ) : null}
 
-      {/* Recommendations */}
+      {/* Recommendations (streamed — the Claude call must not block the report) */}
       <div className="mt-6">
-        <SectionCard
-          eyebrow="Signal recommendations"
-          title="What to do next"
-          action={
-            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
-              <Sparkles className="size-3.5" />
-              Generated {formatTimestamp(recs.generated_at)}
-            </span>
+        <Suspense
+          fallback={
+            <StreamSkeleton
+              eyebrow="Signal recommendations"
+              title="What to do next"
+              rows={3}
+            />
           }
         >
-          <RecommendationsList items={recs.items} />
-        </SectionCard>
+          <RecommendationsSection recsPromise={recsPromise} />
+        </Suspense>
       </div>
 
-      {/* Brief */}
+      {/* Brief (streamed alongside recommendations) */}
       <div className="mt-6">
-        <SectionCard
-          eyebrow="The brief"
-          title="What happened, in plain English"
-          action={
-            <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
-              <FileText className="size-3.5" />
-              Markdown
-            </span>
+        <Suspense
+          fallback={
+            <StreamSkeleton
+              eyebrow="The brief"
+              title="What happened, in plain English"
+              rows={4}
+            />
           }
         >
-          <BriefMarkdown markdown={brief.markdown} />
-        </SectionCard>
+          <BriefSection briefPromise={briefPromise} />
+        </Suspense>
       </div>
 
       {/* Footer */}
@@ -686,5 +696,91 @@ export default async function ReportsPage({ searchParams }: Props) {
         </p>
       </div>
     </div>
+  );
+}
+
+// --- Streamed sections -------------------------------------------------------
+// These sit below the fold and depend on Signal's slowest calls, so each lives
+// behind its own Suspense boundary and streams in after the snapshot-driven
+// report has already painted. Both fetches are kicked off in the page body and
+// passed down as promises, so they run in parallel with the snapshot rather
+// than waiting for it.
+
+async function RecommendationsSection({
+  recsPromise,
+}: {
+  recsPromise: Promise<SignalRecommendations | null>;
+}) {
+  const recs = await recsPromise;
+  return (
+    <SectionCard
+      eyebrow="Signal recommendations"
+      title="What to do next"
+      action={
+        recs ? (
+          <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
+            <Sparkles className="size-3.5" />
+            Generated {formatTimestamp(recs.generated_at)}
+          </span>
+        ) : null
+      }
+    >
+      {recs ? (
+        <RecommendationsList items={recs.items} />
+      ) : (
+        <p className="text-sm text-foreground/55">
+          Recommendations are taking longer than usual to generate. Refresh to try again.
+        </p>
+      )}
+    </SectionCard>
+  );
+}
+
+async function BriefSection({
+  briefPromise,
+}: {
+  briefPromise: Promise<SignalBrief | null>;
+}) {
+  const brief = await briefPromise;
+  return (
+    <SectionCard
+      eyebrow="The brief"
+      title="What happened, in plain English"
+      action={
+        <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
+          <FileText className="size-3.5" />
+          Markdown
+        </span>
+      }
+    >
+      {brief ? (
+        <BriefMarkdown markdown={brief.markdown} />
+      ) : (
+        <p className="text-sm text-foreground/55">
+          The brief is taking longer than usual to render. Refresh to try again.
+        </p>
+      )}
+    </SectionCard>
+  );
+}
+
+function StreamSkeleton({
+  eyebrow,
+  title,
+  rows,
+}: {
+  eyebrow: string;
+  title: string;
+  rows: number;
+}) {
+  return (
+    <SectionCard eyebrow={eyebrow} title={title}>
+      <div className="space-y-3" aria-hidden="true">
+        {Array.from({ length: rows }).map((_, i) => (
+          <div key={i} className="h-14 animate-pulse rounded-xl bg-foreground/5" />
+        ))}
+      </div>
+      <span className="sr-only">Loading...</span>
+    </SectionCard>
   );
 }
