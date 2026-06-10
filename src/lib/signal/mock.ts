@@ -2,7 +2,10 @@ import type {
   ChannelBreakdownEntry,
   DailySessionsEntry,
   LandingPageEntry,
+  OmnisendCampaignEntry,
   Recommendation,
+  SearchDailyPoint,
+  SearchQueryEntry,
   SignalRange,
   SignalRecommendations,
   SignalSnapshot,
@@ -10,9 +13,12 @@ import type {
 } from "./types";
 
 // Stable, hand-tuned numbers. Real shape, plausible scale for an HVOF-sized
-// regional B2B. Replaced by the real Signal payload once SIGNAL_API_BASE is set.
+// regional B2B. Replaced by the real Signal payload once SIGNAL_API_BASE +
+// SIGNAL_API_KEY are set. Mirrors the 11-block v1 contract in ./types.
 
 const TODAY = "2026-05-17";
+
+type Pair = { current: number; prior: number };
 
 const RANGE_NUMBERS: Record<
   SignalRange,
@@ -22,13 +28,26 @@ const RANGE_NUMBERS: Record<
     end: string;
     priorStart: string;
     priorEnd: string;
-    sessions: { current: number; prior: number };
-    users: { current: number; prior: number };
-    engaged_sessions: { current: number; prior: number };
-    avg_session_duration_sec: { current: number; prior: number };
+    sessions: Pair;
+    users: Pair;
+    bounce_rate: Pair;
+    avg_session_duration_sec: Pair;
     daily_points: number;
     quote_leads_current: number;
     quote_leads_prior: number;
+    gsc_clicks: Pair;
+    gsc_impressions: Pair;
+    gsc_position: Pair;
+    ads_spend: Pair;
+    ads_clicks: Pair;
+    ads_impressions: Pair;
+    ads_conversions: Pair;
+    omni_sends: Pair;
+    omni_campaigns: Pair;
+    omni_open_rate: Pair;
+    omni_click_rate: Pair;
+    fb_posts: Pair;
+    ig_posts: Pair;
   }
 > = {
   "7d": {
@@ -39,11 +58,24 @@ const RANGE_NUMBERS: Record<
     priorEnd: "2026-05-10",
     sessions: { current: 3120, prior: 2754 },
     users: { current: 2245, prior: 1990 },
-    engaged_sessions: { current: 1840, prior: 1612 },
+    bounce_rate: { current: 0.41, prior: 0.44 },
     avg_session_duration_sec: { current: 142, prior: 128 },
     daily_points: 7,
     quote_leads_current: 11,
     quote_leads_prior: 8,
+    gsc_clicks: { current: 78, prior: 71 },
+    gsc_impressions: { current: 2210, prior: 2040 },
+    gsc_position: { current: 21.4, prior: 22.9 },
+    ads_spend: { current: 184, prior: 162 },
+    ads_clicks: { current: 54, prior: 47 },
+    ads_impressions: { current: 2980, prior: 2710 },
+    ads_conversions: { current: 1, prior: 1 },
+    omni_sends: { current: 4900, prior: 0 },
+    omni_campaigns: { current: 1, prior: 0 },
+    omni_open_rate: { current: 0.131, prior: 0 },
+    omni_click_rate: { current: 0.036, prior: 0 },
+    fb_posts: { current: 3, prior: 2 },
+    ig_posts: { current: 2, prior: 3 },
   },
   "30d": {
     label: "Last 30 days",
@@ -53,11 +85,24 @@ const RANGE_NUMBERS: Record<
     priorEnd: "2026-04-17",
     sessions: { current: 12482, prior: 10930 },
     users: { current: 9210, prior: 8077 },
-    engaged_sessions: { current: 7345, prior: 6101 },
+    bounce_rate: { current: 0.43, prior: 0.46 },
     avg_session_duration_sec: { current: 138, prior: 121 },
     daily_points: 30,
     quote_leads_current: 38,
     quote_leads_prior: 27,
+    gsc_clicks: { current: 318, prior: 286 },
+    gsc_impressions: { current: 9436, prior: 8120 },
+    gsc_position: { current: 22.8, prior: 24.1 },
+    ads_spend: { current: 798, prior: 712 },
+    ads_clicks: { current: 228, prior: 205 },
+    ads_impressions: { current: 12850, prior: 11960 },
+    ads_conversions: { current: 4, prior: 3 },
+    omni_sends: { current: 14070, prior: 9102 },
+    omni_campaigns: { current: 3, prior: 2 },
+    omni_open_rate: { current: 0.127, prior: 0.123 },
+    omni_click_rate: { current: 0.035, prior: 0.03 },
+    fb_posts: { current: 9, prior: 7 },
+    ig_posts: { current: 8, prior: 6 },
   },
   "90d": {
     label: "Last 90 days",
@@ -67,11 +112,24 @@ const RANGE_NUMBERS: Record<
     priorEnd: "2026-02-16",
     sessions: { current: 36420, prior: 32108 },
     users: { current: 25910, prior: 23044 },
-    engaged_sessions: { current: 20940, prior: 17820 },
+    bounce_rate: { current: 0.44, prior: 0.47 },
     avg_session_duration_sec: { current: 134, prior: 119 },
     daily_points: 90,
     quote_leads_current: 112,
     quote_leads_prior: 88,
+    gsc_clicks: { current: 942, prior: 868 },
+    gsc_impressions: { current: 27840, prior: 25210 },
+    gsc_position: { current: 23.6, prior: 25.0 },
+    ads_spend: { current: 2310, prior: 2040 },
+    ads_clicks: { current: 671, prior: 598 },
+    ads_impressions: { current: 38200, prior: 35100 },
+    ads_conversions: { current: 11, prior: 8 },
+    omni_sends: { current: 41200, prior: 33600 },
+    omni_campaigns: { current: 9, prior: 7 },
+    omni_open_rate: { current: 0.124, prior: 0.121 },
+    omni_click_rate: { current: 0.033, prior: 0.031 },
+    fb_posts: { current: 26, prior: 22 },
+    ig_posts: { current: 23, prior: 19 },
   },
   "1y": {
     label: "Last 12 months",
@@ -81,17 +139,34 @@ const RANGE_NUMBERS: Record<
     priorEnd: "2025-05-17",
     sessions: { current: 145200, prior: 127400 },
     users: { current: 102300, prior: 89500 },
-    engaged_sessions: { current: 82400, prior: 70200 },
+    bounce_rate: { current: 0.45, prior: 0.48 },
     avg_session_duration_sec: { current: 131, prior: 116 },
     daily_points: 52,
     quote_leads_current: 415,
     quote_leads_prior: 348,
+    gsc_clicks: { current: 3980, prior: 3520 },
+    gsc_impressions: { current: 118400, prior: 104900 },
+    gsc_position: { current: 24.2, prior: 26.3 },
+    ads_spend: { current: 8909, prior: 7640 },
+    ads_clicks: { current: 2668, prior: 2310 },
+    ads_impressions: { current: 154200, prior: 138900 },
+    ads_conversions: { current: 39, prior: 31 },
+    omni_sends: { current: 168400, prior: 142200 },
+    omni_campaigns: { current: 37, prior: 31 },
+    omni_open_rate: { current: 0.125, prior: 0.119 },
+    omni_click_rate: { current: 0.034, prior: 0.03 },
+    fb_posts: { current: 104, prior: 92 },
+    ig_posts: { current: 92, prior: 78 },
   },
 };
 
 function deltaPct(current: number, prior: number): number {
   if (prior === 0) return current === 0 ? 0 : 100;
   return ((current - prior) / prior) * 100;
+}
+
+function delta(p: Pair) {
+  return { current: p.current, prior: p.prior, delta_pct: deltaPct(p.current, p.prior) };
 }
 
 function generateDaily(
@@ -119,6 +194,22 @@ function generateDaily(
     result.push({ date: d.toISOString().slice(0, 10), sessions: value });
   }
   return result;
+}
+
+function generateDailyClicks(
+  endIso: string,
+  points: number,
+  totalClicks: number,
+  totalImpressions: number,
+  granularity: "day" | "week" = "day",
+): SearchDailyPoint[] {
+  const base = generateDaily(endIso, points, totalClicks, granularity);
+  const ratio = totalClicks > 0 ? totalImpressions / totalClicks : 0;
+  return base.map((d) => ({
+    date: d.date,
+    clicks: d.sessions,
+    impressions: Math.round(d.sessions * ratio),
+  }));
 }
 
 const CHANNEL_BREAKDOWN: ChannelBreakdownEntry[] = [
@@ -155,6 +246,17 @@ const TOP_LANDING_BASE: { path: string; share: number }[] = [
   { path: "/furniture/healthcare", share: 0.028 },
 ];
 
+// Search Console top queries, as shares of total clicks for the range.
+const TOP_QUERIES_BASE: { query: string; clickShare: number; imprShare: number; position: number }[] = [
+  { query: "hudson valley office furniture", clickShare: 0.47, imprShare: 0.11, position: 3.1 },
+  { query: "the wow guys", clickShare: 0.12, imprShare: 0.02, position: 1.2 },
+  { query: "office furniture poughkeepsie", clickShare: 0.08, imprShare: 0.05, position: 6.4 },
+  { query: "used office furniture near me", clickShare: 0.05, imprShare: 0.09, position: 14.8 },
+  { query: "office chairs hudson valley", clickShare: 0.04, imprShare: 0.06, position: 9.2 },
+  { query: "nys ogs office furniture", clickShare: 0.03, imprShare: 0.04, position: 11.5 },
+  { query: "office furniture near me", clickShare: 0.02, imprShare: 0.18, position: 54.0 },
+];
+
 const NATIVE_LEADS_RECENT = [
   { submitted_at: "2026-05-17T15:42:00Z", first_name: "Jennifer", last_name: "L.", company: "Marshall + Sterling", form_type: "main-lead" as const },
   { submitted_at: "2026-05-16T11:08:00Z", first_name: "Brian", last_name: "K.", company: "St. Catherine's Pediatrics", form_type: "main-lead" as const },
@@ -186,6 +288,31 @@ function fillLandings(total: number): LandingPageEntry[] {
   }));
 }
 
+function fillQueries(totalClicks: number, totalImpr: number): SearchQueryEntry[] {
+  return TOP_QUERIES_BASE.map((q) => {
+    const clicks = Math.round(totalClicks * q.clickShare);
+    const impressions = Math.max(clicks, Math.round(totalImpr * q.imprShare));
+    return {
+      query: q.query,
+      clicks,
+      impressions,
+      ctr: impressions > 0 ? clicks / impressions : 0,
+      position: q.position,
+    };
+  });
+}
+
+function omnisendCampaigns(range: SignalRange): OmnisendCampaignEntry[] {
+  const all: OmnisendCampaignEntry[] = [
+    { id: "c_may2", name: "May Showroom Event", subject: "You're invited: Spring showroom open house", sent_date: "2026-05-14", sends: 5092, opens: 916, clicks: 260, open_rate: 0.18, click_rate: 0.051 },
+    { id: "c_may1", name: "May Booster", subject: "Last chance on spring seating deals", sent_date: "2026-05-15", sends: 4010, opens: 192, clicks: 6, open_rate: 0.048, click_rate: 0.0014 },
+    { id: "c_apr2", name: "April Email 2", subject: "New NYS contract pricing inside", sent_date: "2026-04-14", sends: 4968, opens: 894, clicks: 253, open_rate: 0.18, click_rate: 0.051 },
+  ];
+  if (range === "7d") return all.slice(0, 1);
+  if (range === "30d") return all.slice(0, 3);
+  return all;
+}
+
 const REC_LIBRARY: Recommendation[] = [
   {
     id: "rec_organic_search_climb",
@@ -212,12 +339,12 @@ const REC_LIBRARY: Recommendation[] = [
     metric_refs: ["leads_native.total"],
   },
   {
-    id: "rec_paid_social",
-    priority: "low",
-    title: "Paid Social is missing from the mix",
-    body: "Organic IG and FB drive about 8% of traffic but no paid budget is flowing through Meta. A small test on Hudson Valley B2B targeting would tell us if the channel is worth the spend.",
-    source: "meta_ads",
-    metric_refs: [],
+    id: "rec_mobile_lcp",
+    priority: "medium",
+    title: "Mobile LCP is in the red, and it's costing you the organic gains",
+    body: "Largest Contentful Paint on mobile sits well above the 2.5s threshold. The hero image is the likely culprit. Serve a properly sized, modern-format hero and preload it so the page everyone lands on stops bleeding rank.",
+    source: "core_web_vitals",
+    metric_refs: ["core_web_vitals.metrics.lcp"],
   },
 ];
 
@@ -233,24 +360,42 @@ Hudson Valley Office Furniture closed the last 30 days at **12,482 sessions** (+
 
 ## What to watch
 - **Mobile drop-off** on the Quote Request second step. The audience to branch transition is leaking.
-- **Paid Social** remains zero. We may be leaving the channel on the table.
+- **Mobile Core Web Vitals** are poor. LCP is well over the threshold and it caps how high organic can climb.
 - **Email** is a small slice (3%). Once the weekly leads digest is wired, we get a feedback loop to grow re-engagement.
 
 ## What's next
 Targeted asks for the team:
 1. Build manufacturer-specific landing pages for the top 5 NYS contract manufacturers.
 2. Run a mobile-only A/B that consolidates the audience and branch steps.
-3. Spin up a Meta lead-gen test targeting Hudson Valley B2B (under $500 for 14 days).
+3. Fix the mobile hero image to bring LCP back under 2.5 seconds.
 `;
 
 export function mockSnapshot(range: SignalRange): SignalSnapshot {
   const r = RANGE_NUMBERS[range];
+  const weekly = range === "1y";
   const dailySessions = generateDaily(
     r.end,
     r.daily_points,
     r.sessions.current,
-    range === "1y" ? "week" : "day",
+    weekly ? "week" : "day",
   );
+  const gscDaily = generateDailyClicks(
+    r.end,
+    r.daily_points,
+    r.gsc_clicks.current,
+    r.gsc_impressions.current,
+    weekly ? "week" : "day",
+  );
+
+  const adsCtr = r.ads_clicks.current / Math.max(1, r.ads_impressions.current);
+  const adsCpc = r.ads_spend.current / Math.max(1, r.ads_clicks.current);
+  const adsCostPerConv = r.ads_spend.current / Math.max(1, r.ads_conversions.current);
+  const omniOpens = Math.round(r.omni_sends.current * r.omni_open_rate.current);
+  const omniClicks = Math.round(r.omni_sends.current * r.omni_click_rate.current);
+  const omniOpensPrior = Math.round(r.omni_sends.prior * r.omni_open_rate.prior);
+  const omniClicksPrior = Math.round(r.omni_sends.prior * r.omni_click_rate.prior);
+  const fbEngagement = r.fb_posts.current * 4;
+  const igEngagement = r.ig_posts.current * 3;
 
   return {
     meta: {
@@ -262,35 +407,174 @@ export function mockSnapshot(range: SignalRange): SignalSnapshot {
         brand_color: "#E7C81F",
         logo_url: "https://hvof-site-2026.vercel.app/logo.svg",
       },
-      range: {
-        key: range,
-        label: r.label,
-        start: r.start,
-        end: r.end,
-      },
+      range: { key: range, label: r.label, start: r.start, end: r.end },
       prior_range: { start: r.priorStart, end: r.priorEnd },
       generated_at: `${TODAY}T21:00:00Z`,
-      integrations: ["ga4", "leads_native", "meta_ads", "instagram", "facebook", "omnisend"],
+      integrations: [
+        "ga4",
+        "search_console",
+        "google_ads",
+        "omnisend",
+        "facebook",
+        "instagram",
+        "core_web_vitals",
+        "leads_native",
+      ],
+      pii_included: true,
     },
     ga4: {
       status: "live",
-      sessions: { ...r.sessions, delta_pct: deltaPct(r.sessions.current, r.sessions.prior) },
-      users: { ...r.users, delta_pct: deltaPct(r.users.current, r.users.prior) },
-      engaged_sessions: {
-        ...r.engaged_sessions,
-        delta_pct: deltaPct(r.engaged_sessions.current, r.engaged_sessions.prior),
-      },
-      avg_session_duration_sec: {
-        ...r.avg_session_duration_sec,
-        delta_pct: deltaPct(
-          r.avg_session_duration_sec.current,
-          r.avg_session_duration_sec.prior,
-        ),
-      },
+      sessions: delta(r.sessions),
+      users: delta(r.users),
+      avg_session_duration_sec: delta(r.avg_session_duration_sec),
+      bounce_rate: { current: r.bounce_rate.current, prior: r.bounce_rate.prior },
       channel_breakdown: fillChannelSessions(r.sessions.current),
       top_sources: fillSources(r.sessions.current),
       top_landing_pages: fillLandings(r.sessions.current),
       daily_sessions: dailySessions,
+    },
+    search_console: {
+      status: "live",
+      site_url: "https://thewowguys.com/",
+      totals: {
+        clicks: delta(r.gsc_clicks),
+        impressions: delta(r.gsc_impressions),
+        ctr: {
+          current: r.gsc_clicks.current / Math.max(1, r.gsc_impressions.current),
+          prior: r.gsc_clicks.prior / Math.max(1, r.gsc_impressions.prior),
+        },
+        position: { current: r.gsc_position.current, prior: r.gsc_position.prior },
+      },
+      top_queries: fillQueries(r.gsc_clicks.current, r.gsc_impressions.current),
+      daily_series: gscDaily,
+    },
+    typeform: { status: "empty" },
+    google_ads: {
+      status: "live",
+      totals: {
+        spend: delta(r.ads_spend),
+        clicks: delta(r.ads_clicks),
+        impressions: delta(r.ads_impressions),
+        conversions: delta(r.ads_conversions),
+        ctr: {
+          current: adsCtr,
+          prior: r.ads_clicks.prior / Math.max(1, r.ads_impressions.prior),
+        },
+        cpc: { current: adsCpc, prior: r.ads_spend.prior / Math.max(1, r.ads_clicks.prior) },
+        cost_per_conv: {
+          current: adsCostPerConv,
+          prior: r.ads_spend.prior / Math.max(1, r.ads_conversions.prior),
+        },
+      },
+      top_campaigns: [
+        {
+          id: "camp_leadgen_2025",
+          name: "Leads Gen March 2025",
+          status: "ENABLED",
+          spend: r.ads_spend.current,
+          clicks: r.ads_clicks.current,
+          impressions: r.ads_impressions.current,
+          conversions: r.ads_conversions.current,
+          ctr: adsCtr,
+          cpc: adsCpc,
+          cost_per_conv: adsCostPerConv,
+        },
+      ],
+    },
+    meta_ads: {
+      status: "manual",
+      source: "Meta Ads",
+      source_description: "Facebook + Instagram paid ads",
+      primary: { label: "Ad spend this period", value: "$0", note: "Not running paid ads" },
+      secondary: [
+        { label: "Leads from ads", value: "0" },
+        { label: "Cost per lead", value: "—" },
+      ],
+      notes:
+        "HVOF is not currently running Meta paid ads. When that changes, Signal wires the live Meta Ads feed and this card flips to live.",
+    },
+    instagram: {
+      status: "live",
+      username: "hv_office_furniture",
+      followers: 295,
+      media_count: 133,
+      totals: {
+        posts: delta(r.ig_posts),
+        likes: delta({ current: r.ig_posts.current * 3, prior: r.ig_posts.prior * 3 }),
+        comments: delta({ current: Math.round(r.ig_posts.current * 0.4), prior: Math.round(r.ig_posts.prior * 0.4) }),
+        engagement: delta({ current: igEngagement, prior: r.ig_posts.prior * 3 }),
+      },
+      top_post: {
+        id: "ig_top",
+        timestamp: "2026-05-09T16:20:00Z",
+        media_type: "VIDEO",
+        permalink: "https://www.instagram.com/p/hvof-chair-adjust/",
+        caption: "How to dial in your office chair in 30 seconds",
+        likes: 18,
+        comments: 2,
+        engagement: 20,
+      },
+    },
+    facebook: {
+      status: "live",
+      followers: 462,
+      page_url: "https://www.facebook.com/HVOfficeFurniture",
+      totals: {
+        posts: delta(r.fb_posts),
+        reactions: delta({ current: r.fb_posts.current * 3, prior: r.fb_posts.prior * 3 }),
+        comments: delta({ current: Math.round(r.fb_posts.current * 0.3), prior: Math.round(r.fb_posts.prior * 0.3) }),
+        shares: delta({ current: Math.round(r.fb_posts.current * 0.4), prior: Math.round(r.fb_posts.prior * 0.4) }),
+        engagement: delta({ current: fbEngagement, prior: r.fb_posts.prior * 4 }),
+      },
+      top_post: {
+        id: "fb_top",
+        created_time: "2026-05-06T14:00:00Z",
+        message: "Proud to join the NY State Business Council as a new member.",
+        permalink: "https://www.facebook.com/HVOfficeFurniture/posts/nysbc",
+        reactions: 11,
+        comments: 1,
+        shares: 2,
+        engagement: 14,
+      },
+    },
+    linkedin: {
+      status: "manual",
+      source: "LinkedIn",
+      source_description: "Organic company page",
+      primary: { label: "Page followers", value: "51" },
+      secondary: [
+        { label: "Post impressions (7d)", value: "6", delta: "-40" },
+        { label: "Page visitors (7d)", value: "4", delta: "300" },
+        { label: "New followers (7d)", value: "0" },
+      ],
+      notes:
+        "LinkedIn is still manual. The page accrues small organic visibility without active posting. Live wiring lands once HVOF builds out a LinkedIn cadence.",
+    },
+    omnisend: {
+      status: "live",
+      totals: {
+        sends: delta(r.omni_sends),
+        opens: { current: omniOpens, prior: omniOpensPrior, delta_pct: deltaPct(omniOpens, omniOpensPrior) },
+        clicks: { current: omniClicks, prior: omniClicksPrior, delta_pct: deltaPct(omniClicks, omniClicksPrior) },
+        open_rate: { current: r.omni_open_rate.current, prior: r.omni_open_rate.prior },
+        click_rate: { current: r.omni_click_rate.current, prior: r.omni_click_rate.prior },
+        campaigns: { current: r.omni_campaigns.current, prior: r.omni_campaigns.prior },
+      },
+      campaigns: omnisendCampaigns(range),
+    },
+    core_web_vitals: {
+      status: "live",
+      url: "https://thewowguys.com/",
+      strategy: "mobile",
+      data_source: "lab",
+      performance_score: 60,
+      performance_rating: "needs-improvement",
+      metrics: {
+        lcp: { value: 5200, display_value: "5.2 s", rating: "poor" },
+        inp: { value: 180, display_value: "180 ms", rating: "needs-improvement" },
+        cls: { value: 0.12, display_value: "0.12", rating: "needs-improvement" },
+        fcp: { value: 3100, display_value: "3.1 s", rating: "poor" },
+      },
     },
     leads_native: {
       status: "live",
@@ -308,10 +592,6 @@ export function mockSnapshot(range: SignalRange): SignalSnapshot {
       ],
       recent: NATIVE_LEADS_RECENT.slice(0, range === "7d" ? 4 : 7),
     },
-    meta_ads: { status: "empty" },
-    instagram: { status: "empty" },
-    facebook: { status: "empty" },
-    omnisend: { status: "empty" },
   };
 }
 

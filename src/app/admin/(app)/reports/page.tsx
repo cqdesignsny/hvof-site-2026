@@ -36,6 +36,45 @@ function formatCompact(n: number): string {
   return Math.round(n).toString();
 }
 
+function formatPct(n: number, digits = 1): string {
+  return `${(n * 100).toFixed(digits)}%`;
+}
+
+function formatCurrency(n: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: n >= 100 ? 0 : 2,
+  }).format(n);
+}
+
+// Percent change between two points, for rates/positions the API gives as
+// current/prior without a precomputed delta.
+function cpDelta(cp: { current: number; prior: number }): number {
+  if (cp.prior === 0) return cp.current === 0 ? 0 : 100;
+  return ((cp.current - cp.prior) / cp.prior) * 100;
+}
+
+const VITAL_COLOR: Record<string, string> = {
+  good: "#16a34a",
+  "needs-improvement": "#d97706",
+  poor: "#dc2626",
+  na: "var(--foreground)",
+};
+
+function ratingLabel(rating: string): string {
+  switch (rating) {
+    case "good":
+      return "Good";
+    case "needs-improvement":
+      return "Needs work";
+    case "poor":
+      return "Poor";
+    default:
+      return "No data";
+  }
+}
+
 function formatDuration(seconds: number | undefined): string {
   if (!seconds) return "—";
   const s = Math.round(seconds);
@@ -68,7 +107,7 @@ function formatTimestamp(iso: string): string {
   });
 }
 
-function formTypeLabel(t: string): string {
+function formTypeLabel(t: string | null): string {
   switch (t) {
     case "main-lead":
       return "Quote requests";
@@ -79,7 +118,7 @@ function formTypeLabel(t: string): string {
     case "contact":
       return "Contact form";
     default:
-      return t;
+      return t ?? "Lead";
   }
 }
 
@@ -95,6 +134,16 @@ export default async function ReportsPage({ searchParams }: Props) {
 
   const ga4 = snapshot.ga4;
   const leadsNative = snapshot.leads_native;
+  const sc = snapshot.search_console;
+  const ads = snapshot.google_ads;
+  const topAd = ads.top_campaigns?.[0];
+  const omni = snapshot.omnisend;
+  const fb = snapshot.facebook;
+  const fbTop = fb.top_post;
+  const ig = snapshot.instagram;
+  const igTop = ig.top_post;
+  const cwv = snapshot.core_web_vitals;
+  const cwvMetrics = cwv.metrics;
   const dailySeries = (ga4?.daily_sessions ?? []).map((d) => d.sessions);
   const channelSegments = (ga4?.channel_breakdown ?? []).slice(0, 7).map((c, i) => ({
     label: c.channel,
@@ -192,9 +241,10 @@ export default async function ReportsPage({ searchParams }: Props) {
           deltaPct={ga4?.users?.delta_pct}
         />
         <MetricTile
-          label="Engaged sessions"
-          value={ga4?.engaged_sessions ? formatNumber(ga4.engaged_sessions.current) : "—"}
-          deltaPct={ga4?.engaged_sessions?.delta_pct}
+          label="Bounce rate"
+          value={ga4?.bounce_rate ? formatPct(ga4.bounce_rate.current) : "—"}
+          deltaPct={ga4?.bounce_rate ? cpDelta(ga4.bounce_rate) : undefined}
+          invertSign
         />
         <MetricTile
           label="Quote leads"
@@ -279,6 +329,254 @@ export default async function ReportsPage({ searchParams }: Props) {
           </ul>
         </SectionCard>
       </div>
+
+      {/* Search performance */}
+      {sc.status === "live" && sc.totals ? (
+        <div className="mt-6">
+          <SectionCard
+            eyebrow="Search · Google"
+            title="Search performance"
+            action={<StatusPill status="live" />}
+          >
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <MetricTile
+                label="Clicks"
+                value={formatNumber(sc.totals.clicks.current)}
+                deltaPct={sc.totals.clicks.delta_pct}
+              />
+              <MetricTile
+                label="Impressions"
+                value={formatCompact(sc.totals.impressions.current)}
+                deltaPct={sc.totals.impressions.delta_pct}
+              />
+              <MetricTile
+                label="CTR"
+                value={formatPct(sc.totals.ctr.current)}
+                deltaPct={cpDelta(sc.totals.ctr)}
+              />
+              <MetricTile
+                label="Avg position"
+                value={sc.totals.position.current.toFixed(1)}
+                deltaPct={cpDelta(sc.totals.position)}
+                invertSign
+              />
+            </div>
+            {(sc.top_queries ?? []).length > 0 ? (
+              <div className="mt-6">
+                <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/55">
+                  Top queries
+                </p>
+                <ul className="mt-3 divide-y divide-foreground/10">
+                  {(sc.top_queries ?? []).slice(0, 8).map((q) => (
+                    <li
+                      key={q.query}
+                      className="grid grid-cols-[1fr_auto_auto] items-center gap-4 py-2.5 text-sm"
+                    >
+                      <span className="truncate">{q.query}</span>
+                      <span className="font-mono text-xs tabular-nums text-foreground/70">
+                        {formatNumber(q.clicks)} clicks
+                      </span>
+                      <span className="font-mono text-xs tabular-nums text-foreground/45">
+                        #{q.position.toFixed(1)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </SectionCard>
+        </div>
+      ) : null}
+
+      {/* Paid search */}
+      {ads.status === "live" && ads.totals ? (
+        <div className="mt-6">
+          <SectionCard
+            eyebrow="Paid · Google Ads"
+            title="Paid search"
+            action={<StatusPill status="live" />}
+          >
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <MetricTile
+                label="Spend"
+                value={formatCurrency(ads.totals.spend.current)}
+                deltaPct={ads.totals.spend.delta_pct}
+              />
+              <MetricTile
+                label="Clicks"
+                value={formatNumber(ads.totals.clicks.current)}
+                deltaPct={ads.totals.clicks.delta_pct}
+              />
+              <MetricTile
+                label="Cost / click"
+                value={formatCurrency(ads.totals.cpc.current)}
+                deltaPct={cpDelta(ads.totals.cpc)}
+                invertSign
+              />
+              <MetricTile
+                label="Conversions"
+                value={formatNumber(ads.totals.conversions.current)}
+                deltaPct={ads.totals.conversions.delta_pct}
+              />
+            </div>
+            {topAd ? (
+              <p className="mt-5 text-sm text-foreground/65">
+                Top campaign by spend:{" "}
+                <span className="text-foreground">{topAd.name}</span> ·{" "}
+                {formatCurrency(topAd.spend)} · {formatNumber(topAd.clicks)} clicks
+              </p>
+            ) : null}
+          </SectionCard>
+        </div>
+      ) : null}
+
+      {/* Email marketing */}
+      {omni.status === "live" && omni.totals ? (
+        <div className="mt-6">
+          <SectionCard
+            eyebrow="Email · Omnisend"
+            title="Email marketing"
+            action={<StatusPill status="live" />}
+          >
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+              <MetricTile
+                label="Open rate"
+                value={formatPct(omni.totals.open_rate.current)}
+                deltaPct={cpDelta(omni.totals.open_rate)}
+              />
+              <MetricTile
+                label="Click rate"
+                value={formatPct(omni.totals.click_rate.current)}
+                deltaPct={cpDelta(omni.totals.click_rate)}
+              />
+              <MetricTile
+                label="Emails sent"
+                value={formatCompact(omni.totals.sends.current)}
+                deltaPct={omni.totals.sends.delta_pct}
+              />
+              <MetricTile
+                label="Campaigns"
+                value={formatNumber(omni.totals.campaigns.current)}
+              />
+            </div>
+            {(omni.campaigns ?? []).length > 0 ? (
+              <ul className="mt-6 divide-y divide-foreground/10">
+                {(omni.campaigns ?? []).slice(0, 5).map((c) => (
+                  <li
+                    key={c.id}
+                    className="flex items-center justify-between gap-3 py-2.5 text-sm"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate">{c.name}</p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/45">
+                        {formatLongDate(c.sent_date)}
+                      </p>
+                    </div>
+                    <span className="shrink-0 font-mono text-xs tabular-nums text-foreground/70">
+                      {formatPct(c.open_rate)} open · {formatPct(c.click_rate)} click
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </SectionCard>
+        </div>
+      ) : null}
+
+      {/* Organic social */}
+      {(fb.status === "live" && fb.totals) || (ig.status === "live" && ig.totals) ? (
+        <div className="mt-6">
+          <SectionCard
+            eyebrow="Organic social"
+            title="Facebook + Instagram"
+            action={<StatusPill status="live" />}
+          >
+            <div className="grid gap-6 lg:grid-cols-2">
+              {fb.status === "live" && fb.totals ? (
+                <div className="rounded-xl border border-foreground/10 p-5">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/55">
+                    Facebook
+                  </p>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="font-display text-3xl font-semibold tracking-tight">
+                      {formatNumber(fb.followers ?? 0)}
+                    </span>
+                    <span className="text-sm text-foreground/60">followers</span>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-foreground/70">
+                    <span>{formatNumber(fb.totals.posts.current)} posts</span>
+                    <span>{formatNumber(fb.totals.engagement.current)} engagement</span>
+                  </div>
+                  {fbTop ? (
+                    <p className="mt-3 text-xs text-foreground/55">
+                      Top post: {fbTop.message.slice(0, 80)} ({fbTop.engagement} eng.)
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
+              {ig.status === "live" && ig.totals ? (
+                <div className="rounded-xl border border-foreground/10 p-5">
+                  <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/55">
+                    Instagram
+                  </p>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="font-display text-3xl font-semibold tracking-tight">
+                      {formatNumber(ig.followers ?? 0)}
+                    </span>
+                    <span className="text-sm text-foreground/60">
+                      followers{ig.username ? ` @${ig.username}` : ""}
+                    </span>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-foreground/70">
+                    <span>{formatNumber(ig.totals.posts.current)} posts</span>
+                    <span>{formatNumber(ig.totals.likes.current)} likes</span>
+                  </div>
+                  {igTop ? (
+                    <p className="mt-3 text-xs text-foreground/55">
+                      Top post: {(igTop.caption || "Untitled").slice(0, 80)} ({igTop.engagement} eng.)
+                    </p>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </SectionCard>
+        </div>
+      ) : null}
+
+      {/* Core Web Vitals */}
+      {cwv.status === "live" && cwvMetrics ? (
+        <div className="mt-6">
+          <SectionCard
+            eyebrow={`Core Web Vitals · ${cwv.data_source === "field" ? "Field data" : "Lab data"}`}
+            title="Site speed"
+            action={<StatusPill status="live" />}
+          >
+            <div className="grid grid-cols-3 gap-4">
+              {(["lcp", "inp", "cls"] as const).map((k) => {
+                const m = cwvMetrics[k];
+                return (
+                  <div key={k} className="rounded-2xl border border-foreground/10 p-5">
+                    <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/55">
+                      {k.toUpperCase()}
+                    </p>
+                    <p
+                      className="mt-2 font-display text-3xl font-semibold tracking-tight"
+                      style={{ color: VITAL_COLOR[m.rating] }}
+                    >
+                      {m.display_value}
+                    </p>
+                    <p className="mt-1 text-xs text-foreground/55">{ratingLabel(m.rating)}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-4 text-sm text-foreground/60">
+              {cwv.strategy === "mobile" ? "Mobile" : "Desktop"} Lighthouse performance score:{" "}
+              <span className="text-foreground">{cwv.performance_score ?? "—"}/100</span>.
+            </p>
+          </SectionCard>
+        </div>
+      ) : null}
 
       {/* Native lead pipeline */}
       {leadsNative?.status === "live" ? (

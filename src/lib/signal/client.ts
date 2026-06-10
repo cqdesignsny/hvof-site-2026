@@ -46,20 +46,27 @@ async function getText(path: string): Promise<string> {
   return await res.text();
 }
 
+// Signal's v1 JSON API wraps every payload in an envelope: { data, meta }.
+// The snapshot / recommendations live under `data`. (The brief endpoint
+// returns raw markdown, so it isn't enveloped.)
+type Envelope<T> = { data: T };
+
 export async function fetchSnapshot(range: SignalRange): Promise<SignalSnapshot> {
   if (SIGNAL_MODE === "mock") return mockSnapshot(range);
-  return getJson<SignalSnapshot>(
+  const res = await getJson<Envelope<SignalSnapshot>>(
     `/api/v1/businesses/${BUSINESS_SLUG}/snapshot?range=${range}`,
   );
+  return res.data;
 }
 
 export async function fetchRecommendations(
   range: SignalRange,
 ): Promise<SignalRecommendations> {
   if (SIGNAL_MODE === "mock") return mockRecommendations(range);
-  return getJson<SignalRecommendations>(
+  const res = await getJson<Envelope<SignalRecommendations>>(
     `/api/v1/businesses/${BUSINESS_SLUG}/recommendations?range=${range}`,
   );
+  return res.data;
 }
 
 export async function fetchBrief(range: SignalRange): Promise<SignalBrief> {
