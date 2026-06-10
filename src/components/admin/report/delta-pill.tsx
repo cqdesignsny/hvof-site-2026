@@ -6,9 +6,10 @@ type Props = {
   className?: string;
   withSuffix?: boolean;
   invertSign?: boolean;
+  onAccent?: boolean;
 };
 
-export function DeltaPill({ deltaPct, className, withSuffix, invertSign }: Props) {
+export function DeltaPill({ deltaPct, className, withSuffix, invertSign, onAccent }: Props) {
   const flat = !Number.isFinite(deltaPct) || Math.abs(deltaPct) < 0.5;
   const positive = deltaPct > 0;
   const isGood = invertSign ? !positive : positive;
@@ -17,6 +18,23 @@ export function DeltaPill({ deltaPct, className, withSuffix, invertSign }: Props
   const formatted = flat
     ? "flat"
     : `${positive ? "+" : ""}${deltaPct.toFixed(1)}%`;
+
+  // On the solid brand-yellow highlight tile, the normal light text/yellow tint
+  // washes out. Use dark text on a dark translucent pill for contrast instead.
+  if (onAccent) {
+    return (
+      <span
+        className={cn(
+          "inline-flex items-center gap-1 rounded-full bg-black/10 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-black/80",
+          className,
+        )}
+      >
+        <Icon className="size-3" />
+        <span>{formatted}</span>
+        {withSuffix ? <span className="opacity-60">vs prior</span> : null}
+      </span>
+    );
+  }
 
   return (
     <span

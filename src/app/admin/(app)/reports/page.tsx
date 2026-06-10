@@ -270,7 +270,7 @@ export default async function ReportsPage({ searchParams }: Props) {
               {ga4.channel_breakdown.map((c, i) => {
                 const color = CHANNEL_COLORS[c.channel] ?? paletteFor(i);
                 return (
-                  <li key={c.channel} className="grid grid-cols-[180px_1fr_70px] items-center gap-4">
+                  <li key={c.channel} className="grid grid-cols-[180px_1fr_auto] items-center gap-4">
                     <div className="flex items-center gap-2 text-sm">
                       <span
                         className="size-2.5 shrink-0 rounded-full"
@@ -286,7 +286,7 @@ export default async function ReportsPage({ searchParams }: Props) {
                     </div>
                     <div className="text-right font-mono text-xs tabular-nums text-foreground/70">
                       {formatNumber(c.sessions)}
-                      <span className="ml-2 text-foreground/45">{c.pct}%</span>
+                      <span className="ml-2 text-foreground/45">{c.pct.toFixed(1)}%</span>
                     </div>
                   </li>
                 );

@@ -25,18 +25,33 @@ export function MetricTile({ label, value, deltaPct, hint, highlight, invertSign
           : undefined
       }
     >
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/55">
+      <p
+        className={cn(
+          "font-mono text-[10px] font-semibold uppercase tracking-[0.22em]",
+          highlight ? "text-black/70" : "text-foreground/55",
+        )}
+      >
         {label}
       </p>
-      <p className="mt-2 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+      <p
+        className={cn(
+          "mt-2 font-display text-4xl font-semibold tracking-tight md:text-5xl",
+          highlight && "text-black",
+        )}
+      >
         {value}
       </p>
       <div className="mt-3 flex items-center gap-2">
         {typeof deltaPct === "number" ? (
-          <DeltaPill deltaPct={deltaPct} invertSign={invertSign} />
+          <DeltaPill deltaPct={deltaPct} invertSign={invertSign} onAccent={highlight} />
         ) : null}
         {hint ? (
-          <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/45">
+          <span
+            className={cn(
+              "font-mono text-[10px] uppercase tracking-[0.14em]",
+              highlight ? "text-black/55" : "text-foreground/45",
+            )}
+          >
             {hint}
           </span>
         ) : null}
