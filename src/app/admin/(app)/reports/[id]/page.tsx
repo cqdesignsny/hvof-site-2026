@@ -28,6 +28,11 @@ type Props = {
 
 const DEFAULT_RANGE: SignalRange = "30d";
 
+// HVOF is Eastern; render clock times + the pushed-date headline in their tz
+// (auto EDT/EST per DST). Date-only values (range start/end) stay UTC so they
+// don't shift a calendar day.
+const EASTERN_TZ = "America/New_York";
+
 function resolveRange(value: unknown): SignalRange {
   if (isSignalRange(value)) return value;
   return DEFAULT_RANGE;
@@ -109,8 +114,18 @@ function formatTimestamp(iso: string): string {
     year: "numeric",
     hour: "numeric",
     minute: "2-digit",
-    timeZone: "UTC",
+    timeZone: EASTERN_TZ,
     timeZoneName: "short",
+  });
+}
+
+// The report's date headline — the instant it was pushed, in Eastern.
+function formatPushedDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: EASTERN_TZ,
   });
 }
 
@@ -203,7 +218,7 @@ export default async function ReportDetailPage({ params, searchParams }: Props) 
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-              {formatLongDate(pushedAt)}
+              {formatPushedDate(pushedAt)}
             </h1>
             <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/55">
               Report · pushed {formatTimestamp(pushedAt)}
@@ -657,6 +672,7 @@ export default async function ReportDetailPage({ params, searchParams }: Props) 
                         {new Date(r.submitted_at).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
+                          timeZone: EASTERN_TZ,
                         })}
                       </span>
                     </li>

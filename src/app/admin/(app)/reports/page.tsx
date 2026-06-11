@@ -6,29 +6,31 @@ import { MockBanner } from "@/components/admin/report/mock-banner";
 export const metadata = { title: "Reports" };
 export const dynamic = "force-dynamic";
 
+// HVOF is Eastern; report cards show the pushed date + time in their tz
+// (auto EDT/EST per DST). These only ever format a pushed instant.
+const EASTERN_TZ = "America/New_York";
+
 function formatNumber(n: number): string {
   return new Intl.NumberFormat("en-US").format(Math.round(n));
 }
 
 function formatLongDate(iso: string): string {
-  const d = new Date(iso + (iso.length === 10 ? "T00:00:00Z" : ""));
-  return d.toLocaleDateString("en-US", {
+  return new Date(iso).toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
-    timeZone: "UTC",
+    timeZone: EASTERN_TZ,
   });
 }
 
 function formatTimestamp(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleString("en-US", {
+  return new Date(iso).toLocaleString("en-US", {
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
-    timeZone: "UTC",
+    timeZone: EASTERN_TZ,
     timeZoneName: "short",
   });
 }
