@@ -1,6 +1,5 @@
-import { Suspense } from "react";
-import { ArrowUpRight, FileText, Sparkles } from "lucide-react";
-import { fetchBrief, fetchRecommendations, fetchSnapshot, SIGNAL_MODE } from "@/lib/signal/client";
+import { ArrowUpRight, FileText, Inbox, Sparkles } from "lucide-react";
+import { getRangeReport } from "@/lib/signal/report-source";
 import {
   isSignalRange,
   type SignalBrief,
@@ -132,17 +131,16 @@ export default async function ReportsPage({ searchParams }: Props) {
   const sp = await searchParams;
   const range = resolveRange(sp.range);
 
-  // Kick off all three Signal calls in parallel, but only block the page
-  // commit on the snapshot — it drives nearly every section. Recommendations
-  // (a Claude call on Signal's side, several seconds) and the brief stream in
-  // behind Suspense below, so switching ranges repaints the core report as soon
-  // as the snapshot lands instead of waiting on the slowest call. The
-  // `.catch(() => null)` keeps a hiccup in either deferred call from blanking
-  // the whole report — that section degrades to a retry line on its own.
-  const snapshotPromise = fetchSnapshot(range);
-  const recsPromise = fetchRecommendations(range).catch(() => null);
-  const briefPromise = fetchBrief(range).catch(() => null);
-  const snapshot = await snapshotPromise;
+  // Under the push model the whole report — all four ranges, each with its
+  // snapshot, recommendations, and brief — arrives in one payload Signal pushed
+  // and we stored. Reading it is a single local lookup, so there's nothing to
+  // stream: project the requested range and render it all at once. A null result
+  // means nothing has been pushed yet in a prod-like env; show a waiting state.
+  const report = await getRangeReport(range);
+  if (!report) {
+    return <EmptyReport range={range} />;
+  }
+  const { snapshot, recommendations, brief, mode, pushedAt } = report;
 
   const ga4 = snapshot.ga4;
   const leadsNative = snapshot.leads_native;
@@ -171,7 +169,7 @@ export default async function ReportsPage({ searchParams }: Props) {
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/50">
             Performance · {snapshot.meta.business.short_name ?? snapshot.meta.business.name}
           </p>
-          <StatusPill status={SIGNAL_MODE === "mock" ? "mock" : "live"} />
+          <StatusPill status={mode === "mock" ? "mock" : "live"} />
         </div>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -189,7 +187,7 @@ export default async function ReportsPage({ searchParams }: Props) {
         </p>
       </header>
 
-      {SIGNAL_MODE === "mock" ? (
+      {mode === "mock" ? (
         <div className="mt-6">
           <MockBanner />
         </div>
@@ -656,40 +654,24 @@ export default async function ReportsPage({ searchParams }: Props) {
         </div>
       ) : null}
 
-      {/* Recommendations (streamed — the Claude call must not block the report) */}
+      {/* Recommendations — already in the pushed payload, so they render with
+          the rest of the report instead of streaming behind Suspense. */}
       <div className="mt-6">
-        <Suspense
-          fallback={
-            <StreamSkeleton
-              eyebrow="Signal recommendations"
-              title="What to do next"
-              rows={3}
-            />
-          }
-        >
-          <RecommendationsSection recsPromise={recsPromise} />
-        </Suspense>
+        <RecommendationsSection recs={recommendations} />
       </div>
 
-      {/* Brief (streamed alongside recommendations) */}
+      {/* Brief — pushed alongside the snapshot. */}
       <div className="mt-6">
-        <Suspense
-          fallback={
-            <StreamSkeleton
-              eyebrow="The brief"
-              title="What happened, in plain English"
-              rows={4}
-            />
-          }
-        >
-          <BriefSection briefPromise={briefPromise} />
-        </Suspense>
+        <BriefSection brief={brief} />
       </div>
 
       {/* Footer */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-foreground/10 pt-6 text-xs text-foreground/55">
         <p className="font-mono uppercase tracking-[0.14em]">
-          Data from CQ Signal · Snapshot generated {formatTimestamp(snapshot.meta.generated_at)}
+          Data from CQ Signal ·{" "}
+          {pushedAt
+            ? `Pushed ${formatTimestamp(pushedAt)}`
+            : `Snapshot ${formatTimestamp(snapshot.meta.generated_at)}`}
         </p>
         <p className="font-mono uppercase tracking-[0.14em]">
           Range · {snapshot.meta.range.key}
@@ -699,25 +681,23 @@ export default async function ReportsPage({ searchParams }: Props) {
   );
 }
 
-// --- Streamed sections -------------------------------------------------------
-// These sit below the fold and depend on Signal's slowest calls, so each lives
-// behind its own Suspense boundary and streams in after the snapshot-driven
-// report has already painted. Both fetches are kicked off in the page body and
-// passed down as promises, so they run in parallel with the snapshot rather
-// than waiting for it.
+// --- Below-the-fold sections -------------------------------------------------
+// Recommendations and the brief arrive in the same pushed payload as the
+// snapshot, so they render synchronously with the rest of the report. Each
+// degrades to a quiet line when the latest push didn't include it.
 
-async function RecommendationsSection({
-  recsPromise,
+function RecommendationsSection({
+  recs,
 }: {
-  recsPromise: Promise<SignalRecommendations | null>;
+  recs: SignalRecommendations | null;
 }) {
-  const recs = await recsPromise;
+  const hasRecs = Boolean(recs && recs.items.length > 0);
   return (
     <SectionCard
       eyebrow="Signal recommendations"
       title="What to do next"
       action={
-        recs ? (
+        hasRecs && recs ? (
           <span className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground/55">
             <Sparkles className="size-3.5" />
             Generated {formatTimestamp(recs.generated_at)}
@@ -725,23 +705,18 @@ async function RecommendationsSection({
         ) : null
       }
     >
-      {recs ? (
+      {hasRecs && recs ? (
         <RecommendationsList items={recs.items} />
       ) : (
         <p className="text-sm text-foreground/55">
-          Recommendations are taking longer than usual to generate. Refresh to try again.
+          No recommendations in the latest report. They fill in on the next push from Signal.
         </p>
       )}
     </SectionCard>
   );
 }
 
-async function BriefSection({
-  briefPromise,
-}: {
-  briefPromise: Promise<SignalBrief | null>;
-}) {
-  const brief = await briefPromise;
+function BriefSection({ brief }: { brief: SignalBrief }) {
   return (
     <SectionCard
       eyebrow="The brief"
@@ -753,34 +728,46 @@ async function BriefSection({
         </span>
       }
     >
-      {brief ? (
+      {brief.markdown.trim() ? (
         <BriefMarkdown markdown={brief.markdown} />
       ) : (
         <p className="text-sm text-foreground/55">
-          The brief is taking longer than usual to render. Refresh to try again.
+          No brief in the latest report. It fills in on the next push from Signal.
         </p>
       )}
     </SectionCard>
   );
 }
 
-function StreamSkeleton({
-  eyebrow,
-  title,
-  rows,
-}: {
-  eyebrow: string;
-  title: string;
-  rows: number;
-}) {
+// Shown before Signal has pushed its first report (prod-like env with no stored
+// payload). The page never pulls Signal, so there's nothing to retry — it just
+// waits for the first push to land.
+function EmptyReport({ range }: { range: SignalRange }) {
   return (
-    <SectionCard eyebrow={eyebrow} title={title}>
-      <div className="space-y-3" aria-hidden="true">
-        {Array.from({ length: rows }).map((_, i) => (
-          <div key={i} className="h-14 animate-pulse rounded-xl bg-foreground/5" />
-        ))}
-      </div>
-      <span className="sr-only">Loading...</span>
-    </SectionCard>
+    <div className="px-4 py-8 md:px-10 md:py-12 lg:px-14">
+      <header className="space-y-4">
+        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-foreground/50">
+          Performance · Hudson Valley Office Furniture
+        </p>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+            Reports
+          </h1>
+          <RangeTabs active={range} />
+        </div>
+      </header>
+
+      <section className="mt-10 rounded-2xl border border-dashed border-foreground/20 p-10 text-center md:p-14">
+        <Inbox className="mx-auto size-8 text-foreground/40" />
+        <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight">
+          Waiting for the first report
+        </h2>
+        <p className="mx-auto mt-2 max-w-md text-sm text-foreground/60">
+          CQ Signal pushes this dashboard a fresh report on a schedule, or when
+          you trigger one from Signal. Nothing has landed yet. Once the first
+          push arrives, every range fills in here automatically.
+        </p>
+      </section>
+    </div>
   );
 }
