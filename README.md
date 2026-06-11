@@ -41,7 +41,7 @@ Node 22+, pnpm 10+. Repository auto-deploys to Vercel on push to `main`.
 | Lead store | Neon Postgres (HVOF-DB) via `@neondatabase/serverless`. In-memory fallback for local dev. |
 | Admin | `/admin` (Floorplan), HMAC cookie auth, light/dark theme |
 | Analytics | GA4 + Meta Pixel via `@next/third-parties` (env-gated) |
-| Reporting data plane | **CQ Signal** (separate Next.js app), push model. Signal POSTs a signed report payload (all four ranges + recommendations + brief) to `/api/signal/inbound`; `/admin/reports` renders the stored copy in HVOF tokens and never pulls. `/api/lead` still pushes leads to Signal via `SIGNAL_API_*`. Mock fallback when no push has arrived and no DB is configured. |
+| Reporting data plane | **CQ Signal** (separate Next.js app), push model. Signal POSTs a signed report payload (all four ranges + recommendations + brief) to `/api/signal/inbound`; every push is kept, and `/admin/reports` is a dated archive (index lists sent reports, `/admin/reports/[id]` opens one) rendered in HVOF tokens — never pulls. `/api/lead` still pushes leads to Signal via `SIGNAL_API_*`. Mock fallback when no push has arrived and no DB is configured. |
 | Hosting | Vercel (Fluid Compute) |
 | Image CDN | thewowguys.com WP CDN + AIS Inc image library + local `/public/products/` |
 
@@ -103,7 +103,8 @@ SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents &
 | `/admin` | Dashboard: stat tiles, recent leads, quick links, storage status |
 | `/admin/leads` | Pipeline table, filterable by formType (All / Quote Request / Sell-to-Us / Giveaway) |
 | `/admin/training` | Agent Training questionnaire. 13 sections, ~67 questions, autosaves to localStorage, on send writes to Neon and emails the markdown packet via Resend. |
-| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channel breakdown, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Renders the last report CQ Signal pushed (instant, all ranges in hand — no live calls). Shows a "waiting for first push" state before any push lands; falls back to a realistic HVOF mock only with no DB configured. |
+| `/admin/reports` | **Reports archive (index)**. Lists the reports CQ Signal has sent, newest first, each dated, latest highlighted. "No reports yet" before the first push; HVOF mock only with no DB. |
+| `/admin/reports/[id]` | **Report detail**. The full report for one send: range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channels, sources + landings, search, paid, email, organic social, site speed, native leads, recommendations, brief. Date-forward header ("Pushed &lt;datetime&gt;"); instant, all ranges in hand, no live calls. |
 | `/admin/knowledge-base`, `/admin/agents`, `/admin/plan` | Stubs + live data where applicable |
 
 ### API

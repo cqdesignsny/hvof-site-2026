@@ -150,7 +150,7 @@ All public routes live under `/app/(public)/` route group as of 2026-05-08, so a
 | `/admin` | Dashboard: stat tiles, recent leads, quick links, storage status |
 | `/admin/leads` | Pipeline table, filterable by formType |
 | `/admin/training` | Agent Training questionnaire. 13 sections, ~67 questions, localStorage autosave, on send writes to Neon and emails the markdown packet via Resend. |
-| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channels in detail, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Renders the last payload CQ Signal pushed (stored locally; no live pull). "Waiting for first push" state before any push; HVOF mock only with no DB configured. |
+| `/admin/reports` | **Reports archive**. Index lists every report CQ Signal has sent (newest first, dated, latest highlighted); `/admin/reports/[id]` opens one — full surface (range tabs, hero traffic, KPIs, channels, sources/landings, search, paid, email, social, site speed, native leads, recommendations, brief), date-forward, no live pull. "No reports yet" before the first push; HVOF mock only with no DB. |
 | `/admin/knowledge-base`, `/admin/agents`, `/admin/plan` | Placeholders + live data where applicable |
 
 ### API
@@ -333,7 +333,8 @@ Major milestones (rolling list, latest at top):
 - Product grids → rows of 4. HVOF-4003 chair photo wired (`/public/products/hvof-4003.jpg`).
 
 **2026-06-11**
-- **Switched to the CQ Signal push model.** Floorplan no longer pulls Signal for reports. Signal POSTs a signed payload (all four ranges + recommendations + brief) to `POST /api/signal/inbound`; we verify the HMAC (`src/lib/signal/push-verify.ts`) and store the latest per business (`src/lib/signal/received-report-store.ts`, `signal_reports` table, lazy-created). `/admin/reports` renders the stored copy via `src/lib/signal/report-source.ts` (`getRangeReport`) — instant, all ranges already in hand, no live calls. Shows a "waiting for first push" state before any push arrives. The live-pull `src/lib/signal/client.ts` is retired; `client.ts`'s 11-block contract types live on in `types.ts`.
+- **Switched to the CQ Signal push model.** Floorplan no longer pulls Signal for reports. Signal POSTs a signed payload (all four ranges + recommendations + brief) to `POST /api/signal/inbound`; we verify the HMAC (`src/lib/signal/push-verify.ts`) and store every push (`src/lib/signal/received-report-store.ts`, `signal_reports` table — history, one row per push, self-migrating schema). The live-pull `src/lib/signal/client.ts` is retired; its 11-block contract types live on in `types.ts`.
+- **`/admin/reports` is a dated report archive.** Index lists the reports Signal has sent (newest first, each dated, latest badged "Most recent"); `/admin/reports/[id]` opens one and renders the full report for a chosen send via `src/lib/signal/report-source.ts` (`getRangeReport` + `listReportSummaries`) — instant, all ranges already in hand. Date-forward framing ("Pushed &lt;datetime&gt;"); the old "Live" status pills (which implied real-time pulling) are gone. "No reports yet" before the first push.
 - `SIGNAL_PUSH_SECRET` set in production (equals Signal's `FLOORPLAN_PUSH_SECRET`). First push received, stored, and rendered 2026-06-11.
 - The 2026-06-10 range-switch loading feedback (`000bca9`) is moot now that range switching is instant (every range ships in one payload).
 
