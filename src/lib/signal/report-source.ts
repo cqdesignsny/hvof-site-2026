@@ -1,5 +1,10 @@
 import "server-only";
-import { getReceivedReport } from "./received-report-store";
+import {
+  getLatestReport,
+  getReportById,
+  listReports,
+  type StoredReport,
+} from "./received-report-store";
 import { mockBrief, mockRecommendations, mockSnapshot } from "./mock";
 import type {
   SignalBrief,
@@ -9,15 +14,17 @@ import type {
 } from "./types";
 
 // The report source for /admin/reports under the push model. Floorplan no longer
-// pulls Signal live; Signal pushes a signed, pre-built payload (all four ranges,
-// each with its snapshot + recommendations + brief) and we render the stored
-// copy. This module reads that copy and projects the requested range.
+// pulls Signal live; Signal pushes signed, pre-built payloads (all four ranges,
+// each with its snapshot + recommendations + brief) and we store every one. The
+// index lists them by date; a detail page projects one report's requested range.
 //
 // Producer contract: CQ Signal's src/lib/push/contract.ts (ReportPushPayload).
 // Snapshot + recommendations already match the v1 types in ./types; the brief
 // arrives as raw markdown and we wrap it to SignalBrief here.
 
 const BUSINESS_SLUG = "hudson-valley-office-furniture";
+
+const MOCK_ID = "mock";
 
 type ReceivedRangeBlock = {
   snapshot: SignalSnapshot;
@@ -37,52 +44,105 @@ export type ReportSourceMode = "push" | "mock";
 
 export type RangeReport = {
   mode: ReportSourceMode;
-  /** ISO timestamp Signal built + sent this payload. Null in mock mode. */
-  pushedAt: string | null;
+  /** The stored report's id (or "mock" for the local-dev fallback). */
+  id: string;
+  /** ISO timestamp Signal built + sent this payload; falls back to receivedAt. */
+  pushedAt: string;
   snapshot: SignalSnapshot;
   recommendations: SignalRecommendations | null;
   brief: SignalBrief;
 };
 
+/** A row for the reports index (one per push), newest first. */
+export type ReportSummary = {
+  id: string;
+  mode: ReportSourceMode;
+  pushedAt: string;
+  receivedAt: string;
+  sessions: number | null;
+  isLatest: boolean;
+};
+
 function mockReport(range: SignalRange): RangeReport {
   return {
     mode: "mock",
-    pushedAt: null,
+    id: MOCK_ID,
+    pushedAt: new Date().toISOString(),
     snapshot: mockSnapshot(range),
     recommendations: mockRecommendations(range),
     brief: { markdown: mockBrief(range), generated_at: new Date().toISOString() },
   };
 }
 
-// With a DB configured we're prod-like: a missing/partial push means "nothing
-// pushed yet", so the page shows a waiting state rather than fake numbers.
+// With a DB configured we're prod-like: a missing report means "nothing pushed
+// yet", so the caller shows a waiting / not-found state rather than fake numbers.
 // Without one (pure local dev) fall back to mock so /admin/reports stays
 // developable offline.
-function fallback(range: SignalRange): RangeReport | null {
-  return process.env.DATABASE_URL ? null : mockReport(range);
+function hasDb(): boolean {
+  return Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL);
 }
 
-/**
- * Read the latest report Signal pushed and project the requested range. Returns
- * null when there's nothing to render yet in a prod-like environment (the caller
- * shows a "waiting for the first push" state).
- */
-export async function getRangeReport(
-  range: SignalRange,
-): Promise<RangeReport | null> {
-  const stored = await getReceivedReport(BUSINESS_SLUG);
-  if (!stored) return fallback(range);
-
+function project(stored: StoredReport, range: SignalRange): RangeReport | null {
   const payload = stored.payload as ReceivedPayload | null;
   const block = payload?.ranges?.[range];
-  if (!block || !block.snapshot) return fallback(range);
-
+  if (!block || !block.snapshot) return null;
   const pushedAt = payload?.pushed_at ?? stored.receivedAt;
   return {
     mode: "push",
+    id: stored.id,
     pushedAt,
     snapshot: block.snapshot,
     recommendations: block.recommendations ?? null,
     brief: { markdown: block.brief, generated_at: pushedAt },
   };
+}
+
+/**
+ * Project one report's requested range. Pass a report id to open a specific
+ * archived report; omit it for the latest. Returns null when the report can't
+ * be found in a prod-like env (caller shows a waiting / not-found state); falls
+ * back to mock locally.
+ */
+export async function getRangeReport(
+  range: SignalRange,
+  reportId?: string,
+): Promise<RangeReport | null> {
+  let stored: StoredReport | null = null;
+  if (reportId && reportId !== MOCK_ID) {
+    stored = await getReportById(BUSINESS_SLUG, reportId);
+  } else if (!reportId) {
+    stored = await getLatestReport(BUSINESS_SLUG);
+  }
+
+  if (stored) {
+    const projected = project(stored, range);
+    if (projected) return projected;
+  }
+
+  // Not found (or the "mock" id, or a partial payload): mock locally, else null.
+  return hasDb() ? null : mockReport(range);
+}
+
+/**
+ * Recent reports for the index, newest first, latest flagged. Empty in a
+ * prod-like env before the first push; a single mock entry locally so the page
+ * is developable offline.
+ */
+export async function listReportSummaries(): Promise<ReportSummary[]> {
+  const rows = await listReports(BUSINESS_SLUG);
+  if (rows.length === 0) {
+    if (hasDb()) return [];
+    const now = new Date().toISOString();
+    return [
+      { id: MOCK_ID, mode: "mock", pushedAt: now, receivedAt: now, sessions: null, isLatest: true },
+    ];
+  }
+  return rows.map((r, i) => ({
+    id: r.id,
+    mode: "push" as const,
+    pushedAt: r.pushedAt,
+    receivedAt: r.receivedAt,
+    sessions: r.sessions,
+    isLatest: i === 0,
+  }));
 }
