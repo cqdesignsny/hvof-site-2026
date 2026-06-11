@@ -150,7 +150,7 @@ All public routes live under `/app/(public)/` route group as of 2026-05-08, so a
 | `/admin` | Dashboard: stat tiles, recent leads, quick links, storage status |
 | `/admin/leads` | Pipeline table, filterable by formType |
 | `/admin/training` | Agent Training questionnaire. 13 sections, ~67 questions, localStorage autosave, on send writes to Neon and emails the markdown packet via Resend. |
-| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channels in detail, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Pulls from CQ Signal when `SIGNAL_API_BASE` is set; renders a realistic HVOF mock otherwise. |
+| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channels in detail, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Renders the last payload CQ Signal pushed (stored locally; no live pull). "Waiting for first push" state before any push; HVOF mock only with no DB configured. |
 | `/admin/knowledge-base`, `/admin/agents`, `/admin/plan` | Placeholders + live data where applicable |
 
 ### API
@@ -259,7 +259,10 @@ DATABASE_URL              Pooled, primary
 DATABASE_URL_UNPOOLED     Direct
 POSTGRES_*, PG*, NEON_PROJECT_ID
 
-# CQ Signal data plane (consumer side; leave unset for mock mode)
+# CQ Signal report push (receiver). Reports now arrive via push, not pull.
+SIGNAL_PUSH_SECRET        HMAC secret; must equal Signal's FLOORPLAN_PUSH_SECRET (set in prod 2026-06-11)
+
+# CQ Signal lead ingest + general API (Floorplan -> Signal direction; still used by /api/lead)
 SIGNAL_API_BASE           e.g. https://cq-signal-app.vercel.app
 SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents & AI
 ```
@@ -329,6 +332,18 @@ Major milestones (rolling list, latest at top):
 - **Responsive fluid typography**: root `font-size: clamp(14px, 0.7rem + 0.32vw, 20px)`.
 - Product grids → rows of 4. HVOF-4003 chair photo wired (`/public/products/hvof-4003.jpg`).
 
+**2026-06-11**
+- **Switched to the CQ Signal push model.** Floorplan no longer pulls Signal for reports. Signal POSTs a signed payload (all four ranges + recommendations + brief) to `POST /api/signal/inbound`; we verify the HMAC (`src/lib/signal/push-verify.ts`) and store the latest per business (`src/lib/signal/received-report-store.ts`, `signal_reports` table, lazy-created). `/admin/reports` renders the stored copy via `src/lib/signal/report-source.ts` (`getRangeReport`) — instant, all ranges already in hand, no live calls. Shows a "waiting for first push" state before any push arrives. The live-pull `src/lib/signal/client.ts` is retired; `client.ts`'s 11-block contract types live on in `types.ts`.
+- `SIGNAL_PUSH_SECRET` set in production (equals Signal's `FLOORPLAN_PUSH_SECRET`). First push received, stored, and rendered 2026-06-11.
+- The 2026-06-10 range-switch loading feedback (`000bca9`) is moot now that range switching is instant (every range ships in one payload).
+
+**2026-06-10**
+- CQ Signal data-plane consumer is live in production. HVOF now reads Signal's 11-block v1 contract (`ga4`, `search_console`, `typeform`, `google_ads`, `meta_ads`, `facebook`, `instagram`, `linkedin`, `omnisend`, `core_web_vitals`, `leads_native`) from `https://cq-signal-app.vercel.app`.
+- Production Vercel has `SIGNAL_API_BASE` plus the current HVOF-pinned `SIGNAL_API_KEY` prefix `sigk_live_c9df2f…`. The old lost key prefix `sigk_live_c5a846…` was revoked in Signal on 2026-06-10.
+- Native lead ingest was smoke-tested against Signal production from the current Floorplan env. `POST /api/v1/leads/ingest` returned 200 for `source: hvof-floorplan`; the smoke row was deleted immediately afterward.
+- `/admin/reports` range tabs now show pending feedback while live Signal requests are in flight. The clicked range shows a spinner, an aria-live status line announces loading/ready, and the current report stays visible until the next range finishes.
+- Remaining report UX/perf work: live range switches can still take 15-30s because the page awaits snapshot + recommendations + brief together. (Superseded 2026-06-11 by the push model — switching is now instant; see the 2026-06-11 entry above.)
+
 **2026-05-18**
 - CQ Signal data-plane consumer wired into Floorplan. Signal owns all reporting connectors (GA4, Typeform, Meta, etc.); HVOF only reads.
 - New `/admin/reports` page: range tabs (7d / 30d / 90d / 1y), hero traffic card (sessions + delta + sparkline + channel donut), 4-up KPI tiles, channels in detail with bars, top sources + landings side by side, native lead pipeline, Signal recommendations, brief markdown, footer attribution. All in HVOF tokens (`#E7C81F` yellow, Inter Tight, JetBrains Mono numbers).
@@ -363,9 +378,11 @@ Major milestones (rolling list, latest at top):
 
 ## What's pending (priority order)
 
-**In flight, blocked on the Signal-side session**
+**Report + Signal maintenance**
 
-1. **Paste live Signal credentials.** Once the Signal session ships v1 REST + issues an HVOF workspace API key, add `SIGNAL_API_BASE=https://cq-signal-app.vercel.app` and `SIGNAL_API_KEY=sigk_live_...` to Vercel env. Floorplan reports flip from mock to live and `/api/lead` starts ingesting into Signal. Full contract in `SIGNAL-HANDOFF.md` at the Dropbox project root.
+1. **Reports refresh on push, not pull.** `/admin/reports` shows the last payload Signal pushed. Signal Phase 2 (per-company cron) will keep it current automatically; until then it updates whenever Signal sends one (the "Send to admin" button or `pnpm signal:push:hvof` on the Signal side). If the page shows "waiting for the first report," no push has arrived — confirm `SIGNAL_PUSH_SECRET` here equals Signal's `FLOORPLAN_PUSH_SECRET`.
+2. **Keep native lead ingest verified after form changes.** `/api/lead` sends a fire-and-forget POST to Signal after local Neon writes (still a pull-direction call, unaffected by the push model). If Sell Your Furniture or Giveaway moves native, smoke-test Signal ingest again and delete the smoke row.
+3. **Keep the push contract aligned with Signal.** If Signal changes the snapshot/payload shape, update `src/lib/signal/types.ts`, `report-source.ts`, and the renderer together. `src/lib/signal/push-verify.ts` must stay byte-identical to Signal's `src/lib/push/signature.ts`.
 
 **Shop the look + content (from the 2026-05-29 team meeting)**
 

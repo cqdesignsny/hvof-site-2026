@@ -41,7 +41,7 @@ Node 22+, pnpm 10+. Repository auto-deploys to Vercel on push to `main`.
 | Lead store | Neon Postgres (HVOF-DB) via `@neondatabase/serverless`. In-memory fallback for local dev. |
 | Admin | `/admin` (Floorplan), HMAC cookie auth, light/dark theme |
 | Analytics | GA4 + Meta Pixel via `@next/third-parties` (env-gated) |
-| Reporting data plane | **CQ Signal** (separate Next.js app) via REST. Floorplan reads `/api/v1/businesses/hudson-valley-office-furniture/{snapshot,brief,recommendations}` and renders in HVOF tokens. Mock fallback while the Signal contract is being shipped. |
+| Reporting data plane | **CQ Signal** (separate Next.js app), push model. Signal POSTs a signed report payload (all four ranges + recommendations + brief) to `/api/signal/inbound`; `/admin/reports` renders the stored copy in HVOF tokens and never pulls. `/api/lead` still pushes leads to Signal via `SIGNAL_API_*`. Mock fallback when no push has arrived and no DB is configured. |
 | Hosting | Vercel (Fluid Compute) |
 | Image CDN | thewowguys.com WP CDN + AIS Inc image library + local `/public/products/` |
 
@@ -64,7 +64,10 @@ DATABASE_URL              Pooled, primary
 DATABASE_URL_UNPOOLED     Direct
 POSTGRES_*, PG*, NEON_PROJECT_ID
 
-# CQ Signal data plane (set both, or leave both unset for mock mode)
+# CQ Signal — report push (receiver). Signal signs pushes with the same value.
+SIGNAL_PUSH_SECRET        HMAC secret; must equal Signal's FLOORPLAN_PUSH_SECRET
+
+# CQ Signal — lead ingest + general API (Floorplan -> Signal direction)
 SIGNAL_API_BASE           e.g. https://cq-signal-app.vercel.app
 SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents & AI
 ```
@@ -100,12 +103,12 @@ SIGNAL_API_KEY            sigk_live_... issued from Signal Settings → Agents &
 | `/admin` | Dashboard: stat tiles, recent leads, quick links, storage status |
 | `/admin/leads` | Pipeline table, filterable by formType (All / Quote Request / Sell-to-Us / Giveaway) |
 | `/admin/training` | Agent Training questionnaire. 13 sections, ~67 questions, autosaves to localStorage, on send writes to Neon and emails the markdown packet via Resend. |
-| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channel breakdown, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Pulls from CQ Signal when `SIGNAL_API_BASE` is set, otherwise renders a realistic HVOF mock. |
+| `/admin/reports` | **Full report surface**. Range tabs (7d / 30d / 90d / 1y), hero traffic card, KPI tiles, channel breakdown, top sources + landings, native lead pipeline, Signal recommendations, brief markdown. Renders the last report CQ Signal pushed (instant, all ranges in hand — no live calls). Shows a "waiting for first push" state before any push lands; falls back to a realistic HVOF mock only with no DB configured. |
 | `/admin/knowledge-base`, `/admin/agents`, `/admin/plan` | Stubs + live data where applicable |
 
 ### API
 
-`/api/lead`, `/api/quote`, `/api/admin/login`, `/api/admin/logout`. Permanent redirects: `/work` → `/gallery`, `/furniture/nys-contracts` → `/nys-contracts`. `/admin` and `/api` disallowed in robots.txt.
+`/api/lead`, `/api/quote`, `/api/admin/login`, `/api/admin/logout`. `/api/signal/inbound` receives signed report pushes from CQ Signal (HMAC-verified, stored per business). Permanent redirects: `/work` → `/gallery`, `/furniture/nys-contracts` → `/nys-contracts`. `/admin` and `/api` disallowed in robots.txt.
 
 ## Project structure
 
@@ -293,13 +296,13 @@ Highlights:
 - ✓ Mobile horizontal overflow fixed
 - ✓ Get a Quote button hover legibility fixed (white bg, black text)
 - ✓ Agent Training questionnaire (`/admin/training`, 13 sections, markdown email packet)
-- ✓ CQ Signal data-plane consumer wired: types, mock, fetch client, `/admin/reports` page in HVOF tokens, env-gated lead-ingest webhook from `/api/lead`. Mock until `SIGNAL_API_BASE` is set.
+- ✓ CQ Signal reporting live in production via the **push model**: `/api/signal/inbound` receives signed report pushes, `/admin/reports` renders the stored payload (all 11 blocks, all four ranges, instant — no live calls), env-gated lead-ingest webhook from `/api/lead` still pushes leads to Signal.
 
 Pending (priority order):
 
 - Swap the AI placeholder "shop the look" tiles for Dan's real grouped photos; extend shop-the-look to the rest of the categories; wire Mark's tier "starting at" prices; replace misleading exact prices with ranges
 - E-catalog "quick-ship + 75 vendors" disclaimer / rebrand (COE e-commerce platform under evaluation)
-- Live Signal credentials: paste `SIGNAL_API_BASE` and `SIGNAL_API_KEY` once the Signal-side session ships v1 REST (see `SIGNAL-HANDOFF.md` in the Dropbox project root)
+- Report freshness is push-driven: `/admin/reports` shows the last payload Signal pushed. A scheduled push (Signal Phase 2: per-company cron) will keep it current automatically; until then it refreshes when Signal sends one (manual "Send to admin" or `pnpm signal:push:hvof`).
 - Sell Your Furniture form + own /sell-your-furniture page (Typeform JAHzhOUt)
 - Native giveaway entry form on /giveaway (Typeform e5SrmqW1)
 - Weekly leads digest via Vercel Cron + Resend (now feasible with persistence)
