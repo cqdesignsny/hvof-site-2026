@@ -30,7 +30,7 @@ export default function SeatingPage() {
     acc[key].push(p);
     return acc;
   }, {});
-  const subCategoryOrder = ["Task", "Ergonomic", "Executive", "Conference", "Other"];
+  const subCategoryOrder = ["Task", "Ergonomic", "Executive", "Conference", "Lounge", "Guest", "Other"];
 
   return (
     <>
