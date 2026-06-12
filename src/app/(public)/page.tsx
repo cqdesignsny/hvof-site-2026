@@ -108,7 +108,7 @@ export default function HomePage() {
   // Pick 4 featured chairs to show on home
   const featuredChairs = [
     allSeating.find((p) => p.sku === "HVOF-T-01")!,
-    allSeating.find((p) => p.sku === "HVOF-Vion-6321")!,
+    allSeating.find((p) => p.sku === "HVOF-CE-04")!,
     allSeating.find((p) => p.sku === "HVOF-T-02")!,
     allSeating.find((p) => p.sku === "HVOF-T-03")!,
   ].filter(Boolean);
